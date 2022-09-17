@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+# Beginning InCourse Project!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Stack
+React
+react-router-dom
+redux-toolkit
+emotion
+axios
+json-server
 
-## Available Scripts
+################
+yarn create react-app name
+yarn add react-router-dom
+yarn add @reduxjs/toolkit
+yarn add emotion
+yarn add axios
+yarn add json-server
 
-In the project directory, you can run:
+### yarn scripts
+"start": "react-scripts start",
+"start:server": "node server",
+"start:db": "json-server --watch db.json --port 4001",
 
-### `yarn start`
+### Commit-Message Convention
+################
+#<타입> : <제목> 의 형식으로 작성
+#제목은 50자 이내 / 변경사항이 "무엇"인지 명확히 작성 / 끝에 마침표 금지 / 한글로 작성
+#예) feat : 로그인 기능 추가
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+################
+#feat : 새로운 기능 추가
+#fix : 버그 수정
+#docs : 문서 수정
+#design: 사용자 UI 디자인 변경 (CSS 등)
+#test : 테스트 코드 추가
+#refact : 코드 리팩토링
+#style : 코드 의미에 영향을 주지 않는 변경사항
+#chore : 빌드 부분 혹은 패키지 매니저 수정사항
+#rename: 파일 혹은 폴더명을 수정만 한 경우
+#remove: 파일을 삭제만 한 경우
+################
