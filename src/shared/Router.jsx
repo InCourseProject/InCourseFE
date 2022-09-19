@@ -7,7 +7,7 @@ import Card from "../pages/Card/Card";
 import Signup from "../pages/Signup/Signup";
 import Login from "../pages/Login/Login";
 import MyPage from "../pages/MyPage/MyPage";
-import MyPageEdit from "../pages/MyPageDetail/MyPageEdit";
+import MyPageEdit from "../pages/MyPageEdit/MyPageEdit";
 
 const Router = () => {
   return(

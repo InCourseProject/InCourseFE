@@ -1,11 +1,16 @@
 import React from "react";
-import styled from "@emotion/styled";
+import styled from "@emotion/react";
 import Post from "../Post/Post";
 
 const Home = () => {
 
     return (
-      <Post/>
+      
+      <div>
+        <Post/>
+      </div>
+
+      
     );
 };
 

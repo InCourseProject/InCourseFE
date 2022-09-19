@@ -1,10 +1,12 @@
 import React from "react";
-import styled from "@emotion/styled";
+import styled from "@emotion/react";
 
 const Post = () => {
 
     return (
-      <div>Post 입니다.</div>
+      <div>Post 입니다.
+        엥 왜 안됨
+      </div> 
     );
 };
 

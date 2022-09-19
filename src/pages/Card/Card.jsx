@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "@emotion/styled";
+import Styled from "@emotion/react";
 
 const Card = () => {
 
