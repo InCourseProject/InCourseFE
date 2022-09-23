@@ -37,17 +37,18 @@ const Login = () => {
   // } ;
 
   const [ click, setClick ] = useState(false);
-  const clickCheck = () => {
-    setClick(true)
+  const clickCheck = (e) => {
+    setClick(e)
   };
+  console.log(click)
 
     return (
       <div>
-        <StDiv click={click} clickCheck={clickCheck}>
+        <StDiv click={click} >
           <LoginHeader/>
-          {click === true
-          ?<LoginEmail/>
-          :<LoginSelect/>}
+          {!click
+          ?<LoginSelect clickCheck={clickCheck}/>
+          :<LoginEmail/>}
           <AskSignup/>
         </StDiv>
       </div>

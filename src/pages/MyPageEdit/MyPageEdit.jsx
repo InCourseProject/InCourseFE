@@ -72,7 +72,7 @@ const MyPageEdit = ({email, nickname, password, image}) => {
 
     try {
       // axios put // refreshtoken, authorization이 있어야 접속 가능
-      const response = await axios.put('http://localhost:4001', 
+      const response = await axios.put('http://3.36.71.186:8080//api/member/mypage', 
       formData,
       {
         headers: {

@@ -16,8 +16,8 @@ const MyPage = () => {
   //----------- axios get -----------//
   const getInfo = async () => {
     // 임시 URL
-    const response = await axios.get(`http://localhost:4001/api/member/mypage/${id}`,
-    // const response = await axios.get(`http://localhost:4001/api/member/mypage/${memberId}`,
+    // const response = await axios.get(`http://localhost:4001/api/member/mypage/${id}`,
+    const response = await axios.get(`http://3.36.71.186:8080/api/member/mypage/${id}`,
     {
       headers:{
         Authorization: `${accessToken}`,
