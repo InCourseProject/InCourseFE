@@ -1,24 +1,54 @@
-import React from "react";
-import styled from "@emotion/styled";
+import React, { useState } from 'react';
+
+import styled from '@emotion/styled';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import AskSignup from './components/AskSignup';
+import LoginHeader from './components/LoginHeader';
+import LoginSelect from './components/LoginSelect';
+import LoginEmail from './components/LoginEmail';
 
 const Login = () => {
+  // const navigate = useNavigate();
+  // const initialstate = {
+  //   email:'',
+  //   password:''
+  // }
+  // const [ login, setLogin ] = useState(initialstate);
+  
+  // const onChangeHandler = (e) => {
+  //   e.preventDefault();
+  //   const { name, value } = e.target;
+  //   setLogin({ ...login, [name]:value });
+  // };
+
+
+  // const useAxios = async () => { 
+  //   const response = await axios.post('http://localhost:4001/login',
+  //   {...login});
+  //   try{
+  //     if(response){
+
+  //     }
+
+  //   }catch(error){
+  //     window.alert('알러트');
+  //   }
+  // } ;
+
+  const [ click, setClick ] = useState(false);
+  const clickCheck = () => {
+    setClick(true)
+  };
 
     return (
       <div>
-        <StDiv>
-          <div>추천 포스트</div>
-          <h3>randomUser님의 추천 코스로 오늘 하루 어때요?</h3>
-          <form>
-            <input placeholder="email" name="email" type="email" />
-            <input placeholder="password" type="password" name="sdf" id="sd" />
-            <button>로그인</button>
-          </form>
-          <button>회원가입</button>
-          <hr />
-          <SnsLoginWrap>
-            <button>네이버로 로그인</button>
-            <button>카카오톡으로 로그인</button>
-          </SnsLoginWrap>
+        <StDiv click={click} clickCheck={clickCheck}>
+          <LoginHeader/>
+          {click === true
+          ?<LoginEmail/>
+          :<LoginSelect/>}
+          <AskSignup/>
         </StDiv>
       </div>
     );
@@ -36,3 +66,4 @@ const SnsLoginWrap = styled.div`
   display: flex;
   flex-direction: row;
 `
+

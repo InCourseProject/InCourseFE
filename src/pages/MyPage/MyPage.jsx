@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
-import styled from "@emotion/styled";
-import { useNavigate, useParams } from "react-router-dom";
-import { colors } from "../../lib/constants/colors";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import styled from '@emotion/styled';
+import { useNavigate, useParams } from 'react-router-dom';
+import { colors } from '../../lib/constants/GlobalStyle';
+import axios from 'axios';
 
 const MyPage = () => {
   const navigate = useNavigate();
   const param = useParams();
   const id = param.id;
-  console.log("param", param)
+  console.log('param', param)
 
   const [ info, setInfo ] = useState([]);
-  const accessToken = localStorage.getItem("Authorization"); //accessToken
-  const refreshToken = localStorage.getItem("RefreshToken"); //refreshToken
+  const accessToken = localStorage.getItem('Authorization'); //accessToken
+  const refreshToken = localStorage.getItem('RefreshToken'); //refreshToken
   //----------- axios get -----------//
   const getInfo = async () => {
     // 임시 URL
@@ -39,7 +39,7 @@ const MyPage = () => {
       <StDiv>
         <ProfileContainer>프로필사진</ProfileContainer>
         <button 
-          onClick={() => navigate("edit")}
+          onClick={() => navigate('edit')}
           email={info.email} 
           nickname={info.nickname} 
           password={info.password} 
@@ -67,7 +67,7 @@ const ProfileContainer = styled.div`
   position: relative;
   background-color: ${colors.incourse};
   ::after{
-    content: "";
+    content: '';
     display: block;
     padding-bottom: 100%;
   }

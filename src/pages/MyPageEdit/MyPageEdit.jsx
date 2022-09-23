@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import styled from "@emotion/styled";
-import { colors } from "../../lib/constants/colors";
-import axios from "axios";
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import styled from '@emotion/styled';
+import { colors } from '../../lib/constants/GlobalStyle';
+import axios from 'axios';
 
 
 const MyPageEdit = ({email, nickname, password, image}) => {
-  const accessToken = localStorage.getItem("Authorization"); //accesstoken 
-  const refreshToken = localStorage.getItem("RefreshToken") //refreshToken
+  const accessToken = localStorage.getItem('Authorization'); //accesstoken 
+  const refreshToken = localStorage.getItem('RefreshToken') //refreshToken
 
   const initialState = {
     email: email,
@@ -34,7 +34,7 @@ const MyPageEdit = ({email, nickname, password, image}) => {
     formData.append('file', fileBlob);
     // file formData console check
     for (const keyValue of formData){
-      console.log(keyValue[0]+", "+keyValue[1])
+      console.log(keyValue[0]+', '+keyValue[1])
     };  
 
     const reader = new FileReader();
@@ -46,7 +46,7 @@ const MyPageEdit = ({email, nickname, password, image}) => {
       };
     });
   },[]);
-  // console.log("포스트이미지scr:", postImg)
+  // console.log('포스트이미지scr:', postImg)
 
   // mkBtn for useRef
   const fileInputBtnClick = useCallback(() => {
@@ -67,12 +67,12 @@ const MyPageEdit = ({email, nickname, password, image}) => {
 
     // formData console check
     for (const keyValue of formData){
-      console.log("Ready to change", keyValue[0]+", "+keyValue[1])
+      console.log('Ready to change', keyValue[0]+', '+keyValue[1])
     }
 
     try {
       // axios put // refreshtoken, authorization이 있어야 접속 가능
-      const response = await axios.put("http://localhost:4001", 
+      const response = await axios.put('http://localhost:4001', 
       formData,
       {
         headers: {
@@ -81,17 +81,17 @@ const MyPageEdit = ({email, nickname, password, image}) => {
           'Content-Type': 'multipart/form-data',
         }
       });
-      console.log("Axios Work>> ", response);
+      console.log('Axios Work>> ', response);
 
       if (response.status === 200 || 201) {
-        window.alert("프로필 정보가 변경되었습니다.")
+        window.alert('프로필 정보가 변경되었습니다.')
       };
     }
     catch(error) {
-      window.alert("❌CHECKCONSOLE❌");
+      window.alert('❌CHECKCONSOLE❌');
       console.error(error);
       setInfo(initialState)
-      setProfileImg("");
+      setProfileImg('');
     };
   };
   //----------- axios&edit info -----------//
@@ -103,21 +103,21 @@ const MyPageEdit = ({email, nickname, password, image}) => {
       <StDiv>
         <ProfileContainer onClick={fileInputBtnClick} >
           <input
-            name="profileImg"
-            type="file"
-            accept="image/jpg, image/png, image/jpeg, image/gif"
-            style={{display: "none"}}
+            name='profileImg'
+            type='file'
+            accept='image/jpg, image/png, image/jpeg, image/gif'
+            style={{display: 'none'}}
             ref={inputRef}
             onChange={(e) => {uploadImg(e.target.files[0])}}
             />
-          <img src={profileImg} alt="profile Image" />
+          <img src={profileImg} alt='profile Image' />
           <div onClick={fileInputBtnClick} >이미지 올리기</div>
         </ProfileContainer>
         <form onSubmit={editInfoHandler}>
-          <input onChange={infoHandler} placeholder="닉네임 변경" name="nicknamee" value={info.nickname} type="text" />
-          <input onChange={infoHandler} placeholder="비밀번호 변경" name="password" value={info.password} type="password" />
-          <input onChange={infoHandler} placeholder="비밀번호 변경 확인" name="passwordConfirm" value={info.password} type="password" />
-          <button type="submit" >프로필 수정 확인</button>
+          <input onChange={infoHandler} placeholder='닉네임 변경' name='nicknamee' value={info.nickname} type='text' />
+          <input onChange={infoHandler} placeholder='비밀번호 변경' name='password' value={info.password} type='password' />
+          <input onChange={infoHandler} placeholder='비밀번호 변경 확인' name='passwordConfirm' value={info.password} type='password' />
+          <button type='submit' >프로필 수정 확인</button>
         </form>
         
       </StDiv>
@@ -140,7 +140,7 @@ const ProfileContainer = styled.div`
   background-color: ${colors.incourse};
   cursor: pointer;
   ::after{
-    content: "";
+    content: '';
     display: block;
     padding-bottom: 100%;
   }

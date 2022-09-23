@@ -1,0 +1,145 @@
+{
+  "signup": [
+    {
+      "id": 1,
+      "email": "veryfirst@email.com",
+      "nickname": "prime",
+      "location": "home",
+      "password": "12345678",
+      "passwordConfirm": "12345678"
+    },
+    {
+      "email": "1@1.com",
+      "nickname": "nick1",
+      "location": "대구",
+      "password": "12345678",
+      "passwordConfirm": "12345678",
+      "id": 2
+    },
+    {
+      "email": "test@test.com",
+      "nickname": "test",
+      "location": "test location",
+      "password": "12345678",
+      "passwordConfirm": "12345678",
+      "id": 3
+    },
+    {
+      "email": "2@2.com",
+      "nickname": "2",
+      "location": "2",
+      "password": "1q2w3e4r",
+      "passwordConfirm": "1q2w3e4r",
+      "id": 4
+    },
+    {
+      "email": "3@3.com",
+      "nickname": "3",
+      "location": "3",
+      "password": "1q2w3e4r",
+      "passwordConfirm": "1q2w3e4r",
+      "id": 5
+    },
+    {
+      "email": "4@4.com",
+      "nickname": "4",
+      "location": "4",
+      "password": "1q2w3e4r",
+      "passwordConfirm": "1q2w3e4r",
+      "id": 6
+    },
+    {
+      "email": "",
+      "nickname": "",
+      "location": "",
+      "password": "",
+      "passwordConfirm": "",
+      "id": 7
+    },
+    {
+      "email": "",
+      "nickname": "",
+      "location": "",
+      "password": "",
+      "passwordConfirm": "",
+      "id": 8
+    },
+    {
+      "email": "",
+      "nickname": "",
+      "location": "",
+      "password": "",
+      "passwordConfirm": "",
+      "id": 9
+    },
+    {
+      "email": "",
+      "nickname": "",
+      "location": "",
+      "password": "",
+      "passwordConfirm": "",
+      "id": 10
+    },
+    {
+      "email": "",
+      "nickname": "",
+      "location": "",
+      "password": "",
+      "passwordConfirm": "",
+      "id": 11
+    },
+    {
+      "email": "",
+      "nickname": "",
+      "location": "",
+      "password": "",
+      "passwordConfirm": "",
+      "id": 12
+    },
+    {
+      "email": "",
+      "nickname": "",
+      "location": "",
+      "password": "",
+      "passwordConfirm": "",
+      "id": 13
+    }
+  ],
+  "signup_send": [
+    {
+      "id": 1,
+      "email": "회원가입한 이메일"
+    }
+  ],
+  "signup_confirm": [
+    {
+      "id": 1,
+      "email": "회원가입한 이메일",
+      "authkey": "이메일로 온 인증 번호 입력(string)"
+    }
+  ],
+  "login": [
+    {
+      "id": 1,
+      "email": "veryfirst@email.com",
+      "password": "12345678"
+    },
+    {
+      "email": "",
+      "password": "",
+      "id": 2
+    },
+    {
+      "email": "",
+      "password": "",
+      "id": 3
+    }
+  ],
+  "mypage": [
+    {
+      "id": 1,
+      "email": "email@email.com",
+      "password": "12345678"
+    }
+  ]
+}
