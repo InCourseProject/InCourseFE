@@ -15,9 +15,8 @@ const MyPage = () => {
   const refreshToken = localStorage.getItem('RefreshToken'); //refreshToken
   //----------- axios get -----------//
   const getInfo = async () => {
-    // 임시 URL
-    // const response = await axios.get(`http://localhost:4001/api/member/mypage/${id}`,
-    const response = await axios.get(`http://3.36.71.186:8080/api/member/mypage/${id}`,
+    // const res = await axios.get(`http://3.36.71.186:8080/api/member/mypage/${id}`,
+    const res = await axios.get(`http://3.36.71.186:8080/api/member/mypage`,
     {
       headers:{
         Authorization: `${accessToken}`,
@@ -25,9 +24,35 @@ const MyPage = () => {
       }
     }
     );
-    console.log(response.data);
-    setInfo(response.data);
+    console.log(res.data);
+    setInfo(res.data);
   };
+
+  const logoutHandler = async () => {
+    try{
+      const logout = await axios.post('http://3.36.71.186:8080/api/member/logout',
+      {
+        headers:{
+          Authorization: `${accessToken}`,
+          RefreshToken: `${refreshToken}`,
+        }
+      });
+      console.log(logout)
+
+      if(logout.status === 200 || 201){
+        console.log("status ok")
+        // navigate('/')
+      }
+      else{
+        console.log("not ok")
+      }
+    }
+    catch(err){
+      window.alert('CheckConsole!')
+      console.error(err);
+    };
+  };
+    
   
   // 마운트 시 axios get
   useEffect(() => {
@@ -48,6 +73,7 @@ const MyPage = () => {
         {/* 아래 두 요소 와이어프레임 없음 */}
         <button>내가 작성한 게시물</button> 
         <button>내가 찜한 게시물</button>
+        <button onClick={logoutHandler}>로그아웃</button>
       </StDiv>
     </div>
   );

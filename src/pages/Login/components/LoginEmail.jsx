@@ -5,8 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 const LoginEmail = () => {
-  const accessToken = localStorage.getItem('Authorization'); //accesstoken 
-  const refreshToken = localStorage.getItem('RefreshToken') //refreshToken
   const navigate = useNavigate();
 
   const initialstate = {
@@ -14,9 +12,7 @@ const LoginEmail = () => {
     password:''
   }
   const [ login, setLogin ] = useState(initialstate);
-  // const [ formData ] = useState(new FormData());
-
-  
+    
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setLogin({ ...login, [name]:value });
@@ -31,27 +27,24 @@ const LoginEmail = () => {
       window.alert("아이디와 비밀번호를 입력해주세요.");
     };
 
-
-    // formData.append('email', login.email);
-    // formData.append('password', login.password);
-    // formData console check
-    // for (const keyValue of formData){
-    // console.log('Ready to change', keyValue[0]+', '+keyValue[1])
-    // }
-
     try{
-      // const res = await axios.post('http://localhost:4001/login',
       const res = await axios.post('http://3.36.71.186:8080/api/member/login',
       login
       );
       console.log('Axios Work>> ', res);
       // setTokens
-      localStorage.setItem("Authorization", res.headers.authorization)    //accesstoken
-      localStorage.setItem("RefreshToken", res.headers.refreshtoken)   //refreshtoken 
+      localStorage.setItem("Authorization", res.data.authorization)    //accesstoken
+      localStorage.setItem("RefreshToken", res.data.refreshToken)   //refreshtoken 
       
-      if(res.state === 200 || 201){
-        console.log(res)
-        navigate('/')
+      if(res.status === 200 || 201){
+        console.log('loginUseEmail>>',res)
+        window.alert(res.data.message)
+        res.data.emailAuth === 0
+        ?navigate('/emailconfirm', { 
+          state: {
+            email: res.data.email,
+          }})
+        :navigate('/');
       }else{
         console.log("post는 잘 넘어감 근데 Not OK ", res)
         window.alert('로그인에 실패하였습니다.');  
@@ -65,7 +58,6 @@ const LoginEmail = () => {
 
   return(
     <div>
-      <form onSubmit={loginHandler}>
         <input 
           placeholder='email' 
           name='email' 
@@ -80,8 +72,12 @@ const LoginEmail = () => {
           type='password'
           onChange={onChangeHandler} 
         />
-        <button type='submit'>로그인</button>
-      </form>
+        <button 
+          onClick={loginHandler} 
+          type='button'
+        >
+          로그인
+        </button>
     </div>
   );
 };

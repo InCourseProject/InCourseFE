@@ -33,8 +33,13 @@ const SignupEmail = () => {
       if((res.state === 200 || 201)){
         // send signup data
         console.log('newSignupUseEmail>> ', res);
-        window.alert('회원가입이 완료되었습니다.');
-        navigate('/login');
+        window.alert(res.data.message);
+        res.data.emailAuth===0 
+        ?navigate('/emailconfirm', { 
+          state: {
+            email: res.data.email,
+          }})
+        :navigate('/login');
 
         //모달창으로 이메일 본인인증 해야함.
       }else{
@@ -54,33 +59,34 @@ const SignupEmail = () => {
 
   return(
     <div>
-        <StForm onSubmit={signupInputHandler}>
-          <StDiv>서비스 배너</StDiv>
-          <input 
-            onChange={onChangeHandler} 
-            placeholder='email' 
-            name='email' 
-            value={signup.email} 
-            type='email' 
-          />
-          <input 
-            onChange={onChangeHandler} 
-            placeholder='password' 
-            name='password' 
-            value={signup.password} 
-            minLength='8' 
-            maxLength='20' 
-            type='password' 
-          />
-          <input 
-            onChange={onChangeHandler} 
-            placeholder='passwordcheck' 
-            name='passwordConfirm' 
-            value={signup.passwordConfirm} 
-            type='password' 
-          />
-          <button type='submit'>회원가입</button>  
-        </StForm>
+      <StDiv>서비스 배너</StDiv>
+      <input 
+        onChange={onChangeHandler} 
+        placeholder='email' 
+        name='email' 
+        value={signup.email} 
+        type='email' 
+      />
+      <input 
+        onChange={onChangeHandler} 
+        placeholder='password' 
+        name='password' 
+        value={signup.password} 
+        minLength='8' 
+        maxLength='20' 
+        type='password' 
+      />
+      <input 
+        onChange={onChangeHandler} 
+        placeholder='passwordcheck' 
+        name='passwordConfirm' 
+        value={signup.passwordConfirm} 
+        type='password' 
+      />
+      <button 
+        onClick={signupInputHandler}
+        type='button'
+      >회원가입</button>  
     </div>
   );
 }
