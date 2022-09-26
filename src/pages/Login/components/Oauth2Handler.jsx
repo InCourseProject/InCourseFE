@@ -16,7 +16,7 @@ const Oauth2Handler = () => {
   const kakaoLogin = async (code) => {
 
     try{
-      const res = await axios.get(`http://3.36.71.186:8080/api/member/kakao?code=${code}`); //지우님이 알려주실 듯
+      const res = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/member/kakao?code=${code}`);
       console.log(res)
       localStorage.setItem('Authorization', res.headers.Authorization);    //예시로 로컬에 저장함    
       localStorage.setItem('RefreshToken', res.headers.RefreshToken);

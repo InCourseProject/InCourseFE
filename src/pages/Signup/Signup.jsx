@@ -17,7 +17,10 @@ const Signup = () => {
             >
             이메일로 회원가입
           </button>
-          <button>네이버로 로그인</button>
+          <button
+            // onClick={() => {NaverLogin}}
+            id='naverIdLogin'
+          >네이버로 로그인</button>
           <button 
             onClick={() => { 
               window.location.href = KAKAO_AUTH_URL

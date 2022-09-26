@@ -9,8 +9,10 @@ export const colors = {
   primary : "#AED9FC",
   success : "#9ADE48",
   danger : "#FD152F",
-  caution:"#EBD425",
-  info:"#007DE5"
+  caution: "#EBD425",
+  info: "#007DE5",
+  naver: "#2DB400",
+  kakao: "#FEF01B"
 
 }
 export const fonts = {
