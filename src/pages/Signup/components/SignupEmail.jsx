@@ -46,8 +46,8 @@ const SignupEmail = () => {
         console.error('notOk', res);
       };
     }
-    catch(error){
-      console.error(error)
+    catch(err){
+      console.error(err.response.data.errors)
       setSignup(initialstate);
       window.alert('❌CHECKCONSOLE❌');
     };

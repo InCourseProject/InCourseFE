@@ -17,8 +17,8 @@ const KakaoLogin = () => {
     try{
       const res = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/member/kakao?code=${code}`);
       console.log(res)
-      localStorage.setItem('Authorization', res.headers.Authorization);    //예시로 로컬에 저장함    
-      localStorage.setItem('RefreshToken', res.headers.RefreshToken);
+      localStorage.setItem('Authorization', res.data.authorization);    //예시로 로컬에 저장함    
+      localStorage.setItem('RefreshToken', res.data.refreshToken);
       
       if(res.state === 200 || 201){
         window.alert('로그인에 성공했습니다.');
