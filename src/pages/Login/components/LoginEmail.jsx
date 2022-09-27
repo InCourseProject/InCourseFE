@@ -28,7 +28,7 @@ const LoginEmail = () => {
     };
 
     try{
-      const res = await axios.post('http://3.36.71.186:8080/api/member/login',
+      const res = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/member/login`,
       login
       );
       console.log('Axios Work>> ', res);

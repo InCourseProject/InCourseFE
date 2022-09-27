@@ -11,7 +11,7 @@ import MyPage from "../pages/MyPage/MyPage";
 import MyPageEdit from "../pages/MyPageEdit/MyPageEdit";
 import SignupEmail from "../pages/Signup/components/SignupEmail";
 import SignupDetail from "../pages/SignupDetail/SignupDetail";
-import Oauth2Handler from "../pages/Login/components/Oauth2Handler";
+import KakaoLogin from "../pages/Login/components/KakaoLogin";
 import NaverLogin from "../pages/Login/components/NaverLogin";
 import EmailConfrim from "../pages/SignupDetail/components/EmailConfirm";
 
@@ -32,8 +32,8 @@ const Router = () => {
         <Route path="mypage" exact element={<MyPage />} />
         <Route path="mypage/edit" exact element={<MyPageEdit />} />
         <Route path='*' element={<div>404 Not Found</div>} />
-        <Route path="kakao" exact element={<Oauth2Handler />} />
-        <Route path="naver" exact element={<NaverLogin />} />
+        <Route path="kakao" exact element={<KakaoLogin />} />
+        {/* <Route path="naver" exact element={<NaverLogin />} /> */}
         <Route path="emailconfirm" exact element={<EmailConfrim />} />
         
         Outh
