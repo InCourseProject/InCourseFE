@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { colors } from '../../lib/constants/GlobalStyle';
-import { NAVER_AUTH_URL, KAKAO_AUTH_URL } from '../Login/components/Auth';
+import { NAVER_JDK_AUTH_URL, NAVER_REST_AUTH_URL, KAKAO_AUTH_URL } from '../Login/components/Auth';
 import NaverLogin from '../Login/components/NaverLogin';
 
 const Signup = () => {
@@ -18,7 +18,12 @@ const Signup = () => {
             >
             이메일로 회원가입
           </button>
-          <NaverLogin onClick={() => { window.location.href = NAVER_AUTH_URL }}/>
+
+          <div onClick={() => { window.location.href = NAVER_REST_AUTH_URL }}>
+            <button>네이버으로 로그인</button>
+            <NaverLogin />
+          </div>
+          
           <button 
             onClick={() => { 
               window.location.href = KAKAO_AUTH_URL

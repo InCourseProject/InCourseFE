@@ -4,47 +4,27 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { colors } from "../../../lib/constants/GlobalStyle";
 
-
 const NaverLogin = () => {
-  const naverRef = useRef()
   const location = useLocation();
-
-
   const navigate = useNavigate();
-  const { naver } = window
+  const code = new URL(window.location.href).searchParams.get('code');
+  console.log('code is>>>', code);
 
-  // 로그인 기능 추가
-  const initializeNaverLogin = () => {
-    const naverLogin = new naver.LoginWithNaverId({
-        clientId: process.env.REACT_APP_NAVER_CLIENT_ID,
-        callbackUrl: 'http://192.168.1.32:3000/login',
-        // callbackUrl: process.env.REACT_APP_NAVER_REDIRECT_URI,
-        isPopup: false, // 팝업을 통한 연동처리 여부, true 면 팝업
-        loginButton: {color: "green", type: 2, height: 40}, // 로그인 버튼의 타입을 지정
-        callbackHandle: true,
-      });
-    naverLogin.init(); //로그인 설정
+  useEffect(() => {
+    getNaverToken()
+  },[]);
 
-  };
-
-  // http://192.168.1.32:3000/login#access_token=AAAANdNmKHLL3ptCEUlLfjGZq-o7Tb6C8-f7PYC0IsvXqW-gljlU0vb-HcuVWEOmBjkkV0wLLsan3bNqR75ey2f6V9g&state=0921167a-9f93-400f-b3e2-3b9d3a4de45e&token_type=bearer&expires_in=3600
   const getNaverToken = async () => {
-    if (!location.hash) return;
-    const token = location.hash.split('=')[1].split('&')[0]; //token 출력
-    console.log(token)
-    
+    if (!location.search) return;
     try{
-      // const res = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/member/naver`, {
-        const res = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/member/naver`, //서버주소+코드정보 로 get요청을 보내면 response에 토큰을 받을수있다.
-        { token },
-        {
-          withCredentials: true
-        });
+      // 서버주소 + 코드정보로 get요청을 보내면 response에 토큰을 받을수있다.
+      const res = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/member/naver?code=${code}&stat=${process.env.REACT_APP_STATE_STRING}`);
       console.log("res >>", res)
-      
+    
       if(res.status === 200 || 201) {        
-        localStorage.setItem('Authorization', res.headers.Authorization);
-        localStorage.setItem('RefreshToken', res.headers.RefreshToken);
+        console.log(res.data.message)
+        localStorage.setItem('Authorization', res.data.authorization);
+        localStorage.setItem('RefreshToken', res.data.refreshToken);
         navigate('/')
       };
     }
@@ -52,26 +32,7 @@ const NaverLogin = () => {
       console.error("check error>>", err); 
     };
   };
-
-   useEffect(() => {
-    initializeNaverLogin();
-    getNaverToken();
-  },[]);
-
-  const handleNaverLogin = () => {
-		naverRef.current.children[0].click()
-	}
-  
-
-  return (
-    <>
-      <NaverIdLogin ref={naverRef} id="naverIdLogin" />
-			<NaverLoginBtn onClick={handleNaverLogin}>
-				<NaverIcon alt="navericon" />
-				<NaverLoginTitle>네이버로 로그인</NaverLoginTitle>
-			</NaverLoginBtn>
-    </>
-  );
+  return null;
 };
 
 
@@ -105,4 +66,4 @@ const NaverLoginTitle = styled.span`
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 24px;
-`
+  `
