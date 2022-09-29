@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/react";
 import { useNavigate } from "react-router-dom";
-
+import PlusList from "../../asset/ModalPractice";
 
 const Post = () => {
   const navigate = useNavigate();

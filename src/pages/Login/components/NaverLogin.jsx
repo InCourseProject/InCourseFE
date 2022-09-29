@@ -23,7 +23,7 @@ const NaverLogin = () => {
     
       if(res.status === 200 || 201) {        
         console.log(res.data.message)
-        localStorage.setItem('Authorization', res.data.authorization);
+        localStorage.setItem('Authorization', 'Bearer ' + res.data.authorization);
         localStorage.setItem('RefreshToken', res.data.refreshToken);
         navigate('/')
       };

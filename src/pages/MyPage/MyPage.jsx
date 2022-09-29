@@ -14,40 +14,45 @@ const MyPage = () => {
   const initialState = {
     email: '',
     id: '',
+    image: '',
+    kakaoId: '',
     location: '',
+    naverId: '',
     nickname: '',
     password: '',
-    profileImage : ''
   };
   const [ info, setInfo ] = useState(initialState);
   //----------- axios get -----------//
   const getInfo = async () => {
     try{
-      const res = await axios.get(`http://3.36.71.186:8080/api/member/mypage`, {
+      const res = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/member/mypage`, {
       headers:{
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `${accessToken}`,
         RefreshToken: `${refreshToken}`,
       }
       });
-
+      
       if (res.status = 200 || 201){
-        setInfo(res.data);
-        console.log("work!",info);
+        setInfo(res.data);  
       }
     }catch(err){
       console.error(err.response);
     }
-  };
 
+    
+  };
+  console.log("work!",info);
   const clickMyprofile = () => {
     navigate('edit', {
       state: {
         email: info.email,
         id: info.id,
+        image: info.image,
+        kakaoId: info.kakaoId,
         location: info.location,
+        naverId: info.naverId,
         nickname: info.nickname,
         password: info.password,
-        profileImage: info.profileImage
       }
     });
   };
@@ -61,13 +66,14 @@ const MyPage = () => {
   return (
     <div>
       <StDiv>
+        <div onClick={() => navigate(-1)}>뒤로가기</div>
         <ProfileContainer>
           {
-            info.profileImage === null
+            info.image === null
               ? <DefaultProfileImg>
                 <UserCircleIcon alt='default profile Image' />
               </DefaultProfileImg>
-              : <ProfileImg src={`${info.profileImage}`} alt='profile Image' />
+              : <ProfileImg src={`${info.image}`} alt='profile Image' />
           }
         </ProfileContainer>
         <button 

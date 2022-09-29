@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styled from '@emotion/styled';
 import { colors } from '../../lib/constants/GlobalStyle';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { UserCircleIcon } from '@heroicons/react/24/solid'
 
 
@@ -10,18 +10,20 @@ const MyPageEdit = () => {
   const accessToken = localStorage.getItem('Authorization'); //accesstoken 
   const refreshToken = localStorage.getItem('RefreshToken') //refreshToken
   const location = useLocation();
+  const navigate = useNavigate();
 
   const initialState = {
     email: location.state.email,
     id: location.state.id,
     location: '',
     nickname: '',
+    // legacypassword: '',
     password: '',
-    profileImage : location.state.profileImage
+    image : location.state.image
   };
 
   const [ info, setInfo ] = useState(initialState); // info value
-  const [ profileImg, setProfileImg ] = useState(initialState.profileImage); // img input value
+  const [ profileImg, setProfileImg ] = useState(initialState.image); // img input value
   const [ formData ] = useState(new FormData());
   const inputRef = useRef(null);
 
@@ -38,7 +40,7 @@ const MyPageEdit = () => {
 
   //----------- img upload handler -----------//
   const uploadImg = useCallback((fileBlob) => {
-    formData.append('file', fileBlob);
+    formData.append('image', fileBlob);
     // file formData console check
     for (const keyValue of formData){
       console.log(keyValue[0]+', '+keyValue[1])
@@ -80,11 +82,11 @@ const MyPageEdit = () => {
 
     try {
       // axios put // refreshtoken, authorization이 있어야 접속 가능
-      const response = await axios.put('http://3.36.71.186:8080//api/member/mypage', 
+      const response = await axios.put('http://3.36.71.186:8080/api/member/mypage', 
       formData,
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `${accessToken}`,
           refreshToken: `${refreshToken}`,
           'Content-Type': 'multipart/form-data',
         }
@@ -93,6 +95,7 @@ const MyPageEdit = () => {
 
       if (response.status === 200 || 201) {
         window.alert('프로필 정보가 변경되었습니다.')
+        navigate('/mypage')
       };
     }
     catch(err) {
@@ -115,6 +118,7 @@ const MyPageEdit = () => {
   return (
     <div>
       <StDiv>
+        <div onClick={() => navigate(-1)}>뒤로가기</div>
         <ProfileContainer onClick={fileInputBtnClick} >
           <input
             name='profileImg'
@@ -138,7 +142,7 @@ const MyPageEdit = () => {
           <input 
             onChange={infoHandler} 
             placeholder={location.state.nickname} 
-            name='nicknamee' 
+            name='nickname' 
             value={info.nickname} 
             type='text' 
           />
