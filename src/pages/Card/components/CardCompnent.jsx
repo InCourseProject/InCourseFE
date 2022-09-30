@@ -1,33 +1,50 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { colors } from '../../../lib/constants/colors';
+import { colors, fonts, fontWeight } from '../../../lib/constants/GlobalStyle';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { createMarker } from '../../../redux/modules/formSlice';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 const CardCompnent = () => {
     const { kakao } = window;
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [info, setInfo] = useState();
     const [markers, setMarkers] = useState([]);
     const [map, setMap] = useState();
     const [search, setSearch] = useState();
+    const [content, setContent] = useState();
     const [keyword, setKeyword] = useState();
     const [keywordId, setKeywordId] = useState({
-        content: "초기값",
-        address: "주소"
-    })
+        placeName: "초기값",
+        address: "주소",
+    });
+    // const [cose, setCose] = useState({
+    //     address:keywordId.address,
+    //     content:content
+
+    // });
+    // console.log(cose)
+
     const onChangeHandler = (e) => {
         const word = e.target.value;
         setKeyword(word)
-    }
-    console.log(keywordId)
+    };
+
+    const onChangeContentHandler = (e) => {
+        const con = e.target.value;
+        setContent(con);
+    };
+    console.log(content)
+    // console.log(keywordId)
     const geoLocactionButton = () => {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                console.log(position)
+            navigator.geolocation.getCurrentPosition((position) => {
                 var lat = position.coords.latitude, // 위도
                     lon = position.coords.longitude; // 경도
-
                 var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
                     message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
                 displayMarker(locPosition, message);
@@ -44,7 +61,7 @@ const CardCompnent = () => {
                 position: locPosition
             });
             // 인포윈도우에 표시할 내용
-            var iwContent = message, 
+            var iwContent = message,
                 iwRemoveable = true;
             // 인포윈도우를 생성합니다
             var infowindow = new kakao.maps.InfoWindow({
@@ -57,6 +74,8 @@ const CardCompnent = () => {
             map.setCenter(locPosition);
         }
     }
+
+
     useEffect(() => {
         if (!map) return
         const ps = new kakao.maps.services.Places();
@@ -68,23 +87,23 @@ const CardCompnent = () => {
                 // LatLngBounds 객체에 좌표를 추가합니다
                 const bounds = new kakao.maps.LatLngBounds();
                 let markers = []
-                console.log(data)
-                for (var i = 0; i < data.length; i++) {
+                // console.log(data)
+                data.map((mark) => {
                     // @ts-ignore
                     markers.push({
                         position: {
-                            lat: data[i].y,
-                            lng: data[i].x,
+                            lat: mark.y,
+                            lng: mark.x,
                         },
-                        content: data[i].place_name,
-                        id: data[i].id,
-                        address: data[i].address_name
+                        placeName: mark.place_name,
+                        id: mark.id,
+                        address: mark.address_name
                     })
                     // @ts-ignore
-                    bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x))
-                }
+                    bounds.extend(new kakao.maps.LatLng(mark.y, mark.x))
+                })
                 setMarkers(markers)
-
+                // console.log(markers)
                 // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
                 map.setBounds(bounds)
             }
@@ -92,61 +111,133 @@ const CardCompnent = () => {
     }, [search])
 
     return (
-        <div> 
+        <StWrap>
             <Map // 로드뷰를 표시할 Container
-            center={{
-                lat: 37.566826,
-                lng: 126.9786567,
-            }}
-            style={{
-                width: "100%",
-                height: "350px",
-            }}
-            level={3}
-            onCreate={setMap}
-        >
-            {markers.map((marker) => (
-                <MapMarker
-                    key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
-                    position={marker.position}
-                    onClick={() => { setInfo(marker); setKeywordId({ id: marker.id, address:marker.address ,content:marker.content}) }}
-                >
-                    {info && info.content === marker.content && (
-                        <div style={{ color: "#000" }}>{marker.content}</div>
-                    )}
-                </MapMarker>
-            ))}
-        </Map>
+                center={{
+                    lat: 37.566826,
+                    lng: 126.9786567,
+                }}
+                style={{
+                    width: "100%",
+                    height: "300px",
+                }}
+                level={3}
+                onCreate={setMap}
+            >
+                {markers.map((marker) => (
+                    <MapMarker
+                        key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
+                        position={marker.position}
+                        onClick={() => {
+                            setInfo(marker);
+                            setKeywordId
+                                ({
+                                    address: marker.address,
+                                    placeName: marker.placeName,
+                                    coordinateX: marker.position.lat,
+                                    coordinateY: marker.position.lng,
+                                    content:content
+                                })
+                        }}
+                    >
+                        {info && info.content === marker.content && (
+                            <div style={{ color: "#000" }}>{marker.content}</div>
+                        )}
+                    </MapMarker>
+                ))}
+            </Map>
             <StSearcBox>
-                <input className='findAddress'
+                <StInput className='findAddress' type="search"
                     onChange={onChangeHandler}
-                />
-                <button type='button' onClick={() => { setSearch(keyword) }}
-                >검색</button>
-                <button type='button' onClick={geoLocactionButton}>내 위치</button>
+                ></StInput>
+                <StButtonBox>
+                    <button type='button' onClick={() => { setSearch(keyword) }}
+                    >검색</button>
+                    <button type='button' onClick={geoLocactionButton}>내 위치</button>
+                </StButtonBox>
             </StSearcBox>
             <StAddress>{keywordId.address}</StAddress>
-            <div>
-                <h1>{keywordId.content}</h1>
-                <input type="text" />
-                <img src="http://place.map.kakao.com/25728027" alt="" />
-            </div>
-        </div>
+            <StTit>
+                <h1>{keywordId.placeName}</h1>
+            </StTit>
+            <StForm>
+                <StFormInput type="text" onChange={onChangeContentHandler} />
+            </StForm>
+            <StSubmitBox>
+                <StSubmitButton type='submit' onClick={() => {
+                    dispatch(createMarker(keywordId, navigate("/form")));
+                }}>코스등록</StSubmitButton>
+            </StSubmitBox>
+        </StWrap>
     )
 }
 
 export default CardCompnent
+const StWrap = styled.div`
+  min-width: 280px;
 
+`
 const StSearcBox = styled.form`
+    width: 100%;
     position: absolute;
     left: 0;
-    top: 0;
+    top: 10px;
     z-index: 100;
+    
 `
 const StAddress = styled.p`
     width: 100%;
-    padding-left:10px ;
-    margin:  0;
+    padding:5px ;
+    margin-bottom: 15px;
     line-height: 24px;
-    background-color: ${colors.incourse}
+    color: ${colors.white};
+    background-color: ${colors.secondary};
+`
+const StForm = styled.div`
+    width: 100%;
+    border: 1px solid #eee;
+    
+`
+const StInput = styled.input`
+    width: 100%;
+    padding: 10px 10px;
+    font-size: 16px;
+    border-radius: 30px;
+    border: 1px solid #eee;
+`
+const StButtonBox = styled.div`
+    position: absolute;
+    right: 15px;
+    top: 10px;
+`
+const StTit = styled.ul`
+    border: 1px solid ${colors.lightGray};
+    padding: 20px 0px;
+    margin: 0;
+    font-size: ${fonts.headLine};
+    font-weight: ${fontWeight.exrtaBold};
+   
+`
+const StFormInput = styled.textarea`
+    width: 100%;
+    border: 1px solid #bbb;
+    min-height: 150px;
+    font-size: ${fonts.body};
+    letter-spacing: normal;
+    resize: none;
+`
+const StSubmitBox = styled.div`
+    width: 100%;
+    position:fixed ;
+    left: 0;
+    bottom: 20px;
+`
+const StSubmitButton = styled.button`
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background-color: ${colors.primary};
+    border: none;
+    font-size:${fonts.body};
+    border-radius: 15px;
 `
