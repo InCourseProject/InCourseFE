@@ -4,8 +4,12 @@ import CardCompnent from "./components/CardCompnent";
 const Card = () => {
 
     return (
-      <div><CardCompnent/></div>
+      <StWrap ><CardCompnent/></StWrap>
     );
 };
 
 export default Card;
+
+const StWrap = styled.div`
+  min-width: 280px;
+`

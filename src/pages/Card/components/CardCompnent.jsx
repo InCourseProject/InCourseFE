@@ -22,11 +22,7 @@ const CardCompnent = () => {
         placeName: "초기값",
         address: "주소",
     });
-    // const [cose, setCose] = useState({
-    //     address:keywordId.address,
-    //     content:content
-
-    // });
+    const [cose, setCose] = useState();
     // console.log(cose)
 
     const onChangeHandler = (e) => {
@@ -36,10 +32,9 @@ const CardCompnent = () => {
 
     const onChangeContentHandler = (e) => {
         const con = e.target.value;
-        setContent(con);
+        setCose({...cose,...keywordId, content: con});
     };
-    console.log(content)
-    // console.log(keywordId)
+
     const geoLocactionButton = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
@@ -74,8 +69,6 @@ const CardCompnent = () => {
             map.setCenter(locPosition);
         }
     }
-
-
     useEffect(() => {
         if (!map) return
         const ps = new kakao.maps.services.Places();
@@ -126,7 +119,7 @@ const CardCompnent = () => {
             >
                 {markers.map((marker) => (
                     <MapMarker
-                        key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
+                        key={`marker-${marker.placeName}-${marker.position.lat},${marker.position.lng}`}
                         position={marker.position}
                         onClick={() => {
                             setInfo(marker);
@@ -136,12 +129,11 @@ const CardCompnent = () => {
                                     placeName: marker.placeName,
                                     coordinateX: marker.position.lat,
                                     coordinateY: marker.position.lng,
-                                    content:content
                                 })
                         }}
                     >
-                        {info && info.content === marker.content && (
-                            <div style={{ color: "#000" }}>{marker.content}</div>
+                        {info && info.placeName === marker.placeName && (
+                            <div style={{ color: "#000" }}>{marker.placeName}</div>
                         )}
                     </MapMarker>
                 ))}
@@ -164,9 +156,10 @@ const CardCompnent = () => {
                 <StFormInput type="text" onChange={onChangeContentHandler} />
             </StForm>
             <StSubmitBox>
-                <StSubmitButton type='submit' onClick={() => {
-                    dispatch(createMarker(keywordId, navigate("/form")));
-                }}>코스등록</StSubmitButton>
+                <StSubmitButton type='submit' onClick={() => (dispatch(createMarker(cose)),
+            navigate("/form")
+
+                )}>코스등록</StSubmitButton>
             </StSubmitBox>
         </StWrap>
     )
