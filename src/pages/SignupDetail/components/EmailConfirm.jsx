@@ -24,7 +24,8 @@ const EmailConfrim = () => {
 
   // 회원 가입용 이메일 인증 번호 보내기
   const sendConfirm = async () => {
-    const send = await axios.post('http://3.36.71.186:8080/api/member/signup_send',
+    try{
+    const send = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/member/signup_send`,
     input,
     {
       headers:{
@@ -32,13 +33,16 @@ const EmailConfrim = () => {
         RefreshToken: `${refreshToken}`,
       }
     }
-    )
+    )}
+    catch(err) {
+      window.alert(err.response.data)
+    }
   };
 
   // 회원 가입용 이메일 인증 번호 확인
   const checkConfirm = async () => {
     try{
-      const res = await axios.post('http://3.36.71.186:8080/api/member/signup_confirm',
+      const res = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/member/signup_confirm`,
       input,
       {
         headers:{

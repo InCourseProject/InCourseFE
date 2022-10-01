@@ -82,7 +82,7 @@ const MyPageEdit = () => {
 
     try {
       // axios put // refreshtoken, authorization이 있어야 접속 가능
-      const response = await axios.put('http://3.36.71.186:8080/api/member/mypage', 
+      const response = await axios.put(`${process.env.REACT_APP_SERVER_API}/api/member/mypage`, 
       formData,
       {
         headers: {

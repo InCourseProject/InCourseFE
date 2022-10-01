@@ -9,32 +9,6 @@ import LoginSelect from './components/LoginSelect';
 import LoginEmail from './components/LoginEmail';
 
 const Login = () => {
-  // const navigate = useNavigate();
-  // const initialstate = {
-  //   email:'',
-  //   password:''
-  // }
-  // const [ login, setLogin ] = useState(initialstate);
-  
-  // const onChangeHandler = (e) => {
-  //   e.preventDefault();
-  //   const { name, value } = e.target;
-  //   setLogin({ ...login, [name]:value });
-  // };
-
-
-  // const useAxios = async () => { 
-  //   const response = await axios.post('http://localhost:4001/login',
-  //   {...login});
-  //   try{
-  //     if(response){
-
-  //     }
-
-  //   }catch(error){
-  //     window.alert('알러트');
-  //   }
-  // } ;
 
   const [ click, setClick ] = useState(false);
   const clickCheck = (e) => {

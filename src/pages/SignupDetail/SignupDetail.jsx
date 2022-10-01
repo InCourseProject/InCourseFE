@@ -28,7 +28,7 @@ const SignupDetail = () => {
   const submitHandler = async () => {
     
     try{
-      const res = await axios.put('http://3.36.71.186:8080/api/member/signup/detail',
+      const res = await axios.put(`${process.env.REACT_APP_SERVER_API}/api/member/signup/detail`,
       info,
       {
         headers: {

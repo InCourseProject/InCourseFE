@@ -27,7 +27,7 @@ const SignupEmail = () => {
 
   const signupInputHandler = async () => {
     try{
-      const res = await axios.post('http://3.36.71.186:8080/api/member/signup',
+      const res = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/member/signup`,
       signup);
 
       if((res.state === 200 || 201)){

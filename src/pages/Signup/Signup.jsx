@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { colors } from '../../lib/constants/GlobalStyle';
 import { NAVER_JDK_AUTH_URL, NAVER_REST_AUTH_URL, KAKAO_AUTH_URL } from '../Login/components/Auth';
 import NaverLogin from '../Login/components/NaverLogin';
+import Button from '../../components/Button';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -13,6 +14,13 @@ const Signup = () => {
       <StWrap>
         <StDiv>
         </StDiv>
+        {/* <Button>이건 무엇인가!</Button> */}
+          <div>
+            인코스
+          </div>
+          <div>
+            인싸들의 데이트, 친목, 모임 코스
+          </div>
           <button 
             onClick={() => navigate('./email')}
             >
