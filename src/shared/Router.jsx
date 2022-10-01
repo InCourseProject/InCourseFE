@@ -8,6 +8,7 @@ import Signup from "../pages/Signup/Signup";
 import Login from "../pages/Login/Login";
 import MyPage from "../pages/MyPage/MyPage";
 import MyPageEdit from "../pages/MyPageDetail/MyPageEdit";
+import Category from "../pages/Category/Category";
 
 const Router = () => {
   return(
@@ -17,6 +18,7 @@ const Router = () => {
         <Route path="post" exact element={<Post />} />
         <Route path="form" exact element={<Form />} />
         <Route path="card" exact element={<Card />} />
+        <Route path="/category" exact element={<Category />} />
         <Route path="signup" exact element={<Signup />} />
         <Route path="login" exact element={<Login />} />
         <Route path="mypage" exact element={<MyPage />} />
