@@ -1,16 +1,18 @@
 import React from "react";
-import styled from "@emotion/react";
+
+import styled from "@emotion/styled";
 import Post from "../Post/Post";
+import HomeComponent from "./components/HomeComponent";
+
 
 const Home = () => {
 
     return (
-      
-      <div>
-        <Post/>
-      </div>
 
-      
+      <>
+      <HomeComponent/>
+      </>
+
     );
 };
 

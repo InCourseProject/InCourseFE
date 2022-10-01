@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -116,3 +117,4 @@ const DefaultProfileImg = styled.div`
 const ProfileImg = styled.img`
   width: 50%;
   `
+

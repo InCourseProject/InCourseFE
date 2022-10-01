@@ -14,6 +14,7 @@ export const colors = {
   naver: "#2DB400",
   kakao: "#FEF01B"
 
+
 }
 export const fonts = {
   headLine: "25pt",

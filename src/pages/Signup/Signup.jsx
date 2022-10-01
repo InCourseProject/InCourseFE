@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
@@ -64,3 +65,4 @@ const StWrap = styled.div`
       padding-bottom: 30%;
     }
   `
+

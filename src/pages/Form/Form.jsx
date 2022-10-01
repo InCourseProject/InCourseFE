@@ -1,10 +1,13 @@
 import React from "react";
-import Styled from "@emotion/react";
-
+import styled from "@emotion/styled";
+import FormComponent from "./components/FormComponent";
 const Form = () => {
 
     return (
-      <div>Form 입니다.</div>
+      <div><FormComponent/></div>
+
+
+
     );
 };
 

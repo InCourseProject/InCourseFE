@@ -6,6 +6,7 @@ import Form from "../pages/Form/Form";
 import Card from "../pages/Card/Card";
 import Signup from "../pages/Signup/Signup";
 import Login from "../pages/Login/Login";
+import Category from "../pages/Category/Category";
 import LoginEmail from "../pages/Login/components/LoginEmail";
 import MyPage from "../pages/MyPage/MyPage";
 import MyPageEdit from "../pages/MyPageEdit/MyPageEdit";
@@ -24,6 +25,7 @@ const Router = () => {
         <Route path="post" exact element={<Post />} />
         <Route path="form" exact element={<Form />} />
         <Route path="card" exact element={<Card />} />
+        <Route path="/category" exact element={<Category />} />
         <Route path="signup" exact element={<Signup />} />
         <Route path="signup/email" exact element={<SignupEmail />} />
         <Route path="signup/detail" exact element={<SignupDetail />} />
@@ -35,8 +37,6 @@ const Router = () => {
         <Route path="kakao" exact element={<KakaoLogin />} />
         {/* <Route path="naver" exact element={<NaverLogin />} /> */}
         <Route path="emailconfirm" exact element={<EmailConfrim />} />
-        
-        Outh
       </Routes>
     </BrowserRouter>
   );

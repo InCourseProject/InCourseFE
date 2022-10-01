@@ -1,6 +1,7 @@
 # Beginning InCourse Project!
 
 ### Stack
+
 React  
 react-router-dom  
 redux-toolkit  
@@ -40,3 +41,4 @@ yarn add json-server
 #rename: 파일 혹은 폴더명을 수정만 한 경우  
 #remove: 파일을 삭제만 한 경우  
 ################  
+
