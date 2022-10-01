@@ -108,19 +108,19 @@ export const formSlice = createSlice({
         // localStorage.setItem(action.payload)
         
     },
-    likePost(state, action){
-       let index = state.post.findIndex(post => post.id === action.payload.id);
-       state.post[index].count +=1;
-       axios.patch(`http://54.180.31.216/api/auth/post/post/${action.payload.id}`,action.payload)
-    },
-    hatePost(state, action){
-        let index = state.post.findIndex(post => post.id === action.payload.id);
-        state.post[index].count -=1;
-        axios.patch(`http://54.180.31.216/api/auth/post/post/${action.payload.id}`,action.payload)
-    },
-    deletePost(state,action){
+    // likePost(state, action){
+    //    let index = state.post.findIndex(post => post.id === action.payload.id);
+    //    state.post[index].count +=1;
+    //    axios.patch(`http://54.180.31.216/api/auth/post/post/${action.payload.id}`,action.payload)
+    // },
+    // hatePost(state, action){
+    //     let index = state.post.findIndex(post => post.id === action.payload.id);
+    //     state.post[index].count -=1;
+    //     axios.patch(`http://54.180.31.216/api/auth/post/post/${action.payload.id}`,action.payload)
+    // },
+    deleteCose(state,action){
         console.log(state)
-        let index = state.post.findIndex(post => post.id === action.payload.id)
+        let index = state.form.placeRequestDtoList.findIndex(cose => cose.id === action.payload.id)
         state.post.slice(index,1)
         console.log(state)
     },

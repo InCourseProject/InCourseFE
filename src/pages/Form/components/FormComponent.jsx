@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import { Map, MapMarker, Polyline } from 'react-kakao-maps-sdk';
 import "slick-carousel/slick/slick.css";
 import Cose from './Cose';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import default_Img from '../../../lib/constants/img/difault_Img.png'
 import "slick-carousel/slick/slick-theme.css";
@@ -22,24 +23,6 @@ const FormComponent = () => {
 
     const [title, setTitle] = useState();
     const [content, setContent] = useState();
-
-
-    const initialState = {
-        data: {
-            postRequestDto: {
-                title: title,
-                content: position.content,
-                weather: category.weather,
-                region: category.region,
-                who: category.who,
-                season: category.season,
-            },
-            placeRequestDtoList: position
-        }
-
-    }
-
-
 
     const onChangeImg = (e) => {
 
@@ -86,30 +69,37 @@ const FormComponent = () => {
         slidesToScroll: 1,
         initialSlide: 1,
     };
-    // const onAddPosttButtonHandler = async () => {
-    //     let req = {
-    //       title: title,
-    //     };
-    //     let json = JSON.stringify(req);
-    //     const form = new FormData();
-    //     //콘솔 추가
-    //     const titleblob = new Blob([json], { type: "application/json" });
-    //     form.append("title", titleblob);
-    //     console.log(titleblob);
-    //     form.append("imageUrl", imageUrl);
-    //      const res = await axios.post('http://54.180.31.216/api/auth/post',form,{
-    //             headers:{
-    //                 "Content-Type": "multipart/form",
-    //                 Authorization: getCookie("ACESS_TOKEN"),
-    //                 RefreshToken: getCookie("REFRESH_TOKEN")
-    //             }
-    //         });
-    //         navigate("/main");
-    //         return res.data;
-
-    //         // setTitle("");
-
-    //       };
+    const onAddPosttButtonHandler = async () => {
+        let req = {
+            data: {
+                postRequestDto: {
+                    title: title,
+                    content: content,
+                    weather: category.weather,
+                    region: category.region,
+                    who: category.who,
+                    season: category.season,
+                },
+                placeRequestDtoList: position
+            }
+        };
+        let json = JSON.stringify(req);
+        const form = new FormData();
+        //콘솔 추가
+        const titleblob = new Blob([json], { type: "application/json" });
+        form.append("title", titleblob);
+        console.log(titleblob);
+        form.append("image", imageUrl);
+        const res = await axios.post('http://43.201.60.153/api/auth/post', form, {
+            headers: {
+                "Content-Type": "multipart/form",
+                // Authorization: getCookie("ACESS_TOKEN"),
+                // RefreshToken: getCookie("REFRESH_TOKEN")
+            }
+        });
+        localStorage.clear()
+        return res.data;
+    };
     return (
         <div>
 
@@ -149,25 +139,25 @@ const FormComponent = () => {
                     <div className='line'><span></span></div>
                     <StImgWrap>
                         <StImgBox>
-                        <span>이미지를 추가 해 주세요.</span>
-                        <StImg src={fileImage==null ? default_Img:fileImage}onError={handleImgError}/>
+                            <span>이미지를 추가 해 주세요.</span>
+                            <StImg src={fileImage == null ? default_Img : fileImage} onError={handleImgError} />
                         </StImgBox>
                         <StSlideBox >
                             <Slider {...settings}  >
                                 {position.map((cose) => (
-                                    <StCoseBox >
+                                    <StCoseBox key={`name-${cose.coordinateX},${cose.coordinateY}`}>
                                         <h3>{cose.placeName}</h3>
                                     </StCoseBox>
                                 ))}
                                 <StCoseBox >
-                                        <h3>sdfdsf</h3>
-                                    </StCoseBox>
-                                    <StCoseBox >
-                                        <h3>sdfdsf</h3>
-                                    </StCoseBox>
-                                    <StCoseBox >
-                                        <h3>sdfdsf</h3>
-                                    </StCoseBox>
+                                    <h3>sdfdsf</h3>
+                                </StCoseBox>
+                                <StCoseBox >
+                                    <h3>sdfdsf</h3>
+                                </StCoseBox>
+                                <StCoseBox >
+                                    <h3>sdfdsf</h3>
+                                </StCoseBox>
                             </Slider>
                         </StSlideBox>
 
@@ -182,22 +172,22 @@ const FormComponent = () => {
                             // onChange={showFileImage}
                             onChange={onChangeImg}
                         />
-                        
+
                             <input className='content' placeholder='게시글 타이틀' value={title} onChange={onChangeTitleHandler} type="text" />
                             <textarea className='content desc' placeholder='게시글 내용' value={content} onChange={onChangeContentHandler} type="" />
                         </div>
                         <div>
-                            {position.map((cose)=>
-                                <Cose key={`cose-${cose.coordinateX},${cose.coordinateY}`} cose = {cose} />
+                            {position.map((cose) =>
+                                <Cose key={`cose-${cose.coordinateX},${cose.coordinateY}`} cose={cose} />
                             )}
-                            
+
                         </div>
                         <StButtonBox>
-                        <button  type='submit'>카드작성</button>
+                            <button type='submit'>카드작성</button>
                         </StButtonBox>
 
                     </StFormBox>
-                    
+
                 </Test2>
             </StContainer>
 
@@ -220,9 +210,9 @@ const Test2 = styled.div`
         text-align: center;
         z-index: -1;
         span{
-        width: 3px;
+        width: 2px;
         height: 100%;
-        background-color: ${colors.secondary};
+        background-color: ${colors.primary};
         display: inline-block;
     }
     }
@@ -256,9 +246,9 @@ const StSlideBox = styled.div`
         width: 100%;
         height: 3px;
         position: absolute;
-        background-color: ${colors.white};
+        background-color: ${colors.primary};
         right: 0;
-        top: 30px;
+        top: 25px;
         z-index: -1;
     }
     /* div{margin:0 5px} */
@@ -269,9 +259,9 @@ const StCoseBox = styled.div`
     background-color: ${colors.secondary};
     text-align: center;
     color: ${colors.white};
-    padding: 10px 0px;
+    padding: 15px 0px;
     box-sizing: border-box;
-    border: 3px solid ${colors.white};
+    border: 3px solid ${colors.primary};
     
 `
 const StImgWrap = styled.div`
@@ -316,6 +306,13 @@ const StMapWrap = styled.div`
 const StFormBox = styled.form`
     width: 100%;
     padding: 15px;
+    textarea{
+        width: 100%;
+        height: 12rem;
+        border: none;
+        resize: none;
+        
+    }
     input{display:inline-block;
     width: 100%;
     margin: 10px 0;
@@ -324,10 +321,13 @@ const StFormBox = styled.form`
         display: none;
     }
     .upload{
+        display: inline-block;
+        padding: 15px 0;
         width: 100%;
-        background-color: ${colors.primary};
-        color: ${colors.white};
-        font-size: ${fonts.subTitle};
+        border: 1px solid ${colors.lightGray};
+        background-color: ${colors.white};
+        color: ${colors.deepGray};
+        font-size: ${fonts.caption};
         cursor: pointer;
         text-align: center;
         border-radius: 10px;

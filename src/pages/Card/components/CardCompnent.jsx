@@ -32,7 +32,7 @@ const CardCompnent = () => {
 
     const onChangeContentHandler = (e) => {
         const con = e.target.value;
-        setCose({...cose,...keywordId, content: con});
+        setCose({...cose,...keywordId, content: con,image:"dsaf"});
     };
 
     const geoLocactionButton = () => {
