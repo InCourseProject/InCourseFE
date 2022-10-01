@@ -13,3 +13,4 @@ export default Card;
 const StWrap = styled.div`
   min-width: 280px;
 `
+

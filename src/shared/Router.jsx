@@ -6,9 +6,16 @@ import Form from "../pages/Form/Form";
 import Card from "../pages/Card/Card";
 import Signup from "../pages/Signup/Signup";
 import Login from "../pages/Login/Login";
-import MyPage from "../pages/MyPage/MyPage";
-import MyPageEdit from "../pages/MyPageDetail/MyPageEdit";
 import Category from "../pages/Category/Category";
+import LoginEmail from "../pages/Login/components/LoginEmail";
+import MyPage from "../pages/MyPage/MyPage";
+import MyPageEdit from "../pages/MyPageEdit/MyPageEdit";
+import SignupEmail from "../pages/Signup/components/SignupEmail";
+import SignupDetail from "../pages/SignupDetail/SignupDetail";
+import KakaoLogin from "../pages/Login/components/KakaoLogin";
+import NaverLogin from "../pages/Login/components/NaverLogin";
+import EmailConfrim from "../pages/SignupDetail/components/EmailConfirm";
+
 
 const Router = () => {
   return(
@@ -20,10 +27,16 @@ const Router = () => {
         <Route path="card" exact element={<Card />} />
         <Route path="/category" exact element={<Category />} />
         <Route path="signup" exact element={<Signup />} />
+        <Route path="signup/email" exact element={<SignupEmail />} />
+        <Route path="signup/detail" exact element={<SignupDetail />} />
         <Route path="login" exact element={<Login />} />
+        <Route path="login/email" exact element={<LoginEmail />} />
         <Route path="mypage" exact element={<MyPage />} />
         <Route path="mypage/edit" exact element={<MyPageEdit />} />
         <Route path='*' element={<div>404 Not Found</div>} />
+        <Route path="kakao" exact element={<KakaoLogin />} />
+        {/* <Route path="naver" exact element={<NaverLogin />} /> */}
+        <Route path="emailconfirm" exact element={<EmailConfrim />} />
       </Routes>
     </BrowserRouter>
   );
