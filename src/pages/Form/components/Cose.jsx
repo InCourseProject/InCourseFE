@@ -1,15 +1,23 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { colors } from '../../../lib/constants/GlobalStyle'
+import { useDispatch,useSelector } from 'react-redux'
+import { deleteCose } from '../../../redux/modules/formSlice'
 const Cose = ({cose}) => {
+    const co = useSelector((state)=> state.formSlice.form.placeRequestDtoList
+    )
+    console.log(cose.coordinateX)
+    const dispatch = useDispatch();
     return (
         <StContainer key={`cose-${cose.coordinateX},${cose.coordinateY}`}>
             <img src="" alt="" />
             <StCoseButton>
                 <h2>코스1</h2>
                 <div>
-                    <button>수정</button>
-                    <button>삭제</button>
+                    <button type='button'onClick={() => {
+            dispatch(deleteCose(cose.coordinateX));
+            // console.log(ment.id);
+          }}>삭제</button>
                 </div>
             </StCoseButton>
             <div>
