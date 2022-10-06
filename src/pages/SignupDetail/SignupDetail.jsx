@@ -13,10 +13,10 @@ const SignupDetail = () => {
   const refreshToken = localStorage.getItem('RefreshToken') //refreshToken
   const navigate = useNavigate();
   const location = useLocation();
-  // console.log('props to useNavigate>>', location.state.email)
+  console.log('props to useNavigate>>', location.state.email)
 
   const initialstate = {
-    // email: location.state.email,
+    email: location.state.email,
     nickname: '',
     location: ''
   }

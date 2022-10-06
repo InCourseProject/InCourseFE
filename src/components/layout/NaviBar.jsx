@@ -23,7 +23,7 @@ const NaviBar = () => {
         <HomeIcon css={iconStyle} alt="Move to Home"/>
         <MenuTxt>Home</MenuTxt>
       </MenuContainer>
-      <MenuContainer onClick={() => navigate('form')}>
+      <MenuContainer onClick={() => navigate('/form')}>
         <PlusCircleIcon css={{
           width: "2.4rem"
         }} alt="Add My Incourse"/>
@@ -33,7 +33,7 @@ const NaviBar = () => {
         <MagnifyingGlassIcon alt="Search Cousres"/>
         <MenuTxt>Search</MenuTxt>
       </MenuContainer>
-      <MenuContainer onClick={() => navigate('mypage')}>
+      <MenuContainer onClick={() => navigate('/mypage')}>
         <UserIcon alt="My page"/>
         <MenuTxt>My page</MenuTxt>
       </MenuContainer>

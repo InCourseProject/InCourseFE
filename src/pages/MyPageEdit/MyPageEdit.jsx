@@ -18,13 +18,13 @@ const MyPageEdit = () => {
   const navigate = useNavigate();
 
   const initialState = {
-    email: 'location.state.email',
-    id: 'location.state.id',
+    email: location.state.email,
+    id: location.state.id,
     location: '',
     nickname: '',
     // legacypassword: '',
     password: '',
-    image : 'location.state.image'
+    image : location.state.image,
   };
 
   const [ info, setInfo ] = useState(initialState); // info value
@@ -153,7 +153,7 @@ const MyPageEdit = () => {
         <form onSubmit={editInfoHandler}>
           <Input 
             onChange={infoHandler} 
-            // placeholder={location.state.nickname} 
+            placeholder={location.state.nickname} 
             name='nickname' 
             value={info.nickname} 
             type='text' 
@@ -162,7 +162,7 @@ const MyPageEdit = () => {
           />
           <Input 
             onChange={infoHandler} 
-            // placeholder={location.state.location} 
+            placeholder={location.state.location} 
             name='location' 
             value={info.location} 
             type='text' 
