@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { colors, fonts, fontWeight, lineHeights } from '../../../lib/constants/GlobalStyle';
+import Input from '../../../components/Input';
+import Btn from '../../../components/Button';
+import HeaderBar from '../../../components/layout/HeaderBar';
 
 
 const LoginEmail = () => {
@@ -57,29 +61,52 @@ const LoginEmail = () => {
   };
 
   return(
-    <div>
-        <input 
-          placeholder='email' 
+    <StWrap>
+      <Container>
+        <Input 
+          placeholder='Email' 
           name='email' 
           value={login.email} 
           type='email'
           onChange={onChangeHandler}
+          size='default'
+          variant='input'
         />
-        <input 
-          placeholder='password' 
+        
+        <Input 
+          placeholder='Password' 
           name='password' 
           value={login.password} 
           type='password'
           onChange={onChangeHandler} 
+          size='default'
+          variant='input'
         />
-        <button 
+        
+        <Btn
           onClick={loginHandler} 
           type='button'
+          size='default'
+          variant='main'
         >
           로그인
-        </button>
-    </div>
+        </Btn>
+      </Container>
+    </StWrap>
   );
 };
 
 export default LoginEmail;
+
+const StWrap = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  `
+  
+const Container = styled.div`
+  margin-top: 7.64rem;
+  min-width: 330px;
+`

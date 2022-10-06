@@ -2,7 +2,10 @@ import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from '@emotion/styled';
-import { colors } from '../../../lib/constants/GlobalStyle';
+import { colors, fonts, fontWeight, lineHeights } from '../../../lib/constants/GlobalStyle';
+import Input from '../../../components/Input';
+import Btn from '../../../components/Button';
+import HeaderBar from '../../../components/layout/HeaderBar';
 
 const SignupEmail = () => {
   const navigate = useNavigate();
@@ -58,56 +61,91 @@ const SignupEmail = () => {
   },[]);
 
   return(
-    <div>
-      <StDiv>서비스 배너</StDiv>
-      <input 
-        onChange={onChangeHandler} 
-        placeholder='email' 
-        name='email' 
-        value={signup.email} 
-        type='email' 
-      />
-      <input 
-        onChange={onChangeHandler} 
-        placeholder='password' 
-        name='password' 
-        value={signup.password} 
-        minLength='8' 
-        maxLength='20' 
-        type='password' 
-      />
-      <input 
-        onChange={onChangeHandler} 
-        placeholder='passwordcheck' 
-        name='passwordConfirm' 
-        value={signup.passwordConfirm} 
-        type='password' 
-      />
-      <button 
-        onClick={signupInputHandler}
-        type='button'
-      >회원가입</button>  
-    </div>
+    <StWrap>
+      <HeaderBar/>
+      <Container>
+        <FormWrap>
+          <Sth1>회원가입</Sth1>
+          <Input 
+            onChange={onChangeHandler} 
+            placeholder='Email' 
+            name='email' 
+            value={signup.email} 
+            type='email' 
+            size='default'
+            variant='input'
+          />
+          <ErrTxt>이미 가입된 이메일입니다.</ErrTxt>
+          <Input 
+            onChange={onChangeHandler} 
+            placeholder='Password' 
+            name='password' 
+            value={signup.password} 
+            minLength='8' 
+            maxLength='20' 
+            type='password' 
+            size='default'
+            variant='input'
+          />
+          <ErrTxt>숫자, 영문 대소문자를 포함 8~20길이로 입력해 주세요.</ErrTxt>
+          <Input 
+            onChange={onChangeHandler} 
+            placeholder='Password Confirm' 
+            name='passwordConfirm' 
+            value={signup.passwordConfirm} 
+            type='password' 
+            size='default'
+            variant='input'
+          />
+          <ErrTxt>입력하신 비밀번호와 다릅니다.</ErrTxt>
+          <Btn 
+            onClick={signupInputHandler}
+            size='default'
+            variant='main'
+            type='button'
+            disabled={!signup.email || !signup.password || !signup.passwordConfirm}
+          >
+            회원가입
+          </Btn>  
+        </FormWrap>
+      </Container>
+    </StWrap>
   );
 }
 
 export default SignupEmail;
 
-const StForm = styled.form`
-  width: 50%;
-  margin: auto;
+const StWrap = styled.div`
+  width: 100%;
+  `
+  
+const Container = styled.div`
+/* margin: 0px auto; */
+  width: 100%;
+  padding: 0px 15px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+
+const FormWrap = styled.div`
+  min-width: 330px;
+`
+
+  const Sth1 = styled.h1`
+    margin-top: 12.4rem;
+
+    color: ${colors.black};
+    font-size: ${fonts.headLine};
+    font-weight: ${fontWeight.exrtaBold};
+    line-height: ${lineHeights.headLine};
   `
 
-  const StDiv = styled.div`
-    width: 100%;
-    position: relative;
-    background-color: ${colors.primary};
-    margin-bottom: 30px;
-    ::after{
-      content: '';
-      display: block;
-      padding-bottom: 30%;
-    }
+  const ErrTxt = styled.span`
+    margin-top: 0.5rem;
+    margin-left: 2.5rem;
+    color: ${colors.danger};
+    font-size: ${fonts.caption};
+    font-weight: ${fontWeight.light};
+    line-height: ${lineHeights.caption};
   `

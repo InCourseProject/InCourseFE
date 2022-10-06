@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import { colors } from "../../../lib/constants/GlobalStyle";
+import { colors, fonts, fontWeight, lineHeights } from '../../../lib/constants/GlobalStyle';
+import Btn from "../../../components/Button";
+import Input from "../../../components/Input";
+import HeaderBar from '../../../components/layout/HeaderBar';
+
 
 const EmailConfrim = () => {
   const navigate = useNavigate();
@@ -32,8 +37,11 @@ const EmailConfrim = () => {
         Authorization: `${accessToken}`,
         RefreshToken: `${refreshToken}`,
       }
+    });
+    if(send.status === 200 || 201) {
+      window.alert('인증 메일을 전송했습니다.')
     }
-    )}
+    }
     catch(err) {
       window.alert(err.response.data)
     }
@@ -71,36 +79,68 @@ const EmailConfrim = () => {
   
 
   return (
-    <div>
-      <button onClick={sendConfirm}>인증번호 받기</button>
-      <StInput 
-        onChange={onChangeHandler}
-        placeholder="인증번호 입력" 
-        name='authkey' 
-        value={input.authkey} 
-        type='number'
-        // maxLength="8"
-      />
-      <button onClick={checkConfirm}>이메일 인증</button>
-    </div>
+    <StWrap>
+      <HeaderBar/>
+      <Container>
+        <FormWrap>
+          <Sth1>이메일 인증</Sth1>
+          <Btn 
+            onClick={sendConfirm}
+            size='default'
+            variant='line'
+            // css={{marginTop:'1rem'}}
+            css={css`
+              margin-top: 1rem;
+            `}
+          >
+            인증번호 받기
+          </Btn>
+          <Input 
+            onChange={onChangeHandler}
+            placeholder="인증번호" 
+            name='authkey' 
+            value={input.authkey} 
+            type='number'
+            size='default'
+            variant='input'
+          />
+          <Btn 
+            onClick={checkConfirm}
+            size='default'
+            variant='main'
+          >
+            이메일 인증
+          </Btn>
+        </FormWrap>
+      </Container>
+    </StWrap>
   );
 };
 
 export default EmailConfrim;
 
-const StInput = styled.input`
-  /* width: 100%;
-  height: 4em;
-  border: 0px;
-  padding-left: 10px;
-  border-bottom: 1px solid ${colors.lightgray}; */
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-  }
-  /* ::placeholder{
-    color: ${colors.gray}
-  } */
+const StWrap = styled.div`
+  width: 100%;
+  `
+  
+const Container = styled.div`
+  width: 100%;
+  padding: 0px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
+
+const FormWrap = styled.div`
+  min-width: 330px;
+`
+
+const Sth1 = styled.h1`
+    margin-top: 12.4rem;
+    margin-bottom: -6.64rem;
+
+    color: ${colors.black};
+    font-size: ${fonts.headLine};
+    font-weight: ${fontWeight.exrtaBold};
+    line-height: ${lineHeights.headLine};
+  `
