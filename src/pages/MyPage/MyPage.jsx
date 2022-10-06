@@ -1,11 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { colors } from '../../lib/constants/GlobalStyle';
-import { UserCircleIcon } from '@heroicons/react/24/solid'
+import { colors, fonts, fontWeight, lineHeights } from '../../lib/constants/GlobalStyle';
+import { UserCircleIcon, HeartIcon } from '@heroicons/react/24/solid'
 import axios from 'axios';
 import MyPageLogout from './components/MyPageLogout';
+import Btn from '../../components/Button';
+import NaviBar from '../../components/layout/NaviBar';
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -67,24 +70,46 @@ const MyPage = () => {
   return (
     <div>
       <StDiv>
-        <div onClick={() => navigate(-1)}>뒤로가기</div>
         <ProfileContainer>
           {
-            info.image === null
+            info.image === null || ''
               ? <DefaultProfileImg>
                 <UserCircleIcon alt='default profile Image' />
               </DefaultProfileImg>
               : <ProfileImg src={`${info.image}`} alt='profile Image' />
           }
+          <div>유저 닉네임</div>
         </ProfileContainer>
-        <button 
+        <span>나의 인싸력</span>
+        <span>내가 받은 좋아요</span>
+        <span>핵인싸 뱃지</span>
+        <div>
+        <HeartIcon/>
+        <span>100</span>
+        </div>
+        <Btn 
           onClick={() => clickMyprofile()}
-        >프로필 보기</button>
+          size='default'
+          variant='main'
+        >
+          프로필 보기
+        </Btn>
         {/* 아래 두 요소 와이어프레임 없음 */}
-        <button>내가 작성한 게시물</button> 
-        <button>내가 찜한 게시물</button>
+        <Btn
+          size='default'
+          variant='line'
+        >
+          내가 작성한 게시물
+        </Btn> 
+        <Btn
+          size='default'
+          variant='line'
+        >
+          내가 찜한 게시물
+        </Btn>
         <MyPageLogout/>
       </StDiv>
+      <NaviBar/>
     </div>
   );
 };

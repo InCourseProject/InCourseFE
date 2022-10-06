@@ -16,7 +16,6 @@ const KakaoLogin = () => {
 
     try{
       const res = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/member/kakao?code=${code}`);
-      // const res = await axios.get(`http://43.201.60.153/api/member/kakao?code=${code}`);
       console.log(res)
       localStorage.setItem('Authorization', res.data.authorization);    //예시로 로컬에 저장함    
       localStorage.setItem('RefreshToken', res.data.refreshToken);

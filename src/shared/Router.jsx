@@ -15,6 +15,8 @@ import SignupDetail from "../pages/SignupDetail/SignupDetail";
 import KakaoLogin from "../pages/Login/components/KakaoLogin";
 import NaverLogin from "../pages/Login/components/NaverLogin";
 import EmailConfrim from "../pages/SignupDetail/components/EmailConfirm";
+import Loading from "../pages/Loading/Loading";
+
 
 
 const Router = () => {
@@ -34,6 +36,7 @@ const Router = () => {
         <Route path="mypage" exact element={<MyPage />} />
         <Route path="mypage/edit" exact element={<MyPageEdit />} />
         <Route path='*' element={<div>404 Not Found</div>} />
+        <Route path='loading' exact element={<Loading />} />
         <Route path="kakao" exact element={<KakaoLogin />} />
         {/* <Route path="naver" exact element={<NaverLogin />} /> */}
         <Route path="emailconfirm" exact element={<EmailConfrim />} />

@@ -1,9 +1,14 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styled from '@emotion/styled';
-import { colors } from '../../lib/constants/GlobalStyle';
+import { css } from '@emotion/react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { colors } from '../../lib/constants/GlobalStyle';
 import { UserCircleIcon } from '@heroicons/react/24/solid'
+import Input from '../../components/Input';
+import Btn from '../../components/Button';
+import HeaderBar from '../../components/layout/HeaderBar';
+import NaviBar from '../../components/layout/NaviBar'
 
 
 const MyPageEdit = () => {
@@ -19,7 +24,7 @@ const MyPageEdit = () => {
     nickname: '',
     // legacypassword: '',
     password: '',
-    image : location.state.image
+    image : location.state.image,
   };
 
   const [ info, setInfo ] = useState(initialState); // info value
@@ -109,7 +114,7 @@ const MyPageEdit = () => {
   useEffect(() => {
   }, []);
 
-  const pswrd = new String(location.state.password)
+  const pswrd = new String('location.state.password')
   let dot = '';
   for (let i = 0; i < pswrd.length; i++){
     dot += '●';
@@ -118,13 +123,14 @@ const MyPageEdit = () => {
   return (
     <div>
       <StDiv>
-        <div onClick={() => navigate(-1)}>뒤로가기</div>
+        <HeaderBar/>
         <ProfileContainer onClick={fileInputBtnClick} >
-          <input
+          <Input
             name='profileImg'
             type='file'
             accept='image/jpg, image/png, image/jpeg, image/gif'
-            style={{display: 'none'}}
+            // style={{display: 'none'}}
+            css={css`display:none;`}
             ref={inputRef}
             onChange={(e) => {uploadImg(e.target.files[0])}}
             />
@@ -135,35 +141,54 @@ const MyPageEdit = () => {
               </DefaultProfileImg>
               : <ProfileImg src={`${profileImg}`} alt='profile Image'/>
             }
-          <div onClick={fileInputBtnClick} >이미지 올리기</div>
+          <Btn 
+            onClick={fileInputBtnClick} 
+            size='sm'
+            variant='badge'
+          >
+            이미지 올리기
+          </Btn>
         </ProfileContainer>
 
         <form onSubmit={editInfoHandler}>
-          <input 
+          <Input 
             onChange={infoHandler} 
             placeholder={location.state.nickname} 
             name='nickname' 
             value={info.nickname} 
             type='text' 
+            size='default'
+            variant='input'
           />
-          <input 
+          <Input 
             onChange={infoHandler} 
             placeholder={location.state.location} 
             name='location' 
             value={info.location} 
             type='text' 
+            size='default'
+            variant='input'
           />
-          <input 
+          <Input 
             onChange={infoHandler} 
             placeholder={dot} 
             name='password' 
             value={info.password} 
-            type='password' 
+            type='password'
+            size='default'
+            variant='input' 
           />
           {/* <input onChange={infoHandler} placeholder='비밀번호 변경 확인' name='passwordConfirm' value={info.password} type='password' /> */}
-          <button type='submit' >프로필 수정 확인</button>
+          <Btn 
+            type='submit' 
+            size='default'
+            variant='main'
+          >
+            프로필 수정
+          </Btn>
         </form>
       </StDiv>
+      <NaviBar/>
     </div>
   );
 };
@@ -171,16 +196,17 @@ const MyPageEdit = () => {
 export default MyPageEdit;
 
 const StDiv = styled.div`
-  width: 50%;
-  margin: auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `
 
 const ProfileContainer = styled.div`
-  width: 100;
+  width: 100%;
   position: relative;
-  /* background-color: ${colors.primary}; */
+  background-color: ${colors.primary};
   cursor: pointer;
   ::after{
     content: '';
