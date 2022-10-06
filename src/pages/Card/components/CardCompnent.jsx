@@ -16,7 +16,6 @@ const CardCompnent = () => {
     const [markers, setMarkers] = useState([]);
     const [map, setMap] = useState();
     const [search, setSearch] = useState();
-    const [content, setContent] = useState();
     const [keyword, setKeyword] = useState();
     const [keywordId, setKeywordId] = useState({
         placeName: "초기값",
@@ -32,7 +31,7 @@ const CardCompnent = () => {
 
     const onChangeContentHandler = (e) => {
         const con = e.target.value;
-        setCose({...cose,...keywordId, content: con,image:"dsaf"});
+        setCose({...cose,...keywordId, content: con});
     };
 
     const geoLocactionButton = () => {
@@ -79,6 +78,7 @@ const CardCompnent = () => {
                 // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
                 // LatLngBounds 객체에 좌표를 추가합니다
                 const bounds = new kakao.maps.LatLngBounds();
+                console.log(bounds)
                 let markers = []
                 // console.log(data)
                 data.map((mark) => {
