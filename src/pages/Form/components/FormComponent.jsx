@@ -12,30 +12,52 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { colors, fonts } from '../../../lib/constants/GlobalStyle';
 const FormComponent = () => {
-
+    const { kakao } = window;
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const category = useSelector((state) => state.formSlice.form.postRequestDto)
     const position = useSelector((state) => state.formSlice.form.placeRequestDtoList);
-    console.log(position)
-    const [imageUrl, setImageUrl] = useState();
-    const [fileImage, setFileImage] = useState("");
+    // console.log(position)
+    const [imageUrl, setImageUrl] = useState("");
+    const [fileImage, setFileImage] = useState([]);
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
 
-    const [title, setTitle] = useState();
-    const [content, setContent] = useState();
-
+    // const onChangeImg = (e) => {
+    //     // console.log(e.target.files)
+    //     setImageUrl(e.target.files);
+    //     setFileImage(URL.createObjectURL(e.target.files[0]));
+    // };
     const onChangeImg = (e) => {
-
-        setImageUrl(e.target.files[0]);
-        setFileImage(URL.createObjectURL(e.target.files[0]));
-
-    };
+        setImageUrl(e.target.files);
+        const imgFiles = [...fileImage];
+        for (let i = 0; i < setImageUrl.length; i++) {
+          const nowImageUrl = URL.createObjectURL(e.target.files[i]);
+          imgFiles.push(nowImageUrl);
+        }
+        setFileImage(imgFiles);
+      };
     const handleImgError = (e) => {
         e.target.src = default_Img;
     }
+    const getBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+            reader.readAsDataURL(file);
+        });
+    }
+    const imageUpload = (e) => {
+        const file = e.target.files[0];
+        setFileImage(URL.createObjectURL(e.target.files[0]));
+        getBase64(file).then(base64 => {
+            localStorage["fileBase64"] = base64;
+            console.debug("file stored", base64);
+        });
+    };
 
-
-    console.log(fileImage);
+    // console.log(imageUrl);
     const onChangeTitleHandler = (event) => {
         const tit = event.target.value;
         setTitle(tit);
@@ -45,20 +67,33 @@ const FormComponent = () => {
         setContent(con);
     };
 
+    const handleFileOnChange = (e) => {
+        setImageUrl(e.target.files[0]);
+        setFileImage(URL.createObjectURL(e.target.files[0]));
+        let reader = new FileReader();
+        reader.onload = () => {
+            console.log('성공')
+        }
+        reader.readAsText(imageUrl)
+
+    }
+    console.log(imageUrl)
     const onSubmitHandler = () => {
         localStorage.setItem("img", fileImage);
         localStorage.setItem("title", title);
         localStorage.setItem("content", content);
-        navigate('/card')
+        localStorage.setItem("imageUrl", imageUrl);
+        navigate("/card")
     }
-
+    // console.log(JSON.stringify(imageUrl))
 
     useEffect(() => {
         setTitle(localStorage.getItem("title"))
         setContent(localStorage.getItem("content"))
         setFileImage(localStorage.getItem("img"))
+        setImageUrl(localStorage.getItem("fileBase64"))
     }, [])
-
+    // console.log('image:',JSON.parse(imageUrl) )
     const settings = {
         // dots: true,
         infinite: false,
@@ -69,35 +104,51 @@ const FormComponent = () => {
         slidesToScroll: 1,
         initialSlide: 1,
     };
+    const data = {
+        postRequestDto: {
+            title: title,
+            content: content,
+            weather: category.weather,
+            region: category.region,
+            who: category.who,
+            season: category.season,
+        },
+        placeRequestDtoList: position
+    };
+    console.log(data)
     const onAddPosttButtonHandler = async () => {
-        let req = {
-            data: {
-                postRequestDto: {
-                    title: title,
-                    content: content,
-                    weather: category.weather,
-                    region: category.region,
-                    who: category.who,
-                    season: category.season,
-                },
-                placeRequestDtoList: position
-            }
-        };
-        let json = JSON.stringify(req);
-        const form = new FormData();
+        const byteString = atob(imageUrl.split(",")[1]);
+
+        // Blob를 구성하기 위한 준비, 이 내용은 저도 잘 이해가 안가서 기술하지 않았습니다.
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+        }
+        const blob = new Blob([ia], {
+          type: "image/jpeg"
+        });
+        const file = new File([blob], "image.jpg");
+        let json = JSON.stringify(data);
+        const formData = new FormData();
         //콘솔 추가
         const titleblob = new Blob([json], { type: "application/json" });
-        form.append("title", titleblob);
-        console.log(titleblob);
-        form.append("image", imageUrl);
-        const res = await axios.post('http://43.201.60.153/api/auth/post', form, {
+        formData.append("data", titleblob);
+        console.log(imageUrl);
+        formData.append("image", file);
+        // console.log(file)
+        const res = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/course`, formData, {
             headers: {
-                "Content-Type": "multipart/form",
-                // Authorization: getCookie("ACESS_TOKEN"),
-                // RefreshToken: getCookie("REFRESH_TOKEN")
+                "content-type": "multipart/form-data",
+                Authorization: localStorage.getItem("Authorization"),
+                RefreshToken: localStorage.getItem("RefreshToken")
             }
         });
-        localStorage.clear()
+
+        localStorage.setItem("img", "");
+        localStorage.setItem("title", "");
+        localStorage.setItem("content", "");
+        localStorage.setItem("imageUrl", "");
         return res.data;
     };
     return (
@@ -114,13 +165,13 @@ const FormComponent = () => {
                             style={{ width: "100%", height: "360px", objectFit: "cover" }}
                             level={11}
                         >
-                            {position.map((mak) => (
-                                <MapMarker
-                                    key={`markers-${mak.coordinateX},${mak.coordinateY}`}
-                                    position={{ lat: mak.coordinateX, lng: mak.coordinateY }}>
-                                    <div style={{ color: "#000" }}>{mak.placeName}</div>
-                                </MapMarker>
-                            ))}
+                            {position.map((mak) =>
+                            (<MapMarker
+                                key={`markers-${mak.coordinateX},${mak.coordinateY}`}
+                                position={{ lat: mak.coordinateX, lng: mak.coordinateY }}>
+                                <div style={{ color: "#000" }}>{mak.placeName}</div>
+                            </MapMarker>)
+                            )}
                             <Polyline
                                 path={[position.map((line) => (
                                     { lat: line.coordinateX, lng: line.coordinateY }
@@ -162,7 +213,7 @@ const FormComponent = () => {
                         </StSlideBox>
 
                     </StImgWrap>
-                    <StFormBox onSubmit={onSubmitHandler}>
+                    <StFormBox >
                         <div><label className='upload' htmlFor="file">이미지 업로드하기</label><input
                             type="file"
                             name="imageUrl"
@@ -170,11 +221,11 @@ const FormComponent = () => {
                             id='file'
                             accept="image/*" // accept속성은 서버로 업로드할 수 있는 파일의 타입을 명시, input type="file" 에서만 사용가능
                             // onChange={showFileImage}
-                            onChange={onChangeImg}
+                            onChange={imageUpload}
                         />
 
-                            <input className='content' placeholder='게시글 타이틀' value={title} onChange={onChangeTitleHandler} type="text" />
-                            <textarea className='content desc' placeholder='게시글 내용' value={content} onChange={onChangeContentHandler} type="" />
+                            <input className='content' placeholder='게시글 타이틀' value={title || ""} onChange={onChangeTitleHandler} type="text" />
+                            <textarea className='content desc' placeholder='게시글 내용' value={content || ""} onChange={onChangeContentHandler} type="" />
                         </div>
                         <div>
                             {position.map((cose) =>
@@ -183,9 +234,9 @@ const FormComponent = () => {
 
                         </div>
                         <StButtonBox>
-                            <button type='submit'>카드작성</button>
+                            <button type='button' onClick={onSubmitHandler}>카드작성</button>
                         </StButtonBox>
-
+                        <button type='button' onClick={onAddPosttButtonHandler}>게시물작성</button>
                     </StFormBox>
 
                 </Test2>
@@ -253,6 +304,20 @@ const StSlideBox = styled.div`
     }
     /* div{margin:0 5px} */
 `
+const StImgBox = styled.div`
+width: 100%;
+height: 320px;
+text-align: center;
+background-color: ${colors.primary};
+display: table;
+span{
+    display: table-cell;
+    height: 100%;
+    color: ${colors.deepGray};
+    font-size: ${fonts.body};
+    vertical-align: middle;
+}
+`
 const StCoseBox = styled.div`
     max-width: 80%;
     border-radius:30px;
@@ -283,20 +348,7 @@ const StImg = styled.img`
     object-fit: cover;
     
 `
-const StImgBox = styled.div`
-    width: 100%;
-    height: 320px;
-    text-align: center;
-    background-color: ${colors.primary};
-    display: table;
-    span{
-        display: table-cell;
-        height: 100%;
-        color: ${colors.deepGray};
-        font-size: ${fonts.body};
-        vertical-align: middle;
-    }
-`
+
 const StMapWrap = styled.div`
     width: 100%;
     position: sticky;

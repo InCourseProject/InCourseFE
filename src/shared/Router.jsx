@@ -24,7 +24,7 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" exact element={<Home />} />
-        <Route path="post" exact element={<Post />} />
+        <Route path="post/:id" exact element={<Post />} />
         <Route path="form" exact element={<Form />} />
         <Route path="card" exact element={<Card />} />
         <Route path="/category" exact element={<Category />} />
