@@ -28,15 +28,6 @@ const FormComponent = () => {
     //     setImageUrl(e.target.files);
     //     setFileImage(URL.createObjectURL(e.target.files[0]));
     // };
-    const onChangeImg = (e) => {
-        setImageUrl(e.target.files);
-        const imgFiles = [...fileImage];
-        for (let i = 0; i < setImageUrl.length; i++) {
-          const nowImageUrl = URL.createObjectURL(e.target.files[i]);
-          imgFiles.push(nowImageUrl);
-        }
-        setFileImage(imgFiles);
-      };
     const handleImgError = (e) => {
         e.target.src = default_Img;
     }
@@ -67,16 +58,6 @@ const FormComponent = () => {
         setContent(con);
     };
 
-    const handleFileOnChange = (e) => {
-        setImageUrl(e.target.files[0]);
-        setFileImage(URL.createObjectURL(e.target.files[0]));
-        let reader = new FileReader();
-        reader.onload = () => {
-            console.log('성공')
-        }
-        reader.readAsText(imageUrl)
-
-    }
     console.log(imageUrl)
     const onSubmitHandler = () => {
         localStorage.setItem("img", fileImage);
@@ -136,7 +117,7 @@ const FormComponent = () => {
         formData.append("data", titleblob);
         console.log(imageUrl);
         formData.append("image", file);
-        // console.log(file)
+        console.log(file)
         const res = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/course`, formData, {
             headers: {
                 "content-type": "multipart/form-data",
