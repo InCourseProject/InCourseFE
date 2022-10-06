@@ -7,24 +7,28 @@ const initialState = {
         postRequestDto:{},
         placeRequestDtoList:[],
 },
-    title:{},
+    post:{},
     isLoading: false,
     error: null,
     like: false,
 };
-// export const _getPost = createAsyncThunk(
-//     "post/getPost",
-//     async(payload, thunkApI) => {
-//         try {
-//             const data = await axios.get("http://54.180.31.216/api/auth/post");
-           
-//             console.log(data.data)
-//             return thunkApI.fulfillWithValue(data.data.data);
-//         }catch(error){
-//             return thunkApI.rejectWithValue(error);
-//         }
-//     }
-// );
+export const _getPost = createAsyncThunk(
+    "post/getPost",
+    async(payload, thunkApI) => {
+        try {
+            const data = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course`,{
+                headers: {
+                    Authorization: localStorage.getItem("Authorization"),
+                    RefreshToken: localStorage.getItem("RefreshToken")
+                }
+            });
+            console.log(data)
+            return thunkApI.fulfillWithValue(data.data)
+        }catch(error){
+            return thunkApI.rejectWithValue(error);
+        }
+    }
+);
 
 
 
@@ -120,68 +124,67 @@ export const formSlice = createSlice({
     // },
     deleteCose(state,action){
         console.log(state)
-        let index = state.form.placeRequestDtoList.findIndex(cose => cose.id === action.payload.id)
-        state.post.slice(index,1)
-        console.log(state)
+        let index = state.form.placeRequestDtoList.findIndex(cose =>cose.coordinateX === action.payload)
+        state.form.placeRequestDtoList.splice(index,1)
+        console.log(index)
     },
     updatePost(state,action){
         let index = state.post.findIndex(post => post.id === action.payload.id);
-        state.post.slice(index,1,action.payload)
+        state.post.splice(index,1,action.payload)
     }
   },
-//   extraReducers:  (builder) => {
-//     builder
-//         .addCase(_deletePost.pending, (state) => {
-//             state.isLoading = true;
+  extraReducers:  (builder) => {
+    // builder
+    //     .addCase(_deletePost.pending, (state) => {
+    //         state.isLoading = true;
           
-//         })
-//         .addCase(_deletePost.fulfilled, (state, action) => {
-//             state.isLoading = false;
-//             const deleteState = state.post.findIndex(post => post.id === action.payload)
-//             state.post.slice(deleteState,1)
-//             state.isDelete = true;
+    //     })
+    //     .addCase(_deletePost.fulfilled, (state, action) => {
+    //         state.isLoading = false;
+    //         const deleteState = state.post.findIndex(post => post.id === action.payload)
+    //         state.post.slice(deleteState,1)
+    //         state.isDelete = true;
         
-//         })
-//         .addCase(_deletePost.rejected, (state, action) => {
-//             state.isLoading = false;
-//             state.error = action.payload;
+    //     })
+    //     .addCase(_deletePost.rejected, (state, action) => {
+    //         state.isLoading = false;
+    //         state.error = action.payload;
            
-//         });
-//     builder
-//         .addCase(_getPost.pending, (state) => {
-//             state.isLoading = true;
+    //     });
+    builder
+        .addCase(_getPost.pending, (state) => {
+            state.isLoading = true;
            
-//         })
-//         .addCase(_getPost.fulfilled, (state, action) => {
-//             state.isLoading = false;
-
-//             state.post = action.payload;
+        })
+        .addCase(_getPost.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.post = action.payload;
             
-//         })
-//         .addCase(_getPost.rejected, (state, action) => {
-//             state.isLoading = false;
-//             state.error = action.payload;
+        })
+        .addCase(_getPost.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
            
        
-//         });
-//     builder
-//         .addCase(_updatePost.pending, (state) => {
-//             state.isLoading = true;
-//         })
-//         .addCase(_updatePost.fulfilled, (state, action) => {
-//             state.isLoading = false;
-//             state.post = action.payload;
-//             console.log(state.post)
-//         })
-//         .addCase(_updatePost.rejected, (state, action) => {
-//             state.isLoading = false;
-//             state.error = action.payload;
+        });
+    // builder
+    //     .addCase(_updatePost.pending, (state) => {
+    //         state.isLoading = true;
+    //     })
+    //     .addCase(_updatePost.fulfilled, (state, action) => {
+    //         state.isLoading = false;
+    //         state.post = action.payload;
+    //         console.log(state.post)
+    //     })
+    //     .addCase(_updatePost.rejected, (state, action) => {
+    //         state.isLoading = false;
+    //         state.error = action.payload;
        
-//         });
+    //     });
 
    
-//   }
+  }
 });
 
-export const {createMarker,likePost,deletePost,updatePost,hatePost,categorySelect,createTitle} = formSlice.actions;
+export const {createMarker,likePost,deleteCose,updatePost,hatePost,categorySelect,createTitle} = formSlice.actions;
 export default formSlice.reducer
