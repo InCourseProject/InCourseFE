@@ -101,7 +101,7 @@ const MyPageEdit = () => {
       if (response.status === 200 || 201) {
         window.alert('프로필 정보가 변경되었습니다.')
         navigate('/mypage')
-      };
+      }
     }
     catch(err) {
       window.alert('❌CHECKCONSOLE❌');
@@ -119,36 +119,42 @@ const MyPageEdit = () => {
   for (let i = 0; i < pswrd.length; i++){
     dot += '●';
   };
+
+  const styles = {
+    inputs:{
+      marginBottom: '-3rem'
+    },
+  };
   
   return (
     <div>
       <StDiv>
         <HeaderBar/>
         <ProfileContainer onClick={fileInputBtnClick} >
-          <Input
+          <input
             name='profileImg'
             type='file'
             accept='image/jpg, image/png, image/jpeg, image/gif'
-            // style={{display: 'none'}}
-            css={css`display:none;`}
+            style={{display: 'none', zIndex:'10px'}}
             ref={inputRef}
             onChange={(e) => {uploadImg(e.target.files[0])}}
             />
             {
-              profileImg === null
+              profileImg === null || ''
               ? <DefaultProfileImg>
                 <UserCircleIcon alt='default profile Image'/>
               </DefaultProfileImg>
               : <ProfileImg src={`${profileImg}`} alt='profile Image'/>
             }
+        </ProfileContainer>
           <Btn 
             onClick={fileInputBtnClick} 
             size='sm'
             variant='badge'
+            style={{marginBottom:'4.2rem'}}
           >
             이미지 올리기
           </Btn>
-        </ProfileContainer>
 
         <form onSubmit={editInfoHandler}>
           <Input 
@@ -201,6 +207,7 @@ const StDiv = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 20rem;
 `
 
 const ProfileContainer = styled.div`
@@ -211,12 +218,13 @@ const ProfileContainer = styled.div`
   ::after{
     content: '';
     display: block;
-    padding-bottom: 100%;
+    padding-bottom: 5%;
   }
 `
 
 const DefaultProfileImg = styled.div`
-  width: 20%;
+  /* position: absolute;
+  width: 20%; */
   color: ${colors.primary};
 `
 

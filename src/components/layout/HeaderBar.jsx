@@ -9,21 +9,20 @@ import logo from '../../lib/constants/img/incourseLogo.svg'
 
 const HeaderBar = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const accessToken = localStorage.getItem('Authorization'); //accesstoken 
-  // const refreshToken = localStorage.getItem('RefreshToken') //refreshToken
+  const refreshToken = localStorage.getItem('RefreshToken') //refreshToken
 
-  const [ isUrl, setIsUrl ] = useState('');
-  console.log(isUrl)
+  const [path, setPath] = useState(window.location.pathname)
 
   useEffect(()=> {
-    setIsUrl(location.pathname)
+    setPath(window.location.pathname)
   },[])
+
 
   return (
     <StWrap>
       <LeftIcon>
-      {location.pathname === '/'
+      {path === '/'
         ? <LogoImg src={logo} alt='logo'
           onClick={() => navigate('/')}
         />
@@ -32,23 +31,21 @@ const HeaderBar = () => {
         />
       }
       </LeftIcon>
-      {/* {location.pathname} */}
+      
       <RightIcon>
-        {accessToken
+        {accessToken&&refreshToken
         ? <MagnifyingGlassIcon alt='search'
-          /* onClick={() => navigate('search')} */
-          // css={displayToggle}
+          onClick={() => navigate('/search')}
+          style={{width:'2.4rem'}} 
         />
         : <StSpan
-          isKeyDown
-          onClick={() => navigate('login')}
-          isUrl={isUrl}
+          onClick={() => navigate('/login')}
+          isUrl={path}
         >
           로그인
         </StSpan>
         }
       </RightIcon>
-      
     </StWrap>
   )
 };
@@ -64,7 +61,6 @@ const StWrap = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-
   position: fixed;
   left: 0;
   right: 0;
@@ -77,7 +73,6 @@ const StWrap = styled.div`
 const LogoImg = styled.img`
   width: 2.9rem;
   cursor: pointer;
-  
 `
 
 const LeftIcon = styled.span`
@@ -86,28 +81,21 @@ const LeftIcon = styled.span`
 `
 
 const RightIcon = styled.span`
-  width: 2.4rem;
   cursor: pointer;
 `
 
-
-// const displayToggle = (url) =>  {
-//   return css`
-//     display: ${
-//       url === '/signup' || 'login'
-//       ? 'none'
-//       : null
-//     };
-//   `;
-// };
-
-
-
 const StSpan = styled.span` 
-  min-width: fit-content;
+  min-width: 4rem;
+  color: ${colors.info};
   font-size: ${fonts.caption};
   font-weight: ${fontWeight.bold};
   line-height: ${lineHeights.caption};
-  display: ${(props) => props.isUrl==='/sign'||'login'?'none':'flex'};
-  cursor: pointer;
+  ${(props) => 
+    props.isUrl === '/login' ? css`display: none;` 
+    : props.isUrl === '/signup' ? css`display: none;` 
+    : props.isUrl === '/signup/email' ? css`display: none;` 
+    : props.isUrl === '/emailconfirm' ? css`display: none;` 
+    : props.isUrl === '/signup/detail' ? css`display: none;` 
+    : css`display: flex;`}
 `
+

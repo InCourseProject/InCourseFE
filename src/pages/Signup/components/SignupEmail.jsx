@@ -75,7 +75,8 @@ const SignupEmail = () => {
             size='default'
             variant='input'
           />
-          <ErrTxt>이미 가입된 이메일입니다.</ErrTxt>
+          
+          {/* <ErrTxt style={`${!signup.email || 8 < signup.email.length < 20 ? {display:'none'}:null}`}>이미 가입된 이메일입니다.</ErrTxt> */}
           <Input 
             onChange={onChangeHandler} 
             placeholder='Password' 

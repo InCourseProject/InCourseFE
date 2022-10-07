@@ -15,54 +15,49 @@ const Signup = () => {
   const navigate = useNavigate();
 
 
-    return (
-      <StWrap>
-          <HeaderBar/>
-          <Container>
-          <Title>
-            <Sth1>인코스</Sth1>
-            <Sth3>인싸들의 데이트, 친목, 모임 코스</Sth3>
-          </Title>
 
-            <BtnWrap>
-              <Btn
-              onClick={() => { window.location.href = NAVER_REST_AUTH_URL }}
+  return (
+    <StWrap>
+        <HeaderBar/>
+        <Container>
+        <Title>
+          <Sth1>인코스</Sth1>
+          <Sth3>인싸들의 데이트, 친목, 모임 코스</Sth3>
+        </Title>
+
+          <BtnWrap>
+            <Btn
+            onClick={() => { window.location.href = NAVER_REST_AUTH_URL }}
+            size='default'
+            variant='naver'
+            >
+              <StNImg src={naverlogo} alt="naverLogo"
+              />
+              네이버로 회원가입
+              <NaverLogin />
+            </Btn>
+
+            <Btn 
+              onClick={() => {window.location.href = KAKAO_AUTH_URL}}
               size='default'
-              variant='naver'
+              variant='kakao'
               >
-                <StImg src={naverlogo} alt="naverLogo"
-                  css={css`
-                    height: 500%;
-                    :hover{
-                      background-color: red;
-                    }
-                  `}
-                />
-                네이버로 회원가입
-                <NaverLogin />
-              </Btn>
+              <StImg src={kakaologo} alt="kakoLogo"/>
+              카카오톡으로 회원가입
+            </Btn>
 
-              <Btn 
-                onClick={() => {window.location.href = KAKAO_AUTH_URL}}
-                size='default'
-                variant='kakao'
-                >
-                <StImg src={kakaologo} alt="kakoLogo"/>
-                카카오톡으로 회원가입
-              </Btn>
-
-              <Btn 
-                onClick={() => navigate('./email')}
-                size='default'
-                variant='line'
-                >
-                이메일로 회원가입
-              </Btn>
-            </BtnWrap>
-            
-          </Container>
-      </StWrap>
-    );
+            <Btn 
+              onClick={() => navigate('./email')}
+              size='default'
+              variant='line'
+              >
+              이메일로 회원가입
+            </Btn>
+          </BtnWrap>
+          
+        </Container>
+    </StWrap>
+  );
 };
 
 export default Signup;
@@ -110,6 +105,11 @@ const BtnWrap = styled.div`
 `
 
 const StImg = styled.img`
-  height: 100%;
-  margin-right: 10px
+  width: 7%;
+  margin-right: 10px;
+`
+
+const StNImg = styled.img`
+  width: 12%;
+  margin-right: 8px
 `

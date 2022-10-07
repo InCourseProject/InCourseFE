@@ -9,9 +9,13 @@ import axios from 'axios';
 import MyPageLogout from './components/MyPageLogout';
 import Btn from '../../components/Button';
 import NaviBar from '../../components/layout/NaviBar';
+import HeaderBar from '../../components/layout/HeaderBar';
+
+
 
 const MyPage = () => {
   const navigate = useNavigate();
+
   const accessToken = localStorage.getItem('Authorization'); //accessToken
   const refreshToken = localStorage.getItem('RefreshToken'); //refreshToken
   
@@ -67,30 +71,45 @@ const MyPage = () => {
   },[]);
   //----------- axios get -----------//
   
+  const styles = {
+    icon: {
+      width: '1.6rem',
+      color: `${colors.danger}`
+    },
+    btnFill: {
+      marginBottom: '-4.47rem' 
+    },
+    btnLine: {
+      marginBottom: '-7.27rem' 
+    }
+  };
+
   return (
     <div>
       <StDiv>
+        <HeaderBar/>
         <ProfileContainer>
           {
-            info.image === null || ''
+            info.image === null || '' || undefined
               ? <DefaultProfileImg>
                 <UserCircleIcon alt='default profile Image' />
               </DefaultProfileImg>
               : <ProfileImg src={`${info.image}`} alt='profile Image' />
           }
-          <div>유저 닉네임</div>
+          <UserNickname>{info.nickname}</UserNickname>
         </ProfileContainer>
         <span>나의 인싸력</span>
         <span>내가 받은 좋아요</span>
         <span>핵인싸 뱃지</span>
         <div>
-        <HeartIcon/>
+        <HeartIcon style={{...styles['icon']}}/>
         <span>100</span>
         </div>
         <Btn 
           onClick={() => clickMyprofile()}
           size='default'
           variant='main'
+          style={{...styles['btnFill']}}
         >
           프로필 보기
         </Btn>
@@ -98,6 +117,7 @@ const MyPage = () => {
         <Btn
           size='default'
           variant='line'
+          style={{...styles['btnLine']}}
         >
           내가 작성한 게시물
         </Btn> 
@@ -117,14 +137,19 @@ const MyPage = () => {
 export default MyPage;
 
 const StDiv = styled.div`
-  width: 50%;
-  margin: auto;
+  width: 100%;
+  margin: 0px auto;
+  margin-bottom: 20rem;
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
+  
 `
 
 const ProfileContainer = styled.div`
   width: 100;
+  margin-top: 5.4rem;
   position: relative;
   /* background-color: ${colors.primary}; */
   ::after{
@@ -132,6 +157,14 @@ const ProfileContainer = styled.div`
     display: block;
     padding-bottom: 100%;
   }
+`
+
+const UserNickname = styled.div`
+  
+  color: ${colors.secondary};
+  font-size: ${fonts.headLine};
+  font-weight: ${fontWeight.exrtaBold};
+  line-height: ${lineHeights.headLine};
 `
 
 const DefaultProfileImg = styled.div`

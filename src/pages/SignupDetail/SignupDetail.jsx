@@ -44,7 +44,7 @@ const SignupDetail = () => {
 
       if(res.status === 200 || 201) {
         window.alert(res.data.message)
-        navigate('/')
+        navigate('/login')
       }
     }
     catch(err){
@@ -82,7 +82,7 @@ const SignupDetail = () => {
             size='default'
             variant='input'
           />
-          <Later onClick={() => navigate('/')}>다음에 입력</Later>
+          <Later onClick={() => navigate('/login')}>다음에 입력</Later>
           <Btn
             onClick={submitHandler}
             type='button'

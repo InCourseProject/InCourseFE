@@ -19,8 +19,8 @@ const sizeStyles = {
     fontSize: fonts.caption,
     fontWeight: fontWeight.light,
     lineHeight: lineHeights.caption,
-    // Width: 'fit-content',
-    padding: `5px 24px`,
+    width: '121px',
+    height: '28px',
     borderRadius: `18px`,
   },
 };
@@ -61,6 +61,10 @@ const variants = {
   kakao: {
     color: colors.deepGray,
     backgroundColor: colors.kakao,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    
     '&:active,&:focus,&:hover': {
       backgroundColor: `#f0d800`,
     }
@@ -68,11 +72,16 @@ const variants = {
   naver: {
     color: colors.deepGray,
     backgroundColor: colors.naver,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+
     '&:active,&:focus,&:hover': {
       backgroundColor: `#03bc55`,
     }
   },
 };
+
 /*------------- 버튼 CSS 값 -------------*/
 
 /**
@@ -81,7 +90,7 @@ const variants = {
  * @param {string} variant 'main' | 'input' | 'line'
  * @param {*} disabled <option> disalbed
  */
-const Btn = ({disabled, size, variant, children, onClick, value, className}) => {
+const Btn = ({disabled, size, variant, children, onClick, value, className, style, css}) => {
 
   return (
     <StyledButton 
@@ -92,8 +101,9 @@ const Btn = ({disabled, size, variant, children, onClick, value, className}) => 
       css={{
         ...sizeStyles[size],
         ...variants[variant],
-        // css
+        css
       }}
+      style={style}
     >
       {children}
     </StyledButton>
@@ -111,12 +121,12 @@ const StyledButton = styled.button`
   width: 100%;
   max-width: 330px;
   height: 59px;
-/* 
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-   */
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+
+
 
   /* defalut size */
   /* font-size: 1rem;
@@ -135,7 +145,10 @@ const StyledButton = styled.button`
       cursor: default;
       color: ${colors.white};
       opacity: 0.5;
-      background: ${colors.primary}
+      background: ${colors.primary};
+      :hover{
+        background: ${colors.primary};
+      }
       
   }
   `;

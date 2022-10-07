@@ -13,7 +13,7 @@ import MyPageEdit from "../pages/MyPageEdit/MyPageEdit";
 import SignupEmail from "../pages/Signup/components/SignupEmail";
 import SignupDetail from "../pages/SignupDetail/SignupDetail";
 import KakaoLogin from "../pages/Login/components/KakaoLogin";
-import NaverLogin from "../pages/Login/components/NaverLogin";
+import Search from "../pages/Search/Search";
 import EmailConfrim from "../pages/SignupDetail/components/EmailConfirm";
 import Loading from "../pages/Loading/Loading";
 
@@ -40,6 +40,7 @@ const Router = () => {
         <Route path="kakao" exact element={<KakaoLogin />} />
         {/* <Route path="naver" exact element={<NaverLogin />} /> */}
         <Route path="emailconfirm" exact element={<EmailConfrim />} />
+        <Route path="Search" exact element={<Search />} />
       </Routes>
     </BrowserRouter>
   );

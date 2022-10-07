@@ -1,35 +1,76 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { colors, fonts, fontWeight, lineHeights } from '../../lib/constants/GlobalStyle'
 import { HomeIcon, PlusCircleIcon, MagnifyingGlassIcon, UserIcon } from '@heroicons/react/24/solid'
 // import { HomeIcon, PlusCircleIcon, MagnifyingGlassIcon, UserIcon } from '@heroicons/react/24/outline'
 
 const NaviBar = () => {
+  const accessToken = localStorage.getItem('Authorization'); //accesstoken 
+  const refreshToken = localStorage.getItem('RefreshToken') //refreshToken
   const navigate = useNavigate();
+  const location = useLocation();
+  const url = location.pathname
   const iconStyle = {
     bottom: {
       width: '2.4rem',
       cursor: 'pointer',
-    }
+    },
+    selHome: {
+      color: `${ url === '/'
+      ? `${colors.secondary}` 
+      : null}`
+    },
+    selPlus: {
+      color: `${ url === '/category'
+      ? `${colors.secondary}` 
+      : null}`
+    },
+    selSearch: {
+      color: `${ url === '/search'
+      ? `${colors.secondary}` 
+      : null}`
+    },
+    selMypage: {
+      color: `${ url === '/mypage'
+      ? `${colors.secondary}` 
+      : null}`
+    },
   }
+
+  
 
   return (
     <BarContainer>
-      <MenuContainer onClick={() => navigate('/')}>
+      <MenuContainer 
+        onClick={() => navigate('/')}
+        style={{...iconStyle['selHome']}}
+      >
         <HomeIcon style={{...iconStyle['bottom']}} alt="Move to Home"/>
         <MenuTxt>Home</MenuTxt>
       </MenuContainer>
-      <MenuContainer onClick={() => navigate('/category')}>
+      <MenuContainer 
+        onClick={() => navigate('/category')}
+        style={{...iconStyle['selPlus']}}
+      >
         <PlusCircleIcon style={{...iconStyle['bottom']}} alt="Add My Incourse"/>
         <MenuTxt>My Incourse</MenuTxt>
       </MenuContainer>
-      <MenuContainer onClick={() => navigate('/search')}>
+      <MenuContainer 
+        onClick={() => navigate('/search')}
+        style={{...iconStyle['selSearch']}}
+      >
         <MagnifyingGlassIcon style={{...iconStyle['bottom']}} alt="Search Cousres"/>
         <MenuTxt>Search</MenuTxt>
       </MenuContainer>
-      <MenuContainer onClick={() => navigate('/mypage')}>
+      <MenuContainer 
+        onClick={() => accessToken&&refreshToken
+          ? navigate('/mypage')
+          :navigate('/login')
+        }
+        style={{...iconStyle['selMypage']}}
+      >
         <UserIcon style={{...iconStyle['bottom']}} alt="My page"/>
         <MenuTxt>My page</MenuTxt>
       </MenuContainer>
