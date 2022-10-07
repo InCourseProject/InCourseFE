@@ -8,33 +8,29 @@ import { HomeIcon, PlusCircleIcon, MagnifyingGlassIcon, UserIcon } from '@heroic
 
 const NaviBar = () => {
   const navigate = useNavigate();
-  const iconStyle = css({
-    color: `${colors.white}`,
-    width: '2.4rem',
-    cursor: 'pointer',
-  })
-    // color: ${colors.white};
-    // width: 2.4rem;
-    // cursor: pointer;
-  
+  const iconStyle = {
+    bottom: {
+      width: '2.4rem',
+      cursor: 'pointer',
+    }
+  }
+
   return (
     <BarContainer>
       <MenuContainer onClick={() => navigate('/')}>
-        <HomeIcon css={iconStyle} alt="Move to Home"/>
+        <HomeIcon style={{...iconStyle['bottom']}} alt="Move to Home"/>
         <MenuTxt>Home</MenuTxt>
       </MenuContainer>
-      <MenuContainer onClick={() => navigate('/form')}>
-        <PlusCircleIcon css={{
-          width: "2.4rem"
-        }} alt="Add My Incourse"/>
+      <MenuContainer onClick={() => navigate('/category')}>
+        <PlusCircleIcon style={{...iconStyle['bottom']}} alt="Add My Incourse"/>
         <MenuTxt>My Incourse</MenuTxt>
       </MenuContainer>
-      <MenuContainer onClick={() => navigate('/')}>
-        <MagnifyingGlassIcon alt="Search Cousres"/>
+      <MenuContainer onClick={() => navigate('/search')}>
+        <MagnifyingGlassIcon style={{...iconStyle['bottom']}} alt="Search Cousres"/>
         <MenuTxt>Search</MenuTxt>
       </MenuContainer>
       <MenuContainer onClick={() => navigate('/mypage')}>
-        <UserIcon alt="My page"/>
+        <UserIcon style={{...iconStyle['bottom']}} alt="My page"/>
         <MenuTxt>My page</MenuTxt>
       </MenuContainer>
     </BarContainer>
@@ -45,12 +41,22 @@ export default NaviBar;
 
 const BarContainer = styled.div`
   width: 100%;
+  height: 80px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  border-top: 0.5px solid #F1F1F1;
+
   color: ${colors.white};
   background-color: ${colors.primary};
+
+  filter: drop-shadow(0px -8px 20px rgba(174, 217, 252, 0.1)) drop-shadow(0px -16px 30px rgba(112, 144, 176, 0.2));
 `
 const MenuContainer = styled.div`
   width: 25%;

@@ -33,7 +33,11 @@
     "start:db": "json-server --watch db.json --port 4001",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "aws s3 sync ./build s3://incoursefe --profile=incourse-daehyun",
+    "invalidate": "aws cloudfront create-invalidation --profile=incourse-daehyun --distribution-id E1RZMFSW829L1N --paths /*",
+    "all": "yarn build && yarn deploy && yarn invalidate"
+
   },
   "eslintConfig": {
     "extends": [

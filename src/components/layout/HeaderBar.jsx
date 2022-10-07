@@ -32,7 +32,7 @@ const HeaderBar = () => {
         />
       }
       </LeftIcon>
-      {location.pathname}
+      {/* {location.pathname} */}
       <RightIcon>
         {accessToken
         ? <MagnifyingGlassIcon alt='search'
@@ -64,11 +64,20 @@ const StWrap = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 100;
+
+  backdrop-filter: blur(0.5px);
 `
 
 const LogoImg = styled.img`
   width: 2.9rem;
   cursor: pointer;
+  
 `
 
 const LeftIcon = styled.span`
@@ -94,7 +103,7 @@ const RightIcon = styled.span`
 
 
 
-const StSpan = styled.span`
+const StSpan = styled.span` 
   min-width: fit-content;
   font-size: ${fonts.caption};
   font-weight: ${fontWeight.bold};

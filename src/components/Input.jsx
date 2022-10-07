@@ -56,7 +56,7 @@ const variants = {
  * @param {string} variant 'input' | 'line'
  * @param {*} disabled <option> disalbed
  */
-const Input = ({onChange, placeholder, type, name, size, variant, minLenth, maxLength, value}) => {
+const Input = ({onChange, placeholder, type, name, size, variant, minLenth, maxLength, value, clasName}) => {
   return (
     <StInput
       onChange={onChange}
@@ -66,6 +66,7 @@ const Input = ({onChange, placeholder, type, name, size, variant, minLenth, maxL
       minLength={minLenth}
       maxLength={maxLength}
       value={value}
+      className={clasName}
       css={{
         ...sizeStyles[size],
         ...variants[variant]

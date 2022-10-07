@@ -81,13 +81,14 @@ const variants = {
  * @param {string} variant 'main' | 'input' | 'line'
  * @param {*} disabled <option> disalbed
  */
-const Btn = ({disabled, size, variant, children, onClick, value}) => {
+const Btn = ({disabled, size, variant, children, onClick, value, className}) => {
 
   return (
     <StyledButton 
       onClick={onClick}
       disabled={disabled} 
       value={value}
+      className={className}
       css={{
         ...sizeStyles[size],
         ...variants[variant],
@@ -110,12 +111,12 @@ const StyledButton = styled.button`
   width: 100%;
   max-width: 330px;
   height: 59px;
-
+/* 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  
+   */
 
   /* defalut size */
   /* font-size: 1rem;
