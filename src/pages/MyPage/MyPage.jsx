@@ -15,7 +15,7 @@ import HeaderBar from '../../components/layout/HeaderBar';
 
 const MyPage = () => {
   const navigate = useNavigate();
-
+  // dummy
   const accessToken = localStorage.getItem('Authorization'); //accessToken
   const refreshToken = localStorage.getItem('RefreshToken'); //refreshToken
   
