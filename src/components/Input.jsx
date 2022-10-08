@@ -9,19 +9,19 @@
  /*------------- 인풋 CSS 값 -------------*/
 const sizeStyles = {
   default: {
-    fontSize: fonts.body,
-    fontWeight: fontWeight.light,
-    lineHeight: lineHeights.body,
-    padding: `20px 26px`,
-    borderRadius: `15px`,
-  },
-  sm: {
-    fontSize: fonts.caption,
-    fontWeight: fontWeight.normal,
-    lineHeight: lineHeights.caption,
-    padding: `8px 12px`,
-    borderRadius: `15px`,
-  },
+      fontSize: fonts.body,
+      fontWeight: fontWeight.light,
+      lineHeight: lineHeights.body,
+      padding: `20px 26px`,
+      borderRadius: `15px`,
+    },
+    sm: {
+      fontSize: fonts.caption,
+      fontWeight: fontWeight.light,
+      lineHeight: lineHeights.caption,
+      padding: `5px 24px`,
+      borderRadius: `18px`,
+    },
 };
 
 const variants = {
@@ -56,16 +56,20 @@ const variants = {
  * @param {string} variant 'input' | 'line'
  * @param {*} disabled <option> disalbed
  */
-const Input = ({onChange, placeholder, type, name, size, variant, minLenth, maxLength, value}) => {
+const Input = ({ref, accept, onChange, placeholder, type, name, size, variant, minLenth, maxLength, value, clasName, style}) => {
   return (
     <StInput
       onChange={onChange}
       placeholder={placeholder}
       name={name}
       type={type}
+      accept={accept}
       minLength={minLenth}
       maxLength={maxLength}
       value={value}
+      className={clasName}
+      style={style}
+      ref={ref}
       css={{
         ...sizeStyles[size],
         ...variants[variant]

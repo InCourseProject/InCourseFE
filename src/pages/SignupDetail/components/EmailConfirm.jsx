@@ -43,7 +43,7 @@ const EmailConfrim = () => {
     }
     }
     catch(err) {
-      window.alert(err.response.data)
+      console.error(err);
     }
   };
 
@@ -60,7 +60,7 @@ const EmailConfrim = () => {
       }
       )
       if(res.status === 200 || 201) {
-        window.alert(res.data.message)
+        window.alert(res.data);
         navigate('/signup/detail', {
           state:{
             email: input.email
