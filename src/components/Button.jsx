@@ -23,6 +23,10 @@ const sizeStyles = {
     padding: `5px 24px`,
     borderRadius: `18px`,
   },
+  md:{
+    fontSize: fonts.subTitle,
+    lineHeights:fonts.subTitle,
+  }
 };
 
 const variants = {
@@ -111,9 +115,9 @@ const StyledButton = styled.button`
   max-width: 330px;
   height: 59px;
 
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
 
   
 
