@@ -35,6 +35,7 @@ const StContainer = styled.div`
     background-color: ${colors.lightGray};
     border-radius: 20px;
     padding: 10px;
+    margin-top: 10px;
 `
 const StCoseButton = styled.div`
     display: flex;

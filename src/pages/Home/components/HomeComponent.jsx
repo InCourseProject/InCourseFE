@@ -3,13 +3,47 @@ import { css, jsx } from '@emotion/react'
 import styled from '@emotion/styled'
 import HomeCard from './HomeCard'
 import axios from 'axios'
-import { useEffect ,useState} from 'react'
-
+import { useEffect, useState } from 'react'
+import { colors, fonts, fontWeight } from '../../../lib/constants/GlobalStyle'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import Btn from '../../../components/Button'
 const HomeComponent = () => {
+    const navigate = useNavigate()
     const [post, setPost] = useState([]);
+    const [notlog, setNotLog] = useState([]);
+    const [weather, setWeather] = useState();
+
+    const geoLocactionButton = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                var lat = position.coords.latitude, // 위도
+                    lon = position.coords.longitude; // 경도
+                setWeather({ x: lon, y: lat })
+            });
+        }
+    }
+    const notLogin = async () => {
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course/common/recommended`);
+        console.log(response.data)
+        setPost(response.data); //for realserverr
+    }
+
+    const Weather = async () => {
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/weather/open`, weather, {
+            headers: {
+                Authorization: localStorage.getItem("Authorization"),
+                RefreshToken: localStorage.getItem("RefreshToken")
+            }
+        });
+        console.log(response.data)
+        // console.log(response.data.data)
+        setPost(response.data); //for realserver
+        // setPost( response.data ); //for realserver
+    }
+
     const fetchPost = async () => {
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course`,{
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course`, {
             headers: {
                 Authorization: localStorage.getItem("Authorization"),
                 RefreshToken: localStorage.getItem("RefreshToken")
@@ -21,18 +55,24 @@ const HomeComponent = () => {
         // setPost( response.data ); //for realserver
     }
     useEffect(() => {
-        fetchPost();
+        if (localStorage.getItem("Authorization") === null) {
+            notLogin()
+        } else {
+            fetchPost();
+        }
+        geoLocactionButton();
+        Weather();
     }, []);
     return (
         <StContainer>
             <div><TitH1 >오늘의 날씨는 <br />날씨 데이터 <br />입니다.</TitH1></div>
             <StDivWrap>
                 <ul>
-                    <li>옷이 잘 머울리실거에요.</li>
+                    <li>옷이 잘 어울리실거에요.</li>
                     <li>챙길것을 챙기시는 건 어떠세요?</li>
 
                 </ul>
-                <div><button> 하루의 코스 만들러 가기 </button></div>
+                <div><Btn size='sm' onClick={()=>{navigate('/category')}} variant='main'> 하루의 코스 만들러 가기 </Btn></div>
             </StDivWrap>
             <StHomeCardWrap>
                 <h1>추천코스</h1>
@@ -56,11 +96,32 @@ const StContainer = styled.div`
 const TitH1 = styled.h1`
     width: 100%;
     text-align: center;
+    font-size: ${fonts.headLine};
+    color: ${colors.primary};
+    padding: 15px;
 `
 const StDivWrap = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 10px;
+    div{
+        width: 100%;
+        text-align: center;
+    }
+    ul{
+ width: 100%;
+    }
+    li{
+        width: 100%;
+        padding: 15px 30px;
+        border-radius: 15px;
+        border: 1px solid ${colors.lightGray};
+        font-size: ${fonts.subTitle};
+        font-weight: ${fontWeight.normal};
+        color: ${colors.deepGray};
+        margin-bottom: 10px;
+    }
 `
 const StHomeCardWrap = styled.div`
 max-width:768px;
@@ -70,4 +131,10 @@ margin: 0 auto;
     flex-direction: column;
     align-items: center;
     gap: 50px;
+    h1{
+        font-size:  ${fonts.headLine};
+        color: ${colors.deepGray};
+        margin-top: 40px;
+       
+    }
 `
