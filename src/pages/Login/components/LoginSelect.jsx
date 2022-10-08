@@ -19,7 +19,7 @@ const LoginSelect = (props) => {
               variant='naver'
             >
               <StImg src={naverlogo} alt="naverLogo"/>
-              네이버으로 로그인
+              네이버로 로그인
             </Btn>
             <NaverLogin />
           </ClickNaver>
