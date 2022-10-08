@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from '@emotion/styled'
 import difault_Img from '../../../lib/constants/img/difault_Img.png'
-import { colors, fonts } from '../../../lib/constants/GlobalStyle';
+import { colors, fonts, fontWeight } from '../../../lib/constants/GlobalStyle';
 import { useNavigate } from 'react-router-dom';
 const HomeCard = ({ post }) => {
     const navigate = useNavigate()
@@ -27,8 +27,8 @@ const HomeCard = ({ post }) => {
             <StImgWrap onClick={() => { navigate(`/post/${post.id}`) }}>
                 <StImgBox>
                     <div>
-                        <h1>{post?.title}</h1>
-                        <p>{post?.content}</p>
+                        <h1>{post.title}</h1>
+                        <p>{post.content}</p>
                     </div>
                     <StImg src={post?.image} onError={handleImgError} />
                 </StImgBox>
@@ -166,6 +166,21 @@ span{
     color: ${colors.deepGray};
     font-size: ${fonts.body};
     vertical-align: middle;
+}
+div{
+    position: absolute;
+    left: 20px;
+    bottom: 130px;
+    z-index: 100;
+    font-weight: ${fontWeight};
+    text-align: left;
+    h1{
+        font-size: ${fonts.headLine};
+        margin-bottom: 10px;
+    }
+    p{
+        font-size: ${fonts.caption};
+    }
 }
 `
 const StCoseBox = styled.div`

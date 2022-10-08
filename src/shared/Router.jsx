@@ -6,7 +6,7 @@ import Form from "../pages/Form/Form";
 import Card from "../pages/Card/Card";
 import Signup from "../pages/Signup/Signup";
 import Login from "../pages/Login/Login";
-import Category from "../pages/Category/Category";
+import Cartegory from "../pages/Category/Cartegory";
 import LoginEmail from "../pages/Login/components/LoginEmail";
 import MyPage from "../pages/MyPage/MyPage";
 import MyPageEdit from "../pages/MyPageEdit/MyPageEdit";
@@ -16,7 +16,7 @@ import KakaoLogin from "../pages/Login/components/KakaoLogin";
 import Search from "../pages/Search/Search";
 import EmailConfrim from "../pages/SignupDetail/components/EmailConfirm";
 import Loading from "../pages/Loading/Loading";
-
+import MyPagePost from "../pages/MypagePost/MyPagePost";
 
 
 const Router = () => {
@@ -27,13 +27,14 @@ const Router = () => {
         <Route path="post/:id" exact element={<Post />} />
         <Route path="form" exact element={<Form />} />
         <Route path="card" exact element={<Card />} />
-        <Route path="/category" exact element={<Category />} />
+        <Route path="/category" exact element={<Cartegory />} />
         <Route path="signup" exact element={<Signup />} />
         <Route path="signup/email" exact element={<SignupEmail />} />
         <Route path="signup/detail" exact element={<SignupDetail />} />
         <Route path="login" exact element={<Login />} />
         <Route path="login/email" exact element={<LoginEmail />} />
         <Route path="mypage" exact element={<MyPage />} />
+        <Route path="mypostpage" exact element={<MyPagePost />} />
         <Route path="mypage/edit" exact element={<MyPageEdit />} />
         <Route path='*' element={<div>404 Not Found</div>} />
         <Route path='loading' exact element={<Loading />} />

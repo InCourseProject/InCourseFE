@@ -9,8 +9,11 @@ import { useNavigate } from 'react-router-dom';
 import default_Img from '../../../lib/constants/img/difault_Img.png'
 import "slick-carousel/slick/slick-theme.css";
 import { useState, useEffect } from 'react';
+import Input from '../../../components/Input';
 import { useSelector, useDispatch } from "react-redux";
 import { colors, fonts } from '../../../lib/constants/GlobalStyle';
+import Btn from '../../../components/Button';
+
 const FormComponent = () => {
     const { kakao } = window;
     const navigate = useNavigate();
@@ -23,20 +26,6 @@ const FormComponent = () => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
 
-    // const onChangeImg = (e) => {
-    //     // console.log(e.target.files)
-    //     setImageUrl(e.target.files);
-    //     setFileImage(URL.createObjectURL(e.target.files[0]));
-    // };
-    const onChangeImg = (e) => {
-        setImageUrl(e.target.files);
-        const imgFiles = [...fileImage];
-        for (let i = 0; i < setImageUrl.length; i++) {
-          const nowImageUrl = URL.createObjectURL(e.target.files[i]);
-          imgFiles.push(nowImageUrl);
-        }
-        setFileImage(imgFiles);
-      };
     const handleImgError = (e) => {
         e.target.src = default_Img;
     }
@@ -67,22 +56,11 @@ const FormComponent = () => {
         setContent(con);
     };
 
-    const handleFileOnChange = (e) => {
-        setImageUrl(e.target.files[0]);
-        setFileImage(URL.createObjectURL(e.target.files[0]));
-        let reader = new FileReader();
-        reader.onload = () => {
-            console.log('성공')
-        }
-        reader.readAsText(imageUrl)
-
-    }
     console.log(imageUrl)
     const onSubmitHandler = () => {
         localStorage.setItem("img", fileImage);
         localStorage.setItem("title", title);
         localStorage.setItem("content", content);
-        localStorage.setItem("imageUrl", imageUrl);
         navigate("/card")
     }
     // console.log(JSON.stringify(imageUrl))
@@ -118,15 +96,13 @@ const FormComponent = () => {
     console.log(data)
     const onAddPosttButtonHandler = async () => {
         const byteString = atob(imageUrl.split(",")[1]);
-
-        // Blob를 구성하기 위한 준비, 이 내용은 저도 잘 이해가 안가서 기술하지 않았습니다.
         const ab = new ArrayBuffer(byteString.length);
         const ia = new Uint8Array(ab);
         for (let i = 0; i < byteString.length; i++) {
-          ia[i] = byteString.charCodeAt(i);
+            ia[i] = byteString.charCodeAt(i);
         }
         const blob = new Blob([ia], {
-          type: "image/jpeg"
+            type: "image/jpeg"
         });
         const file = new File([blob], "image.jpg");
         let json = JSON.stringify(data);
@@ -143,13 +119,15 @@ const FormComponent = () => {
                 Authorization: localStorage.getItem("Authorization"),
                 RefreshToken: localStorage.getItem("RefreshToken")
             }
+            
         });
-
-        localStorage.setItem("img", "");
-        localStorage.setItem("title", "");
-        localStorage.setItem("content", "");
-        localStorage.setItem("imageUrl", "");
-        return res.data;
+       
+        return res.data,
+        localStorage.removeItem("title"),
+        localStorage.removeItem("content"),
+        localStorage.removeItem("img"),
+        localStorage.removeItem["fileBase64"],
+        navigate("/")
     };
     return (
         <div>
@@ -162,14 +140,24 @@ const FormComponent = () => {
                                 lat: 37.566826,
                                 lng: 126.9786567,
                             }}
-                            style={{ width: "100%", height: "360px", objectFit: "cover" }}
+                            style={{
+                                width: "100%",
+                                height: "360px",
+                                objectFit: "cover"
+                            }}
                             level={11}
                         >
                             {position.map((mak) =>
                             (<MapMarker
                                 key={`markers-${mak.coordinateX},${mak.coordinateY}`}
-                                position={{ lat: mak.coordinateX, lng: mak.coordinateY }}>
-                                <div style={{ color: "#000" }}>{mak.placeName}</div>
+                                position={{
+                                    lat: mak.coordinateX,
+                                    lng: mak.coordinateY
+                                }}>
+                                <div style={{
+                                    color: "#000"
+                                }}
+                                >{mak.placeName}</div>
                             </MapMarker>)
                             )}
                             <Polyline
@@ -191,7 +179,8 @@ const FormComponent = () => {
                     <StImgWrap>
                         <StImgBox>
                             <span>이미지를 추가 해 주세요.</span>
-                            <StImg src={fileImage == null ? default_Img : fileImage} onError={handleImgError} />
+                            <StImg src={fileImage == null ? default_Img : fileImage}
+                                onError={handleImgError} />
                         </StImgBox>
                         <StSlideBox >
                             <Slider {...settings}  >
@@ -200,32 +189,40 @@ const FormComponent = () => {
                                         <h3>{cose.placeName}</h3>
                                     </StCoseBox>
                                 ))}
-                                <StCoseBox >
-                                    <h3>sdfdsf</h3>
-                                </StCoseBox>
-                                <StCoseBox >
-                                    <h3>sdfdsf</h3>
-                                </StCoseBox>
-                                <StCoseBox >
-                                    <h3>sdfdsf</h3>
-                                </StCoseBox>
                             </Slider>
                         </StSlideBox>
 
                     </StImgWrap>
                     <StFormBox >
-                        <div><label className='upload' htmlFor="file">이미지 업로드하기</label><input
-                            type="file"
-                            name="imageUrl"
-                            className="imginput"
-                            id='file'
-                            accept="image/*" // accept속성은 서버로 업로드할 수 있는 파일의 타입을 명시, input type="file" 에서만 사용가능
-                            // onChange={showFileImage}
-                            onChange={imageUpload}
-                        />
+                        <div><label
+                            className='upload'
+                            htmlFor="file">이미지 업로드하기
+                        </label>
+                            <input
+                                type="file"
+                                name="imageUrl"
+                                className="imginput"
+                                id='file'
+                                accept="image/*" // accept속성은 서버로 업로드할 수 있는 파일의 타입을 명시, input type="file" 에서만 사용가능
+                                // onChange={showFileImage}
+                                onChange={imageUpload}
+                            />
 
-                            <input className='content' placeholder='게시글 타이틀' value={title || ""} onChange={onChangeTitleHandler} type="text" />
-                            <textarea className='content desc' placeholder='게시글 내용' value={content || ""} onChange={onChangeContentHandler} type="" />
+                            <input
+                                className='content'
+                                placeholder='게시글 타이틀'
+                                value={title || ""}
+                                onChange={onChangeTitleHandler}
+                                type="text"
+                                variant='line'
+                            />
+                            <textarea
+                                className='content desc'
+                                placeholder='게시글 내용'
+                                value={content || ""}
+                                onChange={onChangeContentHandler}
+                                type=""
+                            />
                         </div>
                         <div>
                             {position.map((cose) =>
@@ -234,9 +231,19 @@ const FormComponent = () => {
 
                         </div>
                         <StButtonBox>
-                            <button type='button' onClick={onSubmitHandler}>카드작성</button>
+                            <Btn
+                                type='button'
+                                onClick={onSubmitHandler}
+                                size='sm'
+                            >
+                                카드작성
+                            </Btn>
+                            <Btn
+                            size='md'
+                            type='button'
+                            onClick={onAddPosttButtonHandler}>게시물작성</Btn>
                         </StButtonBox>
-                        <button type='button' onClick={onAddPosttButtonHandler}>게시물작성</button>
+                        
                     </StFormBox>
 
                 </Test2>
@@ -355,7 +362,7 @@ const StMapWrap = styled.div`
     top: 0;
     z-index: 1;
 `
-const StFormBox = styled.form`
+const StFormBox = styled.div`
     width: 100%;
     padding: 15px;
     textarea{
@@ -363,7 +370,6 @@ const StFormBox = styled.form`
         height: 12rem;
         border: none;
         resize: none;
-        
     }
     input{display:inline-block;
     width: 100%;

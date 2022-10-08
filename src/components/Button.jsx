@@ -23,6 +23,10 @@ const sizeStyles = {
     height: '28px',
     borderRadius: `18px`,
   },
+  md:{
+    fontSize: fonts.subTitle,
+    lineHeights:fonts.subTitle,
+  }
 };
 
 const variants = {
@@ -125,8 +129,6 @@ const StyledButton = styled.button`
   /* display: flex;
   align-items: center;
   justify-content: center; */
-
-
 
   /* defalut size */
   /* font-size: 1rem;
