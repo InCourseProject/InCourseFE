@@ -61,7 +61,6 @@ const FormComponent = () => {
         localStorage.setItem("img", fileImage);
         localStorage.setItem("title", title);
         localStorage.setItem("content", content);
-        localStorage.setItem("imageUrl", imageUrl);
         navigate("/card")
     }
     // console.log(JSON.stringify(imageUrl))
@@ -120,11 +119,15 @@ const FormComponent = () => {
                 Authorization: localStorage.getItem("Authorization"),
                 RefreshToken: localStorage.getItem("RefreshToken")
             }
+            
         });
-
-        localStorage.clear("img");
-        navigate("/category")
-        return res.data;
+       
+        return res.data,
+        localStorage.removeItem("title"),
+        localStorage.removeItem("content"),
+        localStorage.removeItem("img"),
+        localStorage.removeItem["fileBase64"],
+        navigate("/")
     };
     return (
         <div>
@@ -359,7 +362,7 @@ const StMapWrap = styled.div`
     top: 0;
     z-index: 1;
 `
-const StFormBox = styled.form`
+const StFormBox = styled.div`
     width: 100%;
     padding: 15px;
     textarea{
