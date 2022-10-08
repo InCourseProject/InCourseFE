@@ -90,7 +90,11 @@ const MyPage = () => {
         <HeaderBar/>
         <ProfileContainer>
           {
-            info.image === null || '' || undefined
+            info.image === null
+              ? <DefaultProfileImg>
+                <UserCircleIcon alt='default profile Image' />
+              </DefaultProfileImg>
+              :info.image === ''
               ? <DefaultProfileImg>
                 <UserCircleIcon alt='default profile Image' />
               </DefaultProfileImg>
@@ -98,13 +102,18 @@ const MyPage = () => {
           }
           <UserNickname>{info.nickname}</UserNickname>
         </ProfileContainer>
-        <span>나의 인싸력</span>
-        <span>내가 받은 좋아요</span>
-        <span>핵인싸 뱃지</span>
-        <div>
-        <HeartIcon style={{...styles['icon']}}/>
-        <span>100</span>
-        </div>
+        <InfluWrap style={{marginBottom:'0.8rem'}}>
+          <Influ>나의 인싸력</Influ>
+          <InfluBadge style={{transform:'translateX(1.2rem)'}}>핵인싸</InfluBadge>
+        </InfluWrap>
+        <InfluWrap>
+          <Influ>내가 받은 좋아요</Influ>
+            <LikeCount>
+            <HeartIcon style={{...styles['icon']}}/>
+            <span>100</span>
+            </LikeCount>
+        </InfluWrap>
+        
         <Btn 
           onClick={() => clickMyprofile()}
           size='default'
@@ -138,6 +147,8 @@ export default MyPage;
 
 const StDiv = styled.div`
   width: 100%;
+  max-width: 36rem;
+  padding: 0px 15px;
   margin: 0px auto;
   margin-bottom: 20rem;
   display: flex;
@@ -148,19 +159,20 @@ const StDiv = styled.div`
 `
 
 const ProfileContainer = styled.div`
-  width: 100;
+  width: 100%;
   margin-top: 5.4rem;
   position: relative;
-  /* background-color: ${colors.primary}; */
+  /* background-color: ${colors.caution}; */
   ::after{
     content: '';
     display: block;
-    padding-bottom: 100%;
+    padding-bottom: 2rem;
   }
 `
 
 const UserNickname = styled.div`
-  
+  max-width: 33rem;
+  text-align: center;
   color: ${colors.secondary};
   font-size: ${fonts.headLine};
   font-weight: ${fontWeight.exrtaBold};
@@ -168,11 +180,49 @@ const UserNickname = styled.div`
 `
 
 const DefaultProfileImg = styled.div`
-  width: 20%;
+  width: 14.8rem;
+  margin: 0 auto;
   color: ${colors.primary};
 `
 
 const ProfileImg = styled.img`
-  width: 50%;
-  `
+  width: 12rem;
+  display: flex;
+  margin: 0 auto;
+  margin-bottom: 1.3rem;
+  justify-content: center;
+  align-items: center;
+  border: 0.5px solid ${colors.lightGray};
+  border-radius: 100%;
+`
 
+const InfluWrap = styled.div`
+  width: 100%;
+  padding: 0rem 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
+const Influ = styled.span`
+  color: ${colors.black};
+  font-size: ${fonts.body};
+  font-weight: ${fontWeight.bold};
+  line-height: ${lineHeights.body};
+  
+`
+
+const InfluBadge = styled.span`
+  color: ${colors.info};
+  padding: 2px 10px;
+  font-size: ${fonts.caption};
+  font-weight: ${fontWeight.bold};
+  line-height: ${lineHeights.caption};
+  border: 1px solid ${colors.info};
+  border-radius: 18px;
+`
+
+const LikeCount = styled.div`
+  display: flex;
+  align-items: center;
+`
