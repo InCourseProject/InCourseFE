@@ -25,13 +25,13 @@ width: 100%;
     cursor: pointer;
     height: 24px;
     width: 100%;
-    line-height: 24px;
+    padding: 5px;
     border-radius: 15px;
     text-align: center;
     transition: all 0.4s;
     font-weight:bold;
     background-color: ${colors.primary};
-    color: #333;
+    color: ${colors.white};
     font-size:13px;
     }
     
