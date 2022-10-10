@@ -65,11 +65,11 @@ const HomeComponent = () => {
     }, []);
     return (
         <StContainer>
-            <div><TitH1 >오늘의 날씨는 <br />날씨 데이터 <br />입니다.</TitH1></div>
+            <div><TitH1 >오늘의 날씨는 <br /> 매우 맑음 <br />입니다.</TitH1></div>
             <StDivWrap>
                 <ul>
-                    <li>옷이 잘 어울리실거에요.</li>
-                    <li>챙길것을 챙기시는 건 어떠세요?</li>
+                    <li>오늘은 긴팔 티, 면 바지  어때요?</li>
+                    <li>시원한 생수 챙겨가시면 좋아요!</li>
 
                 </ul>
                 <div><Btn size='sm' onClick={()=>{navigate('/category')}} variant='main'> 하루의 코스 만들러 가기 </Btn></div>
