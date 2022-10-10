@@ -144,7 +144,6 @@ const StImg = styled.img`
     height: 100%;
     
     object-fit: cover;
-    
 `
 const StImgWrap = styled.div`
     position: relative;
@@ -172,13 +171,16 @@ div{
     left: 20px;
     bottom: 130px;
     z-index: 100;
+    color: ${colors.white};
     font-weight: ${fontWeight};
     text-align: left;
     h1{
+        color: ${colors.white};
         font-size: ${fonts.headLine};
         margin-bottom: 10px;
     }
     p{
+        color: ${colors.white};
         font-size: ${fonts.caption};
     }
 }

@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
-import Btn from "../../../components/Button";
 import { colors, fonts, fontWeight, lineHeights } from "../../../lib/constants/GlobalStyle";
 
 

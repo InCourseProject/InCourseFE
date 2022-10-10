@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { colors } from '../../../lib/constants/GlobalStyle'
+import PostHeart from './PostHeart'
+
 const PostCard = ({card}) => {
   return (
     <StContainer key={card.id}>

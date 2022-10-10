@@ -1,16 +1,18 @@
 import React from "react";
 import styled from "@emotion/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Map, MapMarker ,Polyline} from 'react-kakao-maps-sdk';
 import PlusList from "../../asset/ModalPractice";
 import PostCard from "./components/PostCard";
-import { useParams } from "react-router-dom";
 import { useEffect, useState, useRef, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { _getDetail } from "../../redux/modules/homeSilce";
 import HomeCard from "../Home/components/HomeCard";
 import { colors } from "../../lib/constants/GlobalStyle";
+import PostHeart from "./components/PostHeart";
+import HeaderBar from "../../components/layout/HeaderBar";
+import NaviBar from "../../components/layout/NaviBar";
 const Post = () => {
   const init = 
     {
@@ -26,6 +28,7 @@ const Post = () => {
   const [info, setInfo] = useState();
   const { id } = useParams();
   const [post, setPost] = useState(init);
+  
 
 
 
@@ -63,6 +66,7 @@ const Post = () => {
   }, [post]);
   return (
     <div>
+      <HeaderBar/>
       <Map // 로드뷰를 표시할 Container
         center={{
           lat: 37.566826,
@@ -93,6 +97,12 @@ const Post = () => {
       {post.place.map((card) =>
         <PostCard key={card.id} card={card} />
       )}
+
+      <PostHeart
+        id={post.id}
+        heart={post.heart}
+      />
+      <NaviBar/>
 
     </div>
   );
