@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 // import { getCookie } from "../../shared/cookie";
 import axios from "axios";
 
+const accessToken = localStorage.getItem('Authorization'); //accessToken
+const refreshToken = localStorage.getItem('RefreshToken'); //refreshToken
 const initialState = {
     form: {
         postRequestDto:{},
@@ -16,7 +18,7 @@ export const _getPost = createAsyncThunk(
     "post/getPost",
     async(payload, thunkApI) => {
         try {
-            const data = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course`,{
+            const data = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course/${payload}`,{
                 headers: {
                     Authorization: localStorage.getItem("Authorization"),
                     RefreshToken: localStorage.getItem("RefreshToken")
@@ -57,29 +59,53 @@ export const _getPost = createAsyncThunk(
 //         }
 //     }
 // )
-// export const _deletePost = createAsyncThunk(
-//     "post/deDate",
-//     async (payload, thunkAPI) => {
-//         console.log(payload)
-//         try{
-//             const data = await axios.delete(
+export const _deletePost = createAsyncThunk(
+    "post/deDate",
+    async (payload, thunkAPI) => {
+        console.log(payload)
+        try{
+            const data = await axios.delete(
 
-//                 `http://54.180.31.216/api/auth/post/${payload.id}`  
-//                 ,{
-//                     headers:{
-//                         Authorization: payload.token,
-//                         RefreshToken: payload.refresh
+                `${process.env.REACT_APP_SERVER_API}/api/course/${payload.id}`,payload.coseId
+                ,{
+                    headers:{
+                        Authorization: accessToken,
+                        RefreshToken: refreshToken
 
-//                     }
-//                 }
-//             )
-//             console.log(data)
-//             return data
-//         }catch(error){
-//             return thunkAPI.rejectWithValue(error);
-//         }
-//     }
-// )
+                    }
+                }
+            )
+            console.log(data)
+            return data
+        }catch(error){
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+)
+
+export const _deleteCose = createAsyncThunk(
+    "post/deDate",
+    async (payload, thunkAPI) => {
+        console.log(payload)
+        try{
+            const data = await axios.delete(
+
+                `${process.env.REACT_APP_SERVER_API}/api/course/place/${payload}`  
+                ,{
+                    headers:{
+                        Authorization: accessToken,
+                        RefreshToken: refreshToken
+
+                    }
+                }
+            )
+            console.log(data)
+            return data
+        }catch(error){
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+)
 // export const _getLike = createAsyncThunk(
 //     "post/getPost",
 //     async(payload, thunkApI) => {
@@ -158,7 +184,7 @@ export const formSlice = createSlice({
         })
         .addCase(_getPost.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.post = action.payload;
+            state.form = action.payload;
             
         })
         .addCase(_getPost.rejected, (state, action) => {
