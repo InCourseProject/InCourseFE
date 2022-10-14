@@ -174,9 +174,12 @@ div{
     z-index: 100;
     font-weight: ${fontWeight};
     text-align: left;
+    color: ${colors.white};
     h1{
         font-size: ${fonts.headLine};
         margin-bottom: 10px;
+        color: ${colors.white};
+        
     }
     p{
         font-size: ${fonts.caption};

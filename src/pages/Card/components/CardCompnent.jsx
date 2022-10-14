@@ -221,9 +221,8 @@ const StFormInput = styled.textarea`
 `
 const StSubmitBox = styled.div`
     width: 100%;
-    position:fixed ;
-    left: 0;
-    bottom: 20px;
+   
+    
 `
 const StSubmitButton = styled.button`
     width: 100%;

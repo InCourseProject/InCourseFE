@@ -17,7 +17,7 @@ import Search from "../pages/Search/Search";
 import EmailConfrim from "../pages/SignupDetail/components/EmailConfirm";
 import Loading from "../pages/Loading/Loading";
 import MyPagePost from "../pages/MypagePost/MyPagePost";
-
+import PostUpDate from "../pages/PostUpdate/PostUpDate";
 
 const Router = () => {
   return(
@@ -25,6 +25,7 @@ const Router = () => {
       <Routes>
         <Route path="/" exact element={<Home />} />
         <Route path="post/:id" exact element={<Post />} />
+        <Route path="mypostpage/post/update/:id" exact element={<PostUpDate />} />
         <Route path="form" exact element={<Form />} />
         <Route path="card" exact element={<Card />} />
         <Route path="/category" exact element={<Cartegory />} />

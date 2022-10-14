@@ -4,19 +4,19 @@ import { useState, useEffect } from 'react';
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import logo from '../../../lib/constants/img/incourseLogo.svg'
+
 import { categorySelect } from '../../../redux/modules/formSlice';
 import { colors, fonts } from '../../../lib/constants/GlobalStyle';
 import styled from '@emotion/styled';
 import Btn from '../../../components/Button';
-const Cartegory = () => {
+const Cartegory = ({post}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [weather, setWeather] = useState();
     const [season, setSeason] = useState();
     const [region, setRegion] = useState();
     const [who, setWho] = useState();
-
+console.log(post)
     const handleSubmit = e => {
         e.preventDefault();
         const data = { weather, season, region, who, };
@@ -25,16 +25,25 @@ const Cartegory = () => {
         // localStorage.setItem("requst")
         // console.log(json);
     };
+    useEffect(()=>{
+        if(post === undefined){
+
+        }else{
+        setWeather(post.weather)
+        setSeason(post.season)
+        setRegion(post.region)
+        setWho(post.who)
+    }
+   
+    },[post])
     return (
         <div>
-            <StLogoWrap>
-                <img src={logo} alt="" />
-            </StLogoWrap>
+           
             <form onSubmit={handleSubmit}>
                 <StForm>
                     <h2>날씨를 선택 해주세요</h2>
                     <StCartegoryWrap>
-                        <BasicCheckbox namr="cartegory" label="맑음" value="맑음" checked={weather} setter={setWeather} />
+                        <BasicCheckbox namr="cartegory" label="맑음" value="맑음"  checked={weather} setter={setWeather} />
                         <BasicCheckbox namr="cartegory" label="흐림" value="흐림" checked={weather} setter={setWeather} />
                         <BasicCheckbox namr="cartegory" label="눈" value="눈" checked={weather} setter={setWeather} />
                         <BasicCheckbox namr="cartegory" label="비" value="비" checked={weather} setter={setWeather} />
@@ -102,14 +111,8 @@ const StForm = styled.div`
         font-size: ${fonts.caption};
     }
 `
-const StLogoWrap = styled.div`
-    width: 100%;
-    text-align: center;
-    padding: 60px;
-    
-`
+
 const StBtnWrap = styled.div`
     text-align: center;
-    justify-content: center;
     width: 100%;
 `
