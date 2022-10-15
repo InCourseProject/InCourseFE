@@ -186,10 +186,13 @@ div{
     color: ${colors.white};
     font-weight: ${fontWeight};
     text-align: left;
+    color: ${colors.white};
     h1{
         color: ${colors.white};
         font-size: ${fonts.headLine};
         margin-bottom: 10px;
+        color: ${colors.white};
+        
     }
     p{
         color: ${colors.white};

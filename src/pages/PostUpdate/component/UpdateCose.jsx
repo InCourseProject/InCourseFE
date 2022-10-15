@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-const CardCompnent = () => {
+const UpDateCose = ({modal,setModal,post}) => {
     const { kakao } = window;
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -23,7 +23,7 @@ const CardCompnent = () => {
     });
     const [cose, setCose] = useState();
     // console.log(cose)
-
+    console.log(modal)
     const onChangeHandler = (e) => {
         const word = e.target.value;
         setKeyword(word)
@@ -31,7 +31,7 @@ const CardCompnent = () => {
 
     const onChangeContentHandler = (e) => {
         const con = e.target.value;
-        setCose({...cose,...keywordId, content: con});
+        setCose({...cose,...keywordId, content: con,postId:post.id});
     };
 
     const geoLocactionButton = () => {
@@ -104,6 +104,7 @@ const CardCompnent = () => {
     }, [search])
 
     return (
+        <StContainer >
         <StWrap>
             <Map // 로드뷰를 표시할 Container
                 center={{
@@ -156,18 +157,28 @@ const CardCompnent = () => {
                 <StFormInput type="text" onChange={onChangeContentHandler} />
             </StForm>
             <StSubmitBox>
-                <StSubmitButton type='submit' onClick={() => (dispatch(createMarker(cose)),
-            navigate("/form")
-
+                <StSubmitButton type='button' onClick={() => (dispatch(createMarker(cose)),
+                setModal(false)
                 )}>코스등록</StSubmitButton>
             </StSubmitBox>
         </StWrap>
+        </StContainer>
     )
 }
 
-export default CardCompnent
+export default UpDateCose
+const StContainer = styled.div`
+    width: 100%;
+    margin: 0 auto;
+    position: fixed;
+    left: 0 ;
+    top: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 100;
+`
 const StWrap = styled.div`
   min-width: 280px;
+  margin-top: 50px;
 
 `
 const StSearcBox = styled.form`

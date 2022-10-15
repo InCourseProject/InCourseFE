@@ -1,5 +1,5 @@
 import React from 'react'
-import BasicCheckbox from './BasicCheckbox';
+import BasicCheckbox from '../../Category/components/BasicCheckbox';
 import { useState, useEffect } from 'react';
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { categorySelect } from '../../../redux/modules/formSlice';
 import { colors, fonts } from '../../../lib/constants/GlobalStyle';
 import styled from '@emotion/styled';
 import Btn from '../../../components/Button';
-const Cartegory = ({post}) => {
+const UpDateCartegory = ({post}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [weather, setWeather] = useState();
@@ -85,15 +85,12 @@ console.log(post)
                     </StCartegoryWrap>
 
                 </StForm>
-                <StBtnWrap>
-                    <Btn type="submit" variants='sub' size='sm' >다음</Btn>
-                </StBtnWrap>
             </form>
         </div>
     )
 }
 
-export default Cartegory
+export default UpDateCartegory
 
 const StCartegoryWrap = styled.div`
     display: flex;
