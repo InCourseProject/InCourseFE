@@ -2,19 +2,17 @@ import React from "react";
 import axios from "axios";
 import styled from "@emotion/styled";
 import Btn from "../../../components/Button";
-// import { useParams } from "react-router-dom";
 
-const PostHeart = ({id, heart}) => {
+const PostHeart = ({id, heart, size, variant}) => {
   const accessToken = localStorage.getItem('Authorization'); //accessToken
   const refreshToken = localStorage.getItem('RefreshToken'); //refreshToken
-  // const course = useParams()
-  
-  console.log('id:',id,' heart:',heart)
+  // console.log('id:',id,' heart:',heart)
 
+  //게시글 하트 서버에러 확인 필요
+  //찜하기 눌를 시 재렌더링 필요
   const heartHandler = async () => {
     try {
-      // const res = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/course/heart/${course.id}`,
-      const heart = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/course/heart/${id}`,
+      const heart = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course/heart/${id}`,
       {
         headers: {
           Authorization: `${accessToken}`,
@@ -34,7 +32,7 @@ const PostHeart = ({id, heart}) => {
 
   const disHeartHandler = async () => {
     try {
-      const disHeart = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/course/disheart/${id}`,
+      const disHeart = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course/disheart/${id}`,
       {
         headers: {
           Authorization: `${accessToken}`,
@@ -53,11 +51,21 @@ const PostHeart = ({id, heart}) => {
   };
 
   return ( 
-    <StDiv>
+    <StDiv >
       {
         heart === 0
-        ? <Btn onClick={heartHandler}>찜하기</Btn>
-        : <Btn onClick={disHeartHandler}>찜하기 취소</Btn>
+        ? <Btn 
+          onClick={heartHandler}
+          size={size} variant={variant}
+        >
+          찜하기
+        </Btn>
+        : <Btn 
+          onClick={disHeartHandler}
+          size={size} variant={variant}
+        >
+          찜하기 취소
+        </Btn>
       }
       
     </StDiv>
@@ -67,5 +75,10 @@ const PostHeart = ({id, heart}) => {
 export default PostHeart;
 
 const StDiv = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 20rem;
+  
 `

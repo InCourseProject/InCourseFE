@@ -1,18 +1,18 @@
-import React from "react";
-import styled from "@emotion/react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
+import styled from "@emotion/styled";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { Map, MapMarker ,Polyline} from 'react-kakao-maps-sdk';
 import PlusList from "../../asset/ModalPractice";
 import PostCard from "./components/PostCard";
-import { useEffect, useState, useRef, useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { _getDetail } from "../../redux/modules/homeSilce";
 import HomeCard from "../Home/components/HomeCard";
-import { colors } from "../../lib/constants/GlobalStyle";
+import { colors, fonts, fontWeight, lineHeights } from "../../lib/constants/GlobalStyle";
 import PostHeart from "./components/PostHeart";
 import HeaderBar from "../../components/layout/HeaderBar";
 import NaviBar from "../../components/layout/NaviBar";
+import Score from "./components/Score";
 const Post = () => {
   const init = 
     {
@@ -93,19 +93,50 @@ const Post = () => {
           strokeStyle={"solid"} // 선의 스타일입니다
         />
       </Map>
+
       <HomeCard key={post.id} post={post} />
+      <PostDesc>{post.content}</PostDesc>
       {post.place.map((card) =>
         <PostCard key={card.id} card={card} />
       )}
 
-      <PostHeart
-        id={post.id}
-        heart={post.heart}
-      />
+      <PostBottom>
+        <Score
+          id={post.id}
+          // score={post.avgScore}
+          />
+        <PostHeart
+          size='default'
+          variant='line'
+          id={post.id}
+          heart={post.heart}
+          />
+      </PostBottom>
       <NaviBar/>
-
     </div>
   );
 };
 
 export default Post;
+
+const PostBottom = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+const PostDesc = styled.div`
+  width: 100%;
+  max-width: 330px;
+  margin: 1.1rem 1.5rem 2.5rem 1.5rem;
+  padding: 2rem 2.35rem 6rem 2.35rem;
+  color: ${colors.deepGray};
+  font-size: ${fonts.body};
+  font-weight: ${fontWeight.normal};
+  line-height: ${lineHeights.body};
+
+  background-color: ${colors.tone};
+  border: 1px solid ${colors.lightGray};
+  border-radius: 1.5rem;
+  
+`
