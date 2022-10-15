@@ -151,12 +151,12 @@ const MyPageEdit = () => {
             onClick={fileInputBtnClick} 
             size='sm'
             variant='badge'
-            style={{marginBottom:'4.2rem'}}
+            style={{marginTop:'0.1rem', marginBottom:'4.2rem'}}
           >
             이미지 올리기
           </Btn>
 
-        <form onSubmit={editInfoHandler}>
+        <StForm onSubmit={editInfoHandler}>
           <Input 
             onChange={infoHandler} 
             placeholder={location.state.nickname} 
@@ -192,7 +192,7 @@ const MyPageEdit = () => {
           >
             프로필 수정
           </Btn>
-        </form>
+        </StForm>
       </StDiv>
       <NaviBar/>
     </div>
@@ -203,31 +203,45 @@ export default MyPageEdit;
 
 const StDiv = styled.div`
   width: 100%;
+  max-width: 36rem;
+  padding: 0px 15px;
+  margin: 0px auto;
+  margin-bottom: 20rem;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20rem;
+  flex-direction: column;
 `
 
 const ProfileContainer = styled.div`
   width: 100%;
+  margin-top: 5.4rem;
   position: relative;
-  background-color: ${colors.primary};
-  cursor: pointer;
+  /* background-color: ${colors.caution}; */
   ::after{
     content: '';
     display: block;
-    padding-bottom: 5%;
+    /* padding-bottom: 2rem; */
   }
 `
 
 const DefaultProfileImg = styled.div`
-  /* position: absolute;
-  width: 20%; */
+  width: 14.8rem;
+  margin: 0 auto;
   color: ${colors.primary};
 `
 
 const ProfileImg = styled.img`
-  width: 50%;
+  width: 12rem;
+  display: flex;
+  margin: 0 auto;
+  margin-bottom: 1.3rem;
+  justify-content: center;
+  align-items: center;
+  border: 0.5px solid ${colors.lightGray};
+  border-radius: 100%;
+`
+
+const StForm = styled.form`
+  width: 100%;
 `

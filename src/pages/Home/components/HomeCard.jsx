@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import React from 'react'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -6,6 +7,7 @@ import styled from '@emotion/styled'
 import difault_Img from '../../../lib/constants/img/difault_Img.png'
 import { colors, fonts, fontWeight } from '../../../lib/constants/GlobalStyle';
 import { useNavigate } from 'react-router-dom';
+import {HeartIcon} from '@heroicons/react/24/solid'
 const HomeCard = ({ post }) => {
     const navigate = useNavigate()
     const settings = {
@@ -28,7 +30,7 @@ const HomeCard = ({ post }) => {
                 <StImgBox>
                     <div>
                         <h1>{post.title}</h1>
-                        <p>{post.content}</p>
+                        {/* <p>{post.content}</p> */}
                     </div>
                     <StImg src={post?.image} onError={handleImgError} />
                 </StImgBox>
@@ -43,8 +45,8 @@ const HomeCard = ({ post }) => {
 
                     </Slider>
                 </StSlideBox>
-
             </StImgWrap>
+
             <StCategorys>
                 <div><p>{post.region}</p></div>
                 <div><p>{post.season}</p></div>
@@ -55,12 +57,22 @@ const HomeCard = ({ post }) => {
                 <StProfileWrap>
                     <StProfileImg>
                         <div>
-                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K" alt="" />
+                            {post.profileImage === null
+                            ? <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K" alt="" />
+                            : <img css={{width:'5.6rem'}} src={post.profileImage} alt="Profile Image" /> 
+                            }
                         </div>
                     </StProfileImg>
-                    <p>{post.member?.nickname}</p>
+                    <div>
+                        <p>{post.nickname}</p>
+                        <p>핵인싸</p>
+                    </div>
                 </StProfileWrap>
-                <div>받은 좋아요 개수{post.heart}</div>
+
+                <div>
+                    <HeartIcon css={{width:'1.6rem', marginRight:'0.2rem', color:`${colors.danger}`}}/> 
+                    {post.heart}
+                </div>
             </StProfile>
         </StContainer>
     )
@@ -78,7 +90,7 @@ const StProfile = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+    padding: 0.7rem 1.6rem;
 `
 const StProfileImg = styled.div`
     min-width: 80px;
@@ -144,7 +156,6 @@ const StImg = styled.img`
     height: 100%;
     
     object-fit: cover;
-    
 `
 const StImgWrap = styled.div`
     position: relative;
@@ -172,16 +183,19 @@ div{
     left: 20px;
     bottom: 130px;
     z-index: 100;
+    color: ${colors.white};
     font-weight: ${fontWeight};
     text-align: left;
     color: ${colors.white};
     h1{
+        color: ${colors.white};
         font-size: ${fonts.headLine};
         margin-bottom: 10px;
         color: ${colors.white};
         
     }
     p{
+        color: ${colors.white};
         font-size: ${fonts.caption};
     }
 }

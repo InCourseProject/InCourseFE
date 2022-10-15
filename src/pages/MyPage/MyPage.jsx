@@ -40,11 +40,13 @@ const MyPage = () => {
       }
       });
       
-      if (res.status = 200 || 201){
+      if (res.status === 200 || 201){
         setInfo(res.data);  
-      }
+      } 
     }catch(err){
       console.error(err.response);
+      window.alert('로그인이 필요합니다.')
+      navigate('/')
     }
 
     
@@ -155,7 +157,6 @@ const StDiv = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  
 `
 
 const ProfileContainer = styled.div`

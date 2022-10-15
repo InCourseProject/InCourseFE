@@ -33,8 +33,8 @@ const LoginSelect = (props) => {
             카카오톡으로 로그인</Btn>
           <Btn
             onClick={() => {
+              props.clickCheck(!isClick);
               setIsClick(!isClick)
-              props.clickCheck(isClick);
             }}
             size='default'
             variant='line'

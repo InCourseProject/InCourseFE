@@ -3,7 +3,6 @@
  * @read https://www.daleseo.com/emotion/
  */
 import styled from '@emotion/styled'
-import { css } from '@emotion/react'
 import { colors, fonts, fontWeight, lineHeights } from '../lib/constants/GlobalStyle'
 
 /*------------- 버튼 CSS 값 -------------*/
@@ -50,6 +49,15 @@ const variants = {
   line: {
     color: colors.deepGray,
     backgroundColor: `transparent`,
+    boxSizing: `borderBox`,
+    border: `1px solid ${colors.lightGray}`,
+    '&:active,&:focus,&:hover': {
+      backgroundColor: colors.tone,
+    }
+  },
+  lineClicked: {
+    color: colors.deepGray,
+    backgroundColor: colors.tone,
     boxSizing: `borderBox`,
     border: `1px solid ${colors.lightGray}`,
     '&:active,&:focus,&:hover': {
