@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import styled from '@emotion/styled'
 import { HeartIcon } from '@heroicons/react/24/solid'
-import { Map, MapMarker} from 'react-kakao-maps-sdk';
+import { Map, MapMarker, StaticMap } from 'react-kakao-maps-sdk';
 import { colors, fonts, fontWeight, lineHeights } from '../../../lib/constants/GlobalStyle'
 import CardHeart from './CardHeart'
 
@@ -19,7 +19,7 @@ const PostCard = ({card, i}) => {
   };
 
   const heartStyle = {
-    unClick:{
+    unClick: {
       color: colors.gray,
       '&:active,&:focus,&:hover': {
         color: colors.danger,
@@ -62,6 +62,29 @@ const PostCard = ({card, i}) => {
           <p>{card.content}</p>
         </StContents>
       </Wrap>
+      <StMaps>
+          <StaticMap // 지도를 표시할 Container
+            center={{
+              // 지도의 중심좌표
+              lat: card.coordinateX,
+              lng: card.coordinateY
+            }}
+            style={{
+              // 지도의 크기
+              width: "100%",
+              height: "100%",
+              // position:"absolute",
+              // left:"0",
+              // top:"0",
+              // zIndex:"0",
+            }}
+            marker={{
+              lat:card.coordinateX,
+              lng:card.coordinateY,
+            }}
+            level={3} // 지도의 확대 레벨
+          />
+        </StMaps>
     </StContainer>
   )
 }
@@ -70,14 +93,32 @@ export default PostCard
 
 const StContainer = styled.div`
   width: 100%;
+  height: 25rem;
+  margin: 1rem;
+  position: relative;
+ overflow: hidden;
+ border-radius: 2rem;
+ border: 1px solid ${colors.tone};
 `
-
+const StMaps = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  overflow: hidden;
+`
 const Wrap = styled.div`
-  margin: 2rem;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
   padding: 1.6rem;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.5) 100%), ${colors.lightGray};
-  border: 1px solid ${colors.tone};
-  border-radius: 2rem;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.5) 100%);
+  
 `
 
 const StHeart = styled.div`
@@ -99,6 +140,7 @@ const StTop = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  
 `
 
 const StContents = styled.div`
@@ -126,24 +168,3 @@ const StContents = styled.div`
     line-height: ${lineHeights.subTitle};
   }
 `
-
-
-// {/* <Map // 로드뷰를 표시할 Container
-//         center={{
-//           lat: card.coordinateX,
-//           lng: card.coordinateY 
-//         }}
-//         style={{
-//           width: "100%",
-//           height: "300px",
-//         }}
-//         level={2}
-//         // ref={mapRef}
-//       >
-//         <MapMarker 
-//           position={{ 
-//             lat: card.coordinateX,
-//             lng: card.coordinateY
-//           }} 
-//         />
-//       </Map> */}
