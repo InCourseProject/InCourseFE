@@ -135,7 +135,7 @@ console.log(post)
         console.log(imageUrl);
         formData.append("image", imageUrl);
         // console.log(file)
-        const res = await axios.put(`${process.env.REACT_APP_SERVER_API}/api/course`, formData, {
+        const res = await axios.put(`${process.env.REACT_APP_SERVER_API}/api/course/${post.id}`, formData, {
             headers: {
                 "content-type": "multipart/form-data",
                 Authorization: localStorage.getItem("Authorization"),

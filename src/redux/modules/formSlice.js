@@ -32,7 +32,24 @@ export const _getPost = createAsyncThunk(
     }
 );
 
-
+export const _addPost = createAsyncThunk(
+    "post/addPost",
+    async(payload, thunkApI) => {
+        try {
+            const data = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/course`,payload,{
+                headers: {
+                    "content-type": "multipart/form-data",
+                    Authorization: localStorage.getItem("Authorization"),
+                    RefreshToken: localStorage.getItem("RefreshToken")
+                }
+            });
+            console.log(data)
+            return thunkApI.fulfillWithValue(data.data)
+        }catch(error){
+            return thunkApI.rejectWithValue(error);
+        }
+    }
+);
 
 // export const _updatePost = createAsyncThunk(
 //     "post/upDate",
@@ -64,19 +81,17 @@ export const _deletePost = createAsyncThunk(
     async (payload, thunkAPI) => {
         console.log(payload)
         try{
-            const data = await axios.delete(
-
-                `${process.env.REACT_APP_SERVER_API}/api/course/${payload.id}`,payload.coseId
-                ,{
+            const datas = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/course/${payload.id}`,{
                     headers:{
+                        "content-type": "multipart/form-data",
                         Authorization: accessToken,
                         RefreshToken: refreshToken
 
-                    }
+                    },
                 }
             )
-            console.log(data)
-            return data
+            console.log(datas)
+            return datas
         }catch(error){
             return thunkAPI.rejectWithValue(error);
         }
@@ -160,23 +175,19 @@ export const formSlice = createSlice({
     }
   },
   extraReducers:  (builder) => {
-    // builder
-    //     .addCase(_deletePost.pending, (state) => {
-    //         state.isLoading = true;
+    builder
+        .addCase(_addPost.pending, (state) => {
+            state.isLoading = true;
           
-    //     })
-    //     .addCase(_deletePost.fulfilled, (state, action) => {
-    //         state.isLoading = false;
-    //         const deleteState = state.post.findIndex(post => post.id === action.payload)
-    //         state.post.slice(deleteState,1)
-    //         state.isDelete = true;
-        
-    //     })
-    //     .addCase(_deletePost.rejected, (state, action) => {
-    //         state.isLoading = false;
-    //         state.error = action.payload;
+        })
+        .addCase(_addPost.fulfilled, (state) => {
+            state.isLoading = false;
+        })
+        .addCase(_addPost.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
            
-    //     });
+        });
     builder
         .addCase(_getPost.pending, (state) => {
             state.isLoading = true;
