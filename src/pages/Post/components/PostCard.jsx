@@ -5,23 +5,19 @@ import { HeartIcon } from '@heroicons/react/24/solid'
 import { Map, MapMarker} from 'react-kakao-maps-sdk';
 import { colors, fonts, fontWeight, lineHeights } from '../../../lib/constants/GlobalStyle'
 import CardHeart from './CardHeart'
-import { useEffect } from 'react';
 
 const PostCard = ({card, i}) => {
   const cardIndex = i + 1
   const [ click, setClick ] = useState(false);
-  // const [ heartCount, setHeartCount] = useState(card.heart);
+  const [ zzim, setZzim ] = useState(false);
   const clickCheck = (e) => {
-    e.preventDefault()
     setClick(!click)
   };
 
-  // const countCheck = (e) => {
-  //   setHeartCount(e);
-  // };
-  // console.log('heartCount', heartCount);
-  
-  
+  const zzimCheck = (e) => {
+    setZzim(e)
+  };
+
   const heartStyle = {
     unClick:{
       color: colors.gray,
@@ -36,15 +32,10 @@ const PostCard = ({card, i}) => {
       },
     }
   };
-  
 
-  const check = click === false
+  const check = zzim === false
   ? heartStyle['unClick']
   : heartStyle['click'];
-
-  useEffect(() => {
-
-  },[card.heart]);
 
   return (
     <StContainer key={card.id}>
@@ -60,37 +51,16 @@ const PostCard = ({card, i}) => {
               click={click}
               style={{ display: 'none' }}
               id={card.id}
-              // heart={card.CardHeart}
+              clickCheck={clickCheck}
+              zzimCheck={zzimCheck}
               // countCheck={countCheck}
             />
           </StHeart>
         </StTop>
-
-        {/* <Map // 로드뷰를 표시할 Container
-        center={{
-          lat: card.coordinateX,
-          lng: card.coordinateY 
-        }}
-        style={{
-          width: "100%",
-          height: "300px",
-        }}
-        level={2}
-        // ref={mapRef}
-      >
-        <MapMarker 
-          position={{ 
-            lat: card.coordinateX,
-            lng: card.coordinateY
-          }} 
-        />
-      </Map> */}
-        
         <StContents>
           <h1>{card.placeName}</h1>
           <p>{card.content}</p>
         </StContents>
-
       </Wrap>
     </StContainer>
   )
@@ -100,11 +70,9 @@ export default PostCard
 
 const StContainer = styled.div`
   width: 100%;
-  
 `
 
 const Wrap = styled.div`
-  
   margin: 2rem;
   padding: 1.6rem;
   background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.5) 100%), ${colors.lightGray};
@@ -153,9 +121,29 @@ const StContents = styled.div`
     width: 28rem;
     text-overflow: ellipsis;
     white-space: nowrap;
-
     font-size: ${fonts.subTitle};
     font-weight: ${fontWeight.normal};
     line-height: ${lineHeights.subTitle};
   }
 `
+
+
+// {/* <Map // 로드뷰를 표시할 Container
+//         center={{
+//           lat: card.coordinateX,
+//           lng: card.coordinateY 
+//         }}
+//         style={{
+//           width: "100%",
+//           height: "300px",
+//         }}
+//         level={2}
+//         // ref={mapRef}
+//       >
+//         <MapMarker 
+//           position={{ 
+//             lat: card.coordinateX,
+//             lng: card.coordinateY
+//           }} 
+//         />
+//       </Map> */}

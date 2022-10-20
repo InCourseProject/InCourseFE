@@ -1,20 +1,16 @@
-import React, {useState, useRef} from "react";
+/** @jsxImportSource @emotion/react */
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "@emotion/styled";
 import Btn from "../../../components/Button";
-import { useEffect } from "react";
 
-const CardHeart = ({id, heart, countCheck,  style, click, css}) => {
+const CardHeart = ({id, clickCheck, zzimCheck, style, click, css}) => {
   const accessToken = localStorage.getItem('Authorization'); //accessToken
   const refreshToken = localStorage.getItem('RefreshToken'); //refreshToken
-  // console.log('props click is:', click);
-  // console.log('cardId:',id,' cardHeart:',heart)
-  
   const [count, setCount] = useState(false);
-  // console.log(id);
-
-  //카운터 식인지? 이미 카운팅 되어있는 게시글은 어떻게 해야하는지
-
+  const [isClick, setIsClick] = useState(false);
+  
+  //찜하기 체크 true || false
   const checkHeart = async () => {
     try {
       const check = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course/place/heart/check/${id}`,
@@ -24,10 +20,8 @@ const CardHeart = ({id, heart, countCheck,  style, click, css}) => {
           RefreshToken: refreshToken,
         }
       });
-
       if (check.status === 200 || 201) {
-        console.log('check Card ZZim', check)
-        // console.log('ZZim >>', count);
+        // console.log('⭐️check Card ZZim⭐️', check.data)
         setCount(check.data)
       }
     }
@@ -35,7 +29,7 @@ const CardHeart = ({id, heart, countCheck,  style, click, css}) => {
      console.error(err);
     };
   };
-
+  // 카드 찜하기
   const heartHandler = async () => {
     try {
       const heart = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course/place/heart/${id}`,
@@ -45,18 +39,15 @@ const CardHeart = ({id, heart, countCheck,  style, click, css}) => {
           RefreshToken: refreshToken,
         }
       });
-
       if (heart.status === 200 || 201) {
-        // console.log(heart.data)
-        // countCheck(1);
-        // setCount(1);
+        checkHeart();
       }
     }
     catch(err) {
      console.error(err);
     };
   };
-
+  // 카드 찜하기 취소
   const disHeartHandler = async () => {
     try {
       const disHeart = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course/place/disheart/${id}`,
@@ -66,11 +57,8 @@ const CardHeart = ({id, heart, countCheck,  style, click, css}) => {
           RefreshToken: refreshToken,
         }
       });
-      
       if (disHeart.status === 200 || 201) {
-        // console.log(disHeart.data)
-        // countCheck(0);
-        // setCount(0);
+        checkHeart();
       }
     }
     catch(err) {
@@ -82,20 +70,23 @@ const CardHeart = ({id, heart, countCheck,  style, click, css}) => {
     if(id !== undefined) {
       checkHeart();
     }
-  }, [id])
+  }, [id]);
 
   useEffect(()=>{
-    if(click === false){
-      return;
-    }
-    heartClicker();
-  },[click])
+    if(click === true){
+      if(count === false){
+        heartHandler()
+      }else{
+        disHeartHandler()
+      };
+      clickCheck(!isClick)
+      setIsClick(!isClick)
+    };
+  },[click]);
 
-  const heartClicker = () => {
-    count === false
-    ? heartHandler()
-    : disHeartHandler()
-  }
+  useEffect(() => {
+    zzimCheck(count);
+  },[count]);
 
   return ( 
     <StDiv style={style} css={css}>

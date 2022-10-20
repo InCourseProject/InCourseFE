@@ -43,7 +43,7 @@ const PostHeart = ({id, size, variant}) => {
           RefreshToken: refreshToken,
         }
       });
-      console.log('heart:', heart)   
+      // console.log('heart:', heart)   
 
       if (heart.status === 200 || 201) {
         checkHeart();
@@ -64,7 +64,7 @@ const PostHeart = ({id, size, variant}) => {
           RefreshToken: refreshToken,
         }
       });
-      console.log('disHeart:', disHeart)
+      // console.log('disHeart:', disHeart)
 
       if (disHeart.status === 200 || 201) {
         checkHeart();
