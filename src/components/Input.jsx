@@ -45,7 +45,17 @@ const variants = {
     border: `1px solid ${colors.lightGray}`,
     '&:active,&:focus,&:hover': {
       backgroundColor: colors.tone,
-    }
+    },
+  },
+  search: {
+    color: colors.deepGray,
+    backgroundColor: `transparent`,
+    boxSizing: `borderBox`,
+    border: `1px solid ${colors.lightGray}`,
+    marginTop: '0rem',
+    '&:active,&:focus,&:hover': {
+      backgroundColor: colors.tone,
+    },
   },
 };
 /*------------- 인풋 CSS 값 -------------*/
@@ -56,10 +66,12 @@ const variants = {
  * @param {string} variant 'input' | 'line'
  * @param {*} disabled <option> disalbed
  */
-const Input = ({ref, accept, onChange, placeholder, type, name, size, variant, minLenth, maxLength, value, clasName, style}) => {
+const Input = ({ref, accept, onChange, placeholder, type, name, size, variant, minLenth, maxLength, value, clasName, style, onKeyUp, onKeyDown}) => {
   return (
     <StInput
       onChange={onChange}
+      onKeyUp={onKeyUp}
+      onKeyDown={onKeyDown}
       placeholder={placeholder}
       name={name}
       type={type}

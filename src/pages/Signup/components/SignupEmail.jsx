@@ -26,7 +26,6 @@ const SignupEmail = () => {
   //----------- input handler -----------//
   // 이메일로 본인 인증
   // 비밀번호 양식 대소문자숫자포함 8~20자
-  // axios.post('/api/member/signup')
 
   const signupInputHandler = async () => {
     try{
@@ -44,15 +43,14 @@ const SignupEmail = () => {
           }})
         :navigate('/login');
 
-        //모달창으로 이메일 본인인증 해야함.
       }else{
         console.error('notOk', res);
       };
     }
     catch(err){
-      console.error(err.response.data.errors)
+      console.error(err)
       setSignup(initialstate);
-      window.alert('❌CHECKCONSOLE❌');
+      window.alert(err.response.data.errors[0].reason);
     };
   };
 

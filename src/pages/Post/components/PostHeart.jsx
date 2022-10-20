@@ -1,28 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "@emotion/styled";
 import Btn from "../../../components/Button";
 
-const PostHeart = ({id, heart, size, variant}) => {
+
+const PostHeart = ({id, size, variant}) => {
   const accessToken = localStorage.getItem('Authorization'); //accessToken
   const refreshToken = localStorage.getItem('RefreshToken'); //refreshToken
-  // console.log('id:',id,' heart:',heart)
+  // console.log('id:',id)
+  const [isHeart, setIsHeart] = useState(false);
+  // console.log('isHeart', isHeart);
 
-  //게시글 하트 서버에러 확인 필요
-  //찜하기 눌를 시 재렌더링 필요
+  // 회원의 찜하기 체크 api
+  const checkHeart = async () => {
+    try{
+      const res = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course/heart/check/${id}`,
+      {
+        headers: {
+          Authorization: accessToken,
+          RefreshToken: refreshToken,
+        }
+      });
+
+      if(res.status === 200 || 201){
+        setIsHeart(res.data)  
+      }
+      else{
+        console.log('checkHeart', res);
+      }
+    }catch(err){
+      console.error(err);
+    }
+
+  }
+
   const heartHandler = async () => {
     try {
       const heart = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course/heart/${id}`,
       {
         headers: {
-          Authorization: `${accessToken}`,
-          RefreshToken: `${refreshToken}`,
+          Authorization: accessToken,
+          RefreshToken: refreshToken,
         }
       });
-      console.log('heart:', heart)
+      console.log('heart:', heart)   
 
       if (heart.status === 200 || 201) {
-        console.log(heart,'works!')
+        checkHeart();
+        // console.log(heart,'works!')
       }
     }
     catch(err) {
@@ -35,14 +60,15 @@ const PostHeart = ({id, heart, size, variant}) => {
       const disHeart = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course/disheart/${id}`,
       {
         headers: {
-          Authorization: `${accessToken}`,
-          RefreshToken: `${refreshToken}`,
+          Authorization: accessToken,
+          RefreshToken: refreshToken,
         }
       });
       console.log('disHeart:', disHeart)
 
       if (disHeart.status === 200 || 201) {
-        console.log(disHeart,'works!')
+        checkHeart();
+        // console.log(disHeart,'works!')
       }
     }
     catch(err) {
@@ -50,10 +76,17 @@ const PostHeart = ({id, heart, size, variant}) => {
     };
   };
 
+  useEffect(() => {
+    if(id == undefined){
+      return
+    }
+    checkHeart();
+  }, [id]);
+
   return ( 
     <StDiv >
       {
-        heart === 0
+        isHeart === false
         ? <Btn 
           onClick={heartHandler}
           size={size} variant={variant}
@@ -67,7 +100,6 @@ const PostHeart = ({id, heart, size, variant}) => {
           찜하기 취소
         </Btn>
       }
-      
     </StDiv>
   )
 }

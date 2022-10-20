@@ -9,11 +9,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Btn from '../../../components/Button'
 const HomeComponent = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [post, setPost] = useState([]);
     const [notlog, setNotLog] = useState([]);
     const [weather, setWeather] = useState();
-
+    console.log('post', post);
     const geoLocactionButton = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
@@ -23,12 +23,14 @@ const HomeComponent = () => {
             });
         }
     }
+    
     const notLogin = async () => {
         const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course/common/recommended`);
-        console.log(response.data)
-        setPost(response.data); //for realserverr
+        console.log('notLogin:',response.data)
+        setPost(response.data);
     }
 
+    //지우님 구현 중
     const Weather = async () => {
         const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/weather/open`, weather, {
             headers: {
@@ -36,9 +38,9 @@ const HomeComponent = () => {
                 RefreshToken: localStorage.getItem("RefreshToken")
             }
         });
-        console.log(response.data)
+        console.log('Weather:', response.data)
         // console.log(response.data.data)
-        setPost(response.data); //for realserver
+        setPost([...response.data.content]); //for realserver
         // setPost( response.data ); //for realserver
     }
 
@@ -49,19 +51,22 @@ const HomeComponent = () => {
                 RefreshToken: localStorage.getItem("RefreshToken")
             }
         });
-        console.log(response.data)
-        // console.log(response.data.data)
+        console.log('Login:', response.data)
         setPost(response.data); //for realserver
-        // setPost( response.data ); //for realserver
     }
+
     useEffect(() => {
-        if (localStorage.getItem("Authorization") === null) {
-            notLogin()
+        if(post === []){
+            return;
         } else {
-            fetchPost();
+            if (localStorage.getItem("Authorization") === null) {
+                notLogin()
+            } else {
+                fetchPost();
+            }
+            geoLocactionButton();
+            Weather();
         }
-        geoLocactionButton();
-        Weather();
     }, []);
     return (
         <StContainer>
@@ -70,15 +75,16 @@ const HomeComponent = () => {
                 <ul>
                     <li>오늘은 긴팔 티, 면 바지  어때요?</li>
                     <li>시원한 생수 챙겨가시면 좋아요!</li>
-
                 </ul>
-                <div><Btn size='sm' onClick={()=>{navigate('/category')}} variant='main'> 하루의 코스 만들러 가기 </Btn></div>
+                <div><Btn size='default' variant='main' onClick={()=>{navigate('/category')}}> 하루의 코스 만들러 가기 </Btn></div>
             </StDivWrap>
             <StHomeCardWrap>
                 <h1>추천코스</h1>
-                {post?.map((post) =>
+                {post.map((post) =>
                     <HomeCard key={post.id} post={post} />
                 )}
+
+                <h1>전체코스</h1>
 
             </StHomeCardWrap>
         </StContainer>

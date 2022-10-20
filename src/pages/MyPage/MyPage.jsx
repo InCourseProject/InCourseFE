@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
@@ -10,12 +9,12 @@ import MyPageLogout from './components/MyPageLogout';
 import Btn from '../../components/Button';
 import NaviBar from '../../components/layout/NaviBar';
 import HeaderBar from '../../components/layout/HeaderBar';
+import Badge from '../../components/badge';
 
 
 
 const MyPage = () => {
   const navigate = useNavigate();
-  // dummy
   const accessToken = localStorage.getItem('Authorization'); //accessToken
   const refreshToken = localStorage.getItem('RefreshToken'); //refreshToken
   
@@ -106,7 +105,8 @@ const MyPage = () => {
         </ProfileContainer>
         <InfluWrap style={{marginBottom:'0.8rem'}}>
           <Influ>나의 인싸력</Influ>
-          <InfluBadge style={{transform:'translateX(1.2rem)'}}>핵인싸</InfluBadge>
+          <Badge css={{transform:'translateX(1.2rem)'}}>핵 인싸</Badge>
+          {/* <InfluBadge style={{transform:'translateX(1.2rem)'}}>핵인싸</InfluBadge> */}
         </InfluWrap>
         <InfluWrap>
           <Influ>내가 받은 좋아요</Influ>

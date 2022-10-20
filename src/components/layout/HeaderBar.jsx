@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon, MagnifyingGlassIcon } from '@heroicons/react/24/solid'
@@ -16,7 +17,7 @@ const HeaderBar = () => {
 
   useEffect(()=> {
     setPath(window.location.pathname)
-  },[])
+  },[path])
 
 
   return (
@@ -34,6 +35,7 @@ const HeaderBar = () => {
       
       <RightIcon>
         {accessToken&&refreshToken
+        // ? null
         ? <MagnifyingGlassIcon alt='search'
           onClick={() => navigate('/search')}
           style={{width:'2.4rem'}} 
@@ -96,6 +98,7 @@ const StSpan = styled.span`
     : props.isUrl === '/signup/email' ? css`display: none;` 
     : props.isUrl === '/emailconfirm' ? css`display: none;` 
     : props.isUrl === '/signup/detail' ? css`display: none;` 
-    : css`display: flex;`}
+    : props.isUrl === '/search' ? css`display: none;` 
+    : null}
 `
 

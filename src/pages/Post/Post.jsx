@@ -14,13 +14,16 @@ import HeaderBar from "../../components/layout/HeaderBar";
 import NaviBar from "../../components/layout/NaviBar";
 import Score from "./components/Score";
 const Post = () => {
+  const accessToken = localStorage.getItem('Authorization'); //accessToken
+  const refreshToken = localStorage.getItem('RefreshToken'); //refreshToken
+
   const init = 
     {
       place:[{
         coordinateX:"",
         coordinateY:"",
     }]
-  }
+  };
   
   const { kakao } = window;
   const mapRef = useRef()
@@ -28,15 +31,12 @@ const Post = () => {
   const [info, setInfo] = useState();
   const { id } = useParams();
   const [post, setPost] = useState(init);
-  
-
-
 
   const fetchPost = async () => {
     const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course/${id}`, {
       headers: {
-        Authorization: localStorage.getItem("Authorization"),
-        RefreshToken: localStorage.getItem("RefreshToken")
+        Authorization: accessToken,
+        RefreshToken: refreshToken
       }
     });
     console.log(response.data)
@@ -78,7 +78,6 @@ const Post = () => {
         }}
         level={3}
         ref={mapRef}
-
       >
         {post.place.map(point => <MapMarker key={`${point.coordinateX}-${point.coordinateY}`} position={{ lat: point.coordinateX, lng: point.coordinateY }} />)}
         <Polyline
@@ -96,22 +95,26 @@ const Post = () => {
 
       <HomeCard key={post.id} post={post} />
       <PostDesc>{post.content}</PostDesc>
-      {post.place.map((card) =>
-        <PostCard key={card.id} card={card} />
+      {post.place.map((card, i) =>
+        <PostCard i={i} key={card.id} card={card} />
       )}
 
-      <PostBottom>
-        <Score
-          id={post.id}
+      {
+      accessToken === null
+        ? <div style={{marginBottom: '20rem'}}></div>
+        : <PostBottom>
+          <Score
+            id={post.id}
           // score={post.avgScore}
           />
-        <PostHeart
-          size='default'
-          variant='line'
-          id={post.id}
-          heart={post.heart}
+          <PostHeart
+            size='default'
+            variant='line'
+            id={post.id}
+          // heartnum={post.heartnum}
           />
-      </PostBottom>
+        </PostBottom>
+      }
       <NaviBar/>
     </div>
   );
@@ -127,8 +130,8 @@ const PostBottom = styled.div`
 `
 const PostDesc = styled.div`
   width: 100%;
-  max-width: 330px;
-  margin: 1.1rem 1.5rem 2.5rem 1.5rem;
+  max-width: 350px;
+  margin: 1.1rem auto 2.5rem auto;
   padding: 2rem 2.35rem 6rem 2.35rem;
   color: ${colors.deepGray};
   font-size: ${fonts.body};

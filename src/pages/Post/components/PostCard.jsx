@@ -5,14 +5,23 @@ import { HeartIcon } from '@heroicons/react/24/solid'
 import { Map, MapMarker} from 'react-kakao-maps-sdk';
 import { colors, fonts, fontWeight, lineHeights } from '../../../lib/constants/GlobalStyle'
 import CardHeart from './CardHeart'
+import { useEffect } from 'react';
 
-const PostCard = ({card}) => {
+const PostCard = ({card, i}) => {
+  const cardIndex = i + 1
   const [ click, setClick ] = useState(false);
+  // const [ heartCount, setHeartCount] = useState(card.heart);
   const clickCheck = (e) => {
     e.preventDefault()
     setClick(!click)
   };
 
+  // const countCheck = (e) => {
+  //   setHeartCount(e);
+  // };
+  // console.log('heartCount', heartCount);
+  
+  
   const heartStyle = {
     unClick:{
       color: colors.gray,
@@ -26,17 +35,22 @@ const PostCard = ({card}) => {
         color: colors.gray,
       },
     }
-  }
+  };
+  
 
-  const check = card.heart_place === 0
+  const check = click === false
   ? heartStyle['unClick']
-  : heartStyle['click']
+  : heartStyle['click'];
+
+  useEffect(() => {
+
+  },[card.heart]);
 
   return (
     <StContainer key={card.id}>
       <Wrap>
         <StTop>
-          <CourseList>코스 {card.id}</CourseList>
+          <CourseList>코스 {cardIndex}</CourseList>
           <StHeart
             onClick={clickCheck}
             css={{ ...check }}
@@ -46,7 +60,8 @@ const PostCard = ({card}) => {
               click={click}
               style={{ display: 'none' }}
               id={card.id}
-              heart={card.heart_place}
+              // heart={card.CardHeart}
+              // countCheck={countCheck}
             />
           </StHeart>
         </StTop>
