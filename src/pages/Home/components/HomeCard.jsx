@@ -5,9 +5,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from '@emotion/styled'
 import difault_Img from '../../../lib/constants/img/difault_Img.png'
-import { colors, fonts, fontWeight } from '../../../lib/constants/GlobalStyle';
+import { colors, fonts, fontWeight, lineHeights } from '../../../lib/constants/GlobalStyle';
 import { useNavigate } from 'react-router-dom';
 import {HeartIcon} from '@heroicons/react/24/solid'
+import Badge from '../../../components/badge';
+
 const HomeCard = ({ post }) => {
     const navigate = useNavigate()
     const settings = {
@@ -23,6 +25,7 @@ const HomeCard = ({ post }) => {
     const handleImgError = (e) => {
         e.target.src = difault_Img;
     }
+    // console.log(post);
     return (
         <StContainer key={post.id}>
 
@@ -30,7 +33,7 @@ const HomeCard = ({ post }) => {
                 <StImgBox>
                     <div>
                         <h1>{post.title}</h1>
-                        {/* <p>{post.content}</p> */}
+                        <p>{post.content}</p>
                     </div>
                     <StImg src={post?.image} onError={handleImgError} />
                 </StImgBox>
@@ -63,16 +66,16 @@ const HomeCard = ({ post }) => {
                             }
                         </div>
                     </StProfileImg>
-                    <div>
+                    <ProfileContents>
                         <p>{post.nickname}</p>
-                        <p>핵인싸</p>
-                    </div>
+                        <Badge>인싸뱃지</Badge>
+                    </ProfileContents>
                 </StProfileWrap>
 
-                <div>
+                <HeartContainer>
                     <HeartIcon css={{width:'1.6rem', marginRight:'0.2rem', color:`${colors.danger}`}}/> 
-                    {post.heart}
-                </div>
+                    {post.heartnum}
+                </HeartContainer>
             </StProfile>
         </StContainer>
     )
@@ -86,6 +89,12 @@ const StProfileWrap = styled.div`
     gap: 20px;
     
 `
+const HeartContainer = styled.div`
+    color: ${colors.black};
+    display: flex;
+    align-items: center;
+`
+
 const StProfile = styled.div`
     display: flex;
     justify-content: space-between;
@@ -102,6 +111,22 @@ const StProfileImg = styled.div`
         object-fit: cover;
     }
 `
+const ProfileContents = styled.div`
+    p{  
+        overflow: hidden;
+        width: 15rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        margin-left: 0.5rem;
+        margin-bottom: 0.2rem;
+        color: ${colors.black};
+        font-size: ${fonts.caption};
+        font-weight: ${fontWeight.bold};
+        line-height: ${lineHeights.caption};
+    }
+`
+
 const StContainer = styled.div`
     width: 100%;
     border-radius: 20px;
@@ -128,7 +153,7 @@ const StContainer = styled.div`
 
 `
 const StCategorys = styled.div`
-    padding: 10px;
+    padding: 1rem;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -190,16 +215,29 @@ div{
     font-weight: ${fontWeight};
     text-align: left;
     color: ${colors.white};
+
+    
+
     h1{
         color: ${colors.white};
         font-size: ${fonts.headLine};
         margin-bottom: 10px;
         color: ${colors.white};
         
+
+        overflow: hidden;
+        width: 35rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     p{
+        overflow: hidden;
+        width: 30rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
         color: ${colors.white};
-        font-size: ${fonts.caption};
+        font-size: ${fonts.subTitle};
     }
 }
 `

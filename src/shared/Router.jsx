@@ -18,6 +18,7 @@ import EmailConfrim from "../pages/SignupDetail/components/EmailConfirm";
 import Loading from "../pages/Loading/Loading";
 import MyPagePost from "../pages/MypagePost/MyPagePost";
 import PostUpDate from "../pages/PostUpdate/PostUpDate";
+import SearchPost from "../pages/Search/components/SeachPost";
 import MyLikePost from "../pages/MyLikePost/MyLikePost";
 const Router = () => {
   return(
@@ -43,7 +44,8 @@ const Router = () => {
         <Route path="kakao" exact element={<KakaoLogin />} />
         {/* <Route path="naver" exact element={<NaverLogin />} /> */}
         <Route path="emailconfirm" exact element={<EmailConfrim />} />
-        <Route path="Search" exact element={<Search />} />
+        <Route path="search" exact element={<Search />} />
+        <Route path="search/post" exact element={<SearchPost />} />
       </Routes>
     </BrowserRouter>
   );

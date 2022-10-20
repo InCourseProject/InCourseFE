@@ -6,11 +6,16 @@ import { Map, MapMarker, StaticMap } from 'react-kakao-maps-sdk';
 import { colors, fonts, fontWeight, lineHeights } from '../../../lib/constants/GlobalStyle'
 import CardHeart from './CardHeart'
 
-const PostCard = ({ card }) => {
-  const [click, setClick] = useState(false);
+const PostCard = ({card, i}) => {
+  const cardIndex = i + 1
+  const [ click, setClick ] = useState(false);
+  const [ zzim, setZzim ] = useState(false);
   const clickCheck = (e) => {
-    e.preventDefault()
     setClick(!click)
+  };
+
+  const zzimCheck = (e) => {
+    setZzim(e)
   };
 
   const heartStyle = {
@@ -26,17 +31,17 @@ const PostCard = ({ card }) => {
         color: colors.gray,
       },
     }
-  }
-console.log(card)
-  const check = card.heart_place === 0
-    ? heartStyle['unClick']
-    : heartStyle['click']
+  };
+
+  const check = zzim === false
+  ? heartStyle['unClick']
+  : heartStyle['click'];
 
   return (
     <StContainer key={card.id}>
       <Wrap>
         <StTop>
-          <CourseList>코스 {card.id}</CourseList>
+          <CourseList>코스 {cardIndex}</CourseList>
           <StHeart
             onClick={clickCheck}
             css={{ ...check }}
@@ -46,15 +51,16 @@ console.log(card)
               click={click}
               style={{ display: 'none' }}
               id={card.id}
-              heart={card.heart_place}
+              clickCheck={clickCheck}
+              zzimCheck={zzimCheck}
+              // countCheck={countCheck}
             />
           </StHeart>
-          </StTop>
-          <StContents>
+        </StTop>
+        <StContents>
           <h1>{card.placeName}</h1>
           <p>{card.content}</p>
         </StContents>
-       
       </Wrap>
       <StMaps>
           <StaticMap // 지도를 표시할 Container
@@ -157,7 +163,6 @@ const StContents = styled.div`
     width: 28rem;
     text-overflow: ellipsis;
     white-space: nowrap;
-
     font-size: ${fonts.subTitle};
     font-weight: ${fontWeight.normal};
     line-height: ${lineHeights.subTitle};

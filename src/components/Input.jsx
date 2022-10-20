@@ -14,14 +14,19 @@ const sizeStyles = {
       lineHeight: lineHeights.body,
       padding: `20px 26px`,
       borderRadius: `15px`,
-    },
-    sm: {
-      fontSize: fonts.caption,
-      fontWeight: fontWeight.light,
-      lineHeight: lineHeights.caption,
-      padding: `5px 24px`,
-      borderRadius: `18px`,
-    },
+  },
+  sm: {
+    fontSize: fonts.caption,
+    fontWeight: fontWeight.light,
+    lineHeight: lineHeights.caption,
+    padding: `5px 24px`,
+    borderRadius: `18px`,
+  },
+  search: {
+    fontSize: fonts.body,
+    fontWeight: fontWeight.light,
+    lineHeight: lineHeights.body,
+  },
 };
 
 const variants = {
@@ -45,7 +50,19 @@ const variants = {
     border: `1px solid ${colors.lightGray}`,
     '&:active,&:focus,&:hover': {
       backgroundColor: colors.tone,
-    }
+    },
+  },
+  search: {
+    color: colors.black,
+    backgroundColor: `transparent`,
+    height: '4.75rem',
+    boxSizing: `borderBox`,
+    border: `none`,
+    margin: '0rem',
+    '&:active,&:focus,&:hover': {
+      backgroundColor: 'none',
+      border: 'none'
+    },
   },
 };
 /*------------- 인풋 CSS 값 -------------*/
@@ -56,10 +73,12 @@ const variants = {
  * @param {string} variant 'input' | 'line'
  * @param {*} disabled <option> disalbed
  */
-const Input = ({ref, accept, onChange, placeholder, type, name, size, variant, minLenth, maxLength, value, clasName, style}) => {
+const Input = ({ref, accept, onChange, placeholder, type, name, size, variant, minLenth, maxLength, value, clasName, style, onKeyUp, onKeyDown}) => {
   return (
     <StInput
       onChange={onChange}
+      onKeyUp={onKeyUp}
+      onKeyDown={onKeyDown}
       placeholder={placeholder}
       name={name}
       type={type}

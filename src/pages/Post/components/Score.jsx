@@ -20,7 +20,15 @@ const Score = ({id}) => {
     setScore({'score':e})
   };
 
-  console.log(score);
+  const courseName = score.score === 20 ? '배드 코스'
+    : score.score === 40 ? '노멀 코스'
+    : score.score === 60 ? '굿 코스'
+    : score.score === 80 ? '엑설런트 코스'
+    : score.score === 100 ? '퍼펙트 코스'
+    : '굿 코스';
+
+  // console.log(score);
+  // console.log(courseName);
 
   const postHandler = async () => {
     try {
@@ -29,8 +37,8 @@ const Score = ({id}) => {
       score,
       {
         headers: {
-          Authorization: `${accessToken}`,
-          RefreshToken: `${refreshToken}`,
+          Authorization: accessToken,
+          RefreshToken: refreshToken,
         }
       });
       console.log('heart:', heart)
@@ -43,6 +51,24 @@ const Score = ({id}) => {
      console.error(err);
     };
   };
+
+  const cousrBannerCSS = {
+    20:{
+      color: `${colors.primary}`,
+    },
+    40:{
+      color: `${colors.secondary}`,
+    },
+    60:{
+      color: `${colors.caution}`,
+    },
+    80:{
+      color: `${colors.success}`,
+    },
+    100:{
+      color: `${colors.danger}`,
+    },
+  }
 
   const sliderCSS = {
     marginTop: '4.5rem',
@@ -64,12 +90,12 @@ const Score = ({id}) => {
       opacity: '1'
     }
   };
-
+  
   return(
     <StWrap>
       <StContainer>
-        <StLabel>이 코스는요</StLabel>
-        <CourseBanner>엑설런트 코스</CourseBanner>
+        <StLabel>제 점수는요 💯</StLabel>
+        <CourseBanner css={{...cousrBannerCSS[`${score.score}`]}}>{courseName}</CourseBanner>
         
         <SliderWrap
           onMouseUp={postHandler}

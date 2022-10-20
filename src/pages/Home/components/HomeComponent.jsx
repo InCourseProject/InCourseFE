@@ -12,7 +12,7 @@ import Btn from '../../../components/Button'
 import Loading from '../../Loading/Loading'
 import Sunny from '../../../lib/constants/img/sunny.gif'
 const HomeComponent = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [post, setPost] = useState([]);
     const [notlog, setNotLog] = useState([]);
     const [weather, setWeather] = useState();
@@ -31,9 +31,10 @@ const HomeComponent = () => {
 
     const notLogin = async () => {
         const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course/common/recommended`);
-        console.log(response.data)
-        setPost(response.data); //for realserverr
+        console.log('notLogin:',response.data)
+        setPost(response.data);
     }
+
     const handleObserver = useCallback((entries) => {
         const target = entries[0];
         if (target.isIntersecting) {
@@ -44,7 +45,7 @@ const HomeComponent = () => {
         const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course/common/recommended`);
         console.log(response)
         // console.log(response.data.data)
-        setPost(response.data); //for realserver
+        setPost([...response.data.content]); //for realserver
         // setPost( response.data ); //for realserver
     }
     const Weather = async () => {
@@ -54,10 +55,8 @@ const HomeComponent = () => {
                 RefreshToken: localStorage.getItem("RefreshToken")
             }
         });
-        console.log(response.data)
-        // console.log(response.data.data)
+        console.log('Login:', response.data)
         setPost(response.data); //for realserver
-        // setPost( response.data ); //for realserver
     }
 
     useEffect(() => {
@@ -76,8 +75,6 @@ const HomeComponent = () => {
         } else {
 
         }
-        geoLocactionButton();
-        Weather();
     }, []);
     // if (loading) {
     //     return <div>로딩</div>;
@@ -129,9 +126,8 @@ const HomeComponent = () => {
                 <ul>
                     <li>오늘은 긴팔 티, 면 바지  어때요?</li>
                     <li>시원한 생수 챙겨가시면 좋아요!</li>
-
                 </ul>
-                <div><Btn size='md'  onClick={() => { navigate('/category') }} variant='main'> 하루의 코스 만들러 가기 </Btn></div>
+                <div><Btn size='default' variant='main' onClick={()=>{navigate('/category')}}> 하루의 코스 만들러 가기 </Btn></div>
             </StDivWrap>
             <StHomeCardWrap >
                 <h1>추천코스</h1>
