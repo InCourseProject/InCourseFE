@@ -25,7 +25,15 @@ const sizeStyles = {
   md:{
     fontSize: fonts.subTitle,
     lineHeights:fonts.subTitle,
-  }
+  },
+  btn:{
+    fontSize: fonts.caption,
+    fontWeight: fontWeight.light,
+    lineHeight: lineHeights.caption,
+    width: '0', 
+    height: '0',
+    margin: '0',
+  },
 };
 
 const variants = {
@@ -69,6 +77,20 @@ const variants = {
     backgroundColor: `transparent`,
     boxSizing: `borderBox`,
     border: `1px solid ${colors.secondary}`,
+  },
+  btn:{
+    color: colors.deepGray,
+    backgroundColor: colors.lightGray,
+    boxSizing: `borderBox`,
+    border: `1px solid ${colors.secondary}`,
+    borderRadius:'3.5rem',
+
+    '&:active,&:focus,&:hover': {
+      backgroundColor: `#f0d800`,
+    },
+    '&:disabled': {
+      backgroundColor: `#f0d800`,
+    }
   },
   kakao: {
     color: colors.deepGray,

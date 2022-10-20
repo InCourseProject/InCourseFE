@@ -14,14 +14,19 @@ const sizeStyles = {
       lineHeight: lineHeights.body,
       padding: `20px 26px`,
       borderRadius: `15px`,
-    },
-    sm: {
-      fontSize: fonts.caption,
-      fontWeight: fontWeight.light,
-      lineHeight: lineHeights.caption,
-      padding: `5px 24px`,
-      borderRadius: `18px`,
-    },
+  },
+  sm: {
+    fontSize: fonts.caption,
+    fontWeight: fontWeight.light,
+    lineHeight: lineHeights.caption,
+    padding: `5px 24px`,
+    borderRadius: `18px`,
+  },
+  search: {
+    fontSize: fonts.body,
+    fontWeight: fontWeight.light,
+    lineHeight: lineHeights.body,
+  },
 };
 
 const variants = {
@@ -48,13 +53,15 @@ const variants = {
     },
   },
   search: {
-    color: colors.deepGray,
+    color: colors.black,
     backgroundColor: `transparent`,
+    height: '4.75rem',
     boxSizing: `borderBox`,
-    border: `1px solid ${colors.lightGray}`,
-    marginTop: '0rem',
+    border: `none`,
+    margin: '0rem',
     '&:active,&:focus,&:hover': {
-      backgroundColor: colors.tone,
+      backgroundColor: 'none',
+      border: 'none'
     },
   },
 };

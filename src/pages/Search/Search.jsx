@@ -1,10 +1,10 @@
+/** @jsxImportSource @emotion/react */
 import React, { useEffect, useState, useCallback } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
+import logo from '../../lib/constants/img/incourseLogo.svg';
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/solid"
 import SearchHistory from "./components/SearchHistory";
-import HeaderBar from "../../components/layout/HeaderBar";
-import NaviBar from "../../components/layout/NaviBar";
 import { colors, fonts, fontWeight, lineHeights } from "../../lib/constants/GlobalStyle";
 import Btn from "../../components/Button";
 import Input from '../../components/Input';
@@ -78,19 +78,65 @@ const Search = () => {
 
   return (
   <StDiv>
-    <HeaderBar/>
+    <SearchHeader>
+        <img 
+          src={logo} alt='logo'
+          onClick={() => navigate('/')}
+          css={{width:'2.9rem', cursor: 'pointer'}} 
+        />
+        <XMarkIcon alt='close'
+          onClick={() => navigate(-1)}
+          css={{width:'2.4rem', cursor: 'pointer'}} 
+        />
+    </SearchHeader>
     <StH1>검색</StH1>
     <SearchBar>
       <SearchInputContainer>
-        <MagnifyingGlassIcon style={{width:'2.4rem'}}/>
-        
-        <Input onChange={searchOnChange} onKeyDown={enterKey} size='default' variant='search' type="text" />
-        <Btn css={{margin:'0'}} size='sm' disabled={!search} onClick={clickKey}>검색</Btn>
+        <MagnifyingGlassIcon 
+          css={{
+            width: '2.4rem',
+            color:`${colors.secondary}`,
+            marginRight: '2.5rem',
+          }}
+        />
+        <Input 
+          onChange={searchOnChange} 
+          onKeyDown={enterKey} 
+          size='search'      
+          variant='search' 
+          type="text" 
+          // css={{
+          //   margin:'0px', 
+          //   height:'0px',
+          // }} 
+        />
+        <Btn 
+          css={{
+            margin:'0',
+
+
+          }} 
+          size='btn'
+          variant='btn' 
+          disabled={!search} 
+          onClick={clickKey}
+        >
+          검색
+        </Btn>
       </SearchInputContainer>
-      <XMarkIcon style={{width:'2.4rem'}}/>
     </SearchBar>
-    {/* <div>추천 검색어</div> */}
-    <div>최근 검색어</div>
+    <div 
+      css={{
+        marginTop: '3.8rem',
+        marginLeft: '1.2rem',
+        marginBottom: '2.8rem',
+        fontSize: `${fonts.body}`,
+        fontWeight: `${fontWeight.bold}`,
+        lineHeight: `${lineHeights.body}`,
+      }}
+    >
+      최근 검색어
+    </div>
     <SearchLists>
       {searchList.length === 0
       ? <div>최근 검색 내역이 없습니다.</div>
@@ -99,10 +145,6 @@ const Search = () => {
       )
       }
     </SearchLists>
-    
-    
-
-    {/* <NaviBar/> */}
   </StDiv>
   );
 };
@@ -112,15 +154,30 @@ export default Search;
 const StDiv = styled.div`
   width: 100%;
   margin: 0px auto;
-  padding: 0px 15px;
+  /* padding: 0px 10px; */
   max-width: 36rem;
-  /* display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column; */
 `
 
+const SearchHeader = styled.div`
+  width: 100%;
+  height: 44px;
+  padding: 0px 15px;
+  color: ${colors.primary};
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 100;
+`
+
+
 const StH1 = styled.h1`
+    margin-top: 7.5rem;
+    margin-left: 0.8rem;
     color: ${colors.black};
     font-size: ${fonts.headLine};
     font-weight: ${fontWeight.exrtaBold};
@@ -134,15 +191,21 @@ const SearchBar = styled.div`
 
 const SearchInputContainer = styled.div`
   width: 100%;
-  margin-top: 5rem;
-  border: 1px solid red;
+  margin-top: 1.8rem;
+  padding: 0rem 0.5rem 0rem 2.5rem;
+  border: 1px solid ${colors.lightGray};
   border-radius: 30rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  &:active,:focus,:hover {
+    outline: 1px solid ${colors.lightGray};
+  };
 `
 
 const SearchLists = styled.div`
-  /* display: grid; */
+  margin-left: 0.5rem;
+
 `
+

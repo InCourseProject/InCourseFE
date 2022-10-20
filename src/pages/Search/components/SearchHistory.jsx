@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import React from "react";
 import styled from "@emotion/styled";
 import { colors, fonts, fontWeight, lineHeights } from "../../../lib/constants/GlobalStyle";
