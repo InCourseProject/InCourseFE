@@ -68,7 +68,7 @@ const HomeCard = ({ post }) => {
                     </StProfileImg>
                     <ProfileContents>
                         <p>{post.nickname}</p>
-                        <Badge>인싸뱃지</Badge>
+                        <Badge title={post.badge}>{post.badge}</Badge>
                     </ProfileContents>
                 </StProfileWrap>
 
@@ -91,6 +91,9 @@ const StProfileWrap = styled.div`
 `
 const HeartContainer = styled.div`
     color: ${colors.black};
+    font-size: ${fonts.caption};
+    font-weight: ${fontWeight.normal};
+    line-height: ${lineHeights.caption};
     display: flex;
     align-items: center;
 `

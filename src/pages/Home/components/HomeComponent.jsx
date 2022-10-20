@@ -42,7 +42,12 @@ const HomeComponent = () => {
         }
     }, []);
     const common = async () => {
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course/common/recommended`);
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course/member/recommended`,{
+            headers: {
+                Authorization: localStorage.getItem("Authorization"),
+                RefreshToken: localStorage.getItem("RefreshToken")
+            }
+        });
         console.log(response)
         // console.log(response.data.data)
         setPost([...response.data.content]); //for realserver
@@ -71,9 +76,9 @@ const HomeComponent = () => {
 
     useEffect(() => {
         if (localStorage.getItem("Authorization") === null) {
-            common()
+            notLogin();
         } else {
-
+            common();
         }
     }, []);
     // if (loading) {
