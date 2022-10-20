@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
+import axios from 'axios';
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import { _deletePost } from '../../../redux/modules/formSlice';
@@ -8,7 +9,7 @@ const MyPostCard = ({ post }) => {
     const dispatch = useDispatch();
     const [coseId,setCoseId] = useState();
     console.log(post.place)
-    const deleteHandler = () =>{
+    const deleteHandler = async () =>{
         const data = []
         for(let i =0; i<post.place.length; i++){
            data.push(post.place[i].id)
@@ -16,12 +17,23 @@ const MyPostCard = ({ post }) => {
         }
         const payload = {
             coseId:{
-                placeId:{...data}
+                placeId:data
             },
             id:post.id
         }
-        console.log(post.id,payload)
-        dispatch(_deletePost(payload))
+       const json = JSON.stringify(payload.coseId)
+        const formData = new FormData();
+        formData.append("placeId",json)
+        const res = await axios.delete(`${process.env.REACT_APP_SERVER_API}/api/course/${payload.id}`,  {
+            headers: {
+                // "content-type": "multipart/form-data",
+                Authorization: localStorage.getItem("Authorization"),
+                RefreshToken: localStorage.getItem("RefreshToken")
+            },
+            data:payload.coseId
+            
+        });
+        return res.data
     }
     return (
         <div >

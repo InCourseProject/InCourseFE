@@ -107,6 +107,7 @@ const StContainer = styled.div`
     border-radius: 20px;
     border: 1px solid ${colors.lightGray};
     position: relative;
+    
     overflow: hidden;
     .line{
         width: 100%;
@@ -151,10 +152,9 @@ const StImg = styled.img`
     position: absolute;
     left: 0;
     top: 0;
-    z-index: 10;
+    z-index: -1;
     width: 100%;
     height: 100%;
-    
     object-fit: cover;
 `
 const StImgWrap = styled.div`
@@ -164,13 +164,16 @@ const StImgWrap = styled.div`
     border-radius: 20px 20px 0px 0px;
     overflow: hidden;
     
+    
 `
 const StImgBox = styled.div`
 width: 100%;
 height: 320px;
 text-align: center;
 background-color: ${colors.primary};
+background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,0.5) 100%);
 display: table;
+
 span{
     display: table-cell;
     height: 100%;
