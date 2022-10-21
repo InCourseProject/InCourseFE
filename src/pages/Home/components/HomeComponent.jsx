@@ -101,9 +101,11 @@ const HomeComponent = () => {
 
     useEffect(() => {
         if (localStorage.getItem("Authorization") === null) {
+
             notLogin()
         } else {
             geoLocactionButton()
+
         }
     }, []);
     useEffect(() => {
