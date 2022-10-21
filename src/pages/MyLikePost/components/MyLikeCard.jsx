@@ -9,16 +9,19 @@ const MyLikeCard = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [coseId,setCoseId] = useState();
-    const post = useSelector((state)=>state.homeSlice)
-    console.log(post)
-
+    const {detail,isLoding,error} = useSelector((state)=>state.homeSlice.detail)
+    // console.log(post)
+if(isLoding){
+    <div>로딩중...</div>
+}
 useEffect(()=>{
     dispatch(_getLikePost())
 },[])
 
     return (
         <div >
-            dk
+            <h1>내가 작성한 게시물</h1>
+            {/* {detail.map((post)=>)} */}
         </div>
     )
 }

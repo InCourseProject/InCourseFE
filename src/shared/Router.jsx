@@ -15,7 +15,7 @@ import SignupDetail from "../pages/SignupDetail/SignupDetail";
 import KakaoLogin from "../pages/Login/components/KakaoLogin";
 import Search from "../pages/Search/Search";
 import EmailConfrim from "../pages/SignupDetail/components/EmailConfirm";
-import Loading from "../pages/Loading/Loading";
+// import Loading from "../pages/Loading/Loading";
 import MyPagePost from "../pages/MypagePost/MyPagePost";
 import PostUpDate from "../pages/PostUpdate/PostUpDate";
 import SearchPost from "../pages/Search/components/SeachPost";
@@ -40,7 +40,7 @@ const Router = () => {
         <Route path="mypostpage" exact element={<MyPagePost />} />
         <Route path="mypage/edit" exact element={<MyPageEdit />} />
         <Route path='*' element={<div>404 Not Found</div>} />
-        <Route path='loading' exact element={<Loading />} />
+        {/* <Route path='loading' exact element={<Loading />} /> */}
         <Route path="kakao" exact element={<KakaoLogin />} />
         {/* <Route path="naver" exact element={<NaverLogin />} /> */}
         <Route path="emailconfirm" exact element={<EmailConfrim />} />
