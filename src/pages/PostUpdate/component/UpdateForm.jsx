@@ -295,6 +295,9 @@ console.log(post)
                         </div>
 
                         <div>
+                            {post.place?.map((cose) =>
+                                <Cose key={`cose-${cose.coordinateX},${cose.coordinateY}`} cose={cose} />
+                            )}
                             {cose?.map((cose) =>
                                 <Cose key={`cose-${cose.coordinateX},${cose.coordinateY}`} cose={cose} />
                             )}
