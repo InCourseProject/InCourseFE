@@ -82,14 +82,16 @@ const variants = {
     color: colors.deepGray,
     backgroundColor: colors.lightGray,
     boxSizing: `borderBox`,
-    border: `1px solid ${colors.secondary}`,
+    border: `1px solid ${colors.lightGray}`,
     borderRadius:'3.5rem',
-
     '&:active,&:focus,&:hover': {
-      backgroundColor: `#f0d800`,
+      color: `${colors.white}`,
+      border: `1px solid ${colors.gray}`,
+      backgroundColor: `${colors.gray}`,
     },
     '&:disabled': {
-      backgroundColor: `#f0d800`,
+      color: `${colors.gray}`,
+      backgroundColor: `${colors.tone}`,
     }
   },
   kakao: {
@@ -98,7 +100,6 @@ const variants = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    
     '&:active,&:focus,&:hover': {
       backgroundColor: `#f0d800`,
     }

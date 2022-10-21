@@ -105,16 +105,14 @@ const Search = () => {
           size='search'      
           variant='search' 
           type="text" 
-          // css={{
-          //   margin:'0px', 
-          //   height:'0px',
-          // }} 
         />
         <Btn 
           css={{
-            margin:'0',
+            width:'6rem',
+            height: '4rem',
+            padding: '0rem 1rem',
 
-
+      
           }} 
           size='btn'
           variant='btn' 
@@ -191,6 +189,7 @@ const SearchBar = styled.div`
 
 const SearchInputContainer = styled.div`
   width: 100%;
+  margin: 0rem 1rem;
   margin-top: 1.8rem;
   padding: 0rem 0.5rem 0rem 2.5rem;
   border: 1px solid ${colors.lightGray};
@@ -200,7 +199,7 @@ const SearchInputContainer = styled.div`
   align-items: center;
   justify-content: center;
   &:active,:focus,:hover {
-    outline: 1px solid ${colors.lightGray};
+    border: 1px solid ${colors.gray};
   };
 `
 

@@ -15,7 +15,7 @@ const HomeComponent = () => {
     const navigate = useNavigate();
     const [post, setPost] = useState([]);
     const [notlog, setNotLog] = useState([]);
-    const [weather, setWeather] = useState();
+    const [weather, setWeather] = useState(null);
     const [page, setPage] = useState(1);
     const row = useRef(null);
     const { loading, error, formattedList = [] } = useFetch(page, `${process.env.REACT_APP_SERVER_API}/api/course`);
@@ -24,7 +24,7 @@ const HomeComponent = () => {
             navigator.geolocation.getCurrentPosition((position) => {
                 var lat = position.coords.latitude, // 위도
                     lon = position.coords.longitude; // 경도
-                setWeather({ x: lon, y: lat })
+                setWeather({ x: String(lon), y: String(lat) })
             });
         }
     }
@@ -54,7 +54,7 @@ const HomeComponent = () => {
         // setPost( response.data ); //for realserver
     }
     const Weather = async () => {
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/weather/open`, weather, {
+        const response = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/weather/open`, weather, {
             headers: {
                 Authorization: localStorage.getItem("Authorization"),
                 RefreshToken: localStorage.getItem("RefreshToken")
@@ -62,6 +62,7 @@ const HomeComponent = () => {
         });
         console.log('Login:', response.data)
         setPost(response.data); //for realserver
+        common();
     }
 
     useEffect(() => {
@@ -78,9 +79,20 @@ const HomeComponent = () => {
         if (localStorage.getItem("Authorization") === null) {
             notLogin();
         } else {
-            common();
+            // common();
+            geoLocactionButton();
+            // Weather();
         }
     }, []);
+
+    useEffect(() => {
+        if(weather===null){
+            return;
+        }else{
+            Weather();
+        }
+        }, [weather])
+
     // if (loading) {
     //     return <div>로딩</div>;
     //   }
