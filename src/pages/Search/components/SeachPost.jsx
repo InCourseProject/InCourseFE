@@ -11,14 +11,25 @@ import SearchHistory from "./SearchHistory";
 
 
 const SearchPost = () => {
+  const accessToken = localStorage.getItem('Authorization'); //accesstoken 
+  const refreshToken = localStorage.getItem('RefreshToken') //refreshToken
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(location.state);
+  // console.log(location.state);
   
   const search = location.state.search
-  const post = location.state.post
-  console.log(post);
+  const post = location.state.post.content
+  // console.log(post);
   // const [list, setList] = useState();
+
+  const plusCourse = () => {
+    if( !accessToken || !refreshToken) {
+      alert('로그인이 필요합니다.');
+      navigate('/login');
+    } else {
+      navigate('/category');
+    }
+  };
 
   useEffect(() => {
   },[]);
@@ -30,12 +41,12 @@ const SearchPost = () => {
       <HeaderBar/>
       <SearchWord>검색어</SearchWord>
       <SearchHistory history={search}/>
-      <StH1>추천코스</StH1>
+      <StH1></StH1>
       {post.length === 0
       ? <NonHistoryTxt>
         <p>키워드가 포함된 게시글이 아직 없어요!</p>
         <div
-          onClick={() => navigate('/category')}
+          onClick={plusCourse}
           css={{
             display:'flex',
             justifyContent:'center',

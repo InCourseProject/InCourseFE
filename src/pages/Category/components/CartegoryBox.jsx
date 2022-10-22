@@ -113,6 +113,7 @@ const StForm = styled.div`
 `
 
 const StBtnWrap = styled.div`
+    margin-bottom: 7.5rem;
     text-align: center;
     width: 100%;
 `

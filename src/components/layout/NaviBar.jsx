@@ -37,9 +37,16 @@ const NaviBar = () => {
       ? `${colors.secondary}` 
       : null}`
     },
-  }
+  };
 
-  
+  const plusCourse = () => {
+    if( !accessToken || !refreshToken) {
+      alert('로그인이 필요합니다.');
+      navigate('/login');
+    } else {
+      navigate('/category');
+    }
+  };
 
   return (
     <BarContainer>
@@ -51,7 +58,7 @@ const NaviBar = () => {
         <MenuTxt>Home</MenuTxt>
       </MenuContainer>
       <MenuContainer 
-        onClick={() => navigate('/category')}
+        onClick={plusCourse}
         style={{...iconStyle['selPlus']}}
       >
         <PlusCircleIcon style={{...iconStyle['bottom']}} alt="Add My Incourse"/>
@@ -67,7 +74,7 @@ const NaviBar = () => {
       <MenuContainer 
         onClick={() => accessToken&&refreshToken
           ? navigate('/mypage')
-          :navigate('/login')
+          : navigate('/login')
         }
         style={{...iconStyle['selMypage']}}
       >

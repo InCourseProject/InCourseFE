@@ -43,6 +43,8 @@ const Search = () => {
     return;
   };
 
+  
+
   const clickKey = () => {
     setSearchList([...searchList, search])
     fetchSearch();

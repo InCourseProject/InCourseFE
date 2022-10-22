@@ -6,7 +6,7 @@ import { XCircleIcon } from'@heroicons/react/24/outline'
 
 const SearchHistory = ({history}) => {
   const path = window.location.pathname
-  console.log(path)
+  // console.log(path)
   return(
     <StDiv>
       {path === '/search/post'

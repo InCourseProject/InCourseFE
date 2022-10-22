@@ -14,7 +14,7 @@ const AskSignup = () => {
       <AskWrap>
       <span>아직 회원이 아니신가요?</span>
       <SignupTxt
-        onClick={() => navigate('/signup')}
+        onClick={() => navigate('/signup/email')}
       >
         회원가입
       </SignupTxt>

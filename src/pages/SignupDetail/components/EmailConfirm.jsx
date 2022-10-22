@@ -12,7 +12,7 @@ import HeaderBar from '../../../components/layout/HeaderBar';
 const EmailConfrim = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log('props to useNavigate>>', location.state.email)
+  // console.log('props to useNavigate>>', location.state.email)
   const accessToken = localStorage.getItem('Authorization'); //accesstoken 
   const refreshToken = localStorage.getItem('RefreshToken') //refreshToken
   
@@ -27,6 +27,8 @@ const EmailConfrim = () => {
     setInput({ ...input, [name]:value });
   };
 
+  // const [ time, setTime ] = useState();
+
   // 회원 가입용 이메일 인증 번호 보내기
   const sendConfirm = async () => {
     try{
@@ -34,8 +36,8 @@ const EmailConfrim = () => {
     input,
     {
       headers:{
-        Authorization: `${accessToken}`,
-        RefreshToken: `${refreshToken}`,
+        Authorization: accessToken,
+        RefreshToken: refreshToken,
       }
     });
     if(send.status === 200 || 201) {
@@ -54,8 +56,8 @@ const EmailConfrim = () => {
       input,
       {
         headers:{
-          Authorization: `${accessToken}`,
-          RefreshToken: `${refreshToken}`,
+          Authorization: accessToken,
+          RefreshToken: refreshToken,
         }
       }
       )
@@ -104,10 +106,13 @@ const EmailConfrim = () => {
             size='default'
             variant='input'
           />
+          {/* <CountTime css={{visibility: 'hidden'}}>03:00</CountTime> */}
           <Btn 
             onClick={checkConfirm}
             size='default'
             variant='main'
+            disabled={!input.authkey}
+
           >
             이메일 인증
           </Btn>
@@ -137,10 +142,22 @@ const FormWrap = styled.div`
 
 const Sth1 = styled.h1`
     margin-top: 12.4rem;
-    margin-bottom: -6.64rem;
+    margin-bottom: -4rem;
 
     color: ${colors.black};
     font-size: ${fonts.headLine};
     font-weight: ${fontWeight.exrtaBold};
     line-height: ${lineHeights.headLine};
   `
+
+const CountTime = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-top: 0.8rem;
+  margin-right: 2.2rem;
+  color: ${colors.gray};
+  font-size: ${fonts.body};
+  font-weight: ${fontWeight.normal};
+  line-height: ${lineHeights.body};
+`

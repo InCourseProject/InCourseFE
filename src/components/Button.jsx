@@ -157,22 +157,8 @@ const StyledButton = styled.button`
   max-width: 330px;
   height: 59px;
 
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
-
-  /* defalut size */
-  /* font-size: 1rem;
-  font-weight: 500;
-  padding: 12px 16px;
-  border-radius: 8px; */
-  /* defalut color */
   background-color: ${colors.primary};
   color: ${colors.white};
-
-  /* &:active:hover:focus:not([disabled]) {
-    background-color: ${colors.secondary};
-  } */
 
   &:disabled {
       cursor: default;
