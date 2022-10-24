@@ -68,8 +68,8 @@ const HomeCard = ({ post }) => {
                     </StProfileImg>
                     <ProfileContents>
 
-                        <p>{post.nickname}</p>
-                        <Badge title={post.badge}>{post.badge}</Badge>
+                        <p>{post?.nickname}</p>
+                        <Badge title={post?.badge}>{post?.badge}</Badge>
                     </ProfileContents>
                 </StProfileWrap>
 
