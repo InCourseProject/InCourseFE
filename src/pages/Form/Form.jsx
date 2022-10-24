@@ -1,10 +1,19 @@
 import React from "react";
-import Styled from "@emotion/react";
-
+import styled from "@emotion/styled";
+import FormComponent from "./components/FormComponent";
+import HeaderBar from "../../components/layout/HeaderBar";
+import NaviBar from "../../components/layout/NaviBar";
 const Form = () => {
 
     return (
-      <div>Form 입니다.</div>
+      <div>
+        <HeaderBar/>
+        <FormComponent/>
+        <NaviBar/>
+      </div>
+
+
+
     );
 };
 
