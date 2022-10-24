@@ -18,7 +18,8 @@ const EmailConfrim = () => {
   
   
   const initialstate = {
-    email: location.state.email, /// 이메일이 리스폰스로 오니까 그걸 받아야함.
+    // email: location.state.email, /// 이메일이 리스폰스로 오니까 그걸 받아야함.
+    email: '', /// 이메일이 리스폰스로 오니까 그걸 받아야함.
     authkey: ''
   }
   const [ input, setInput ] = useState(initialstate);
@@ -28,6 +29,19 @@ const EmailConfrim = () => {
   };
 
   // const [ time, setTime ] = useState();
+  // setInterval(() => {
+    
+  // }, interval);
+
+
+  //클린업 함수 쓰는 것
+  // useEffect(() => {
+  //   console.log('화면에 나타남');
+  //   return () => {
+  //     console.log('화면에서 사라짐');
+  //   };
+  // }, []);
+
 
   // 회원 가입용 이메일 인증 번호 보내기
   const sendConfirm = async () => {
@@ -90,7 +104,6 @@ const EmailConfrim = () => {
             onClick={sendConfirm}
             size='default'
             variant='line'
-            // css={{marginTop:'1rem'}}
             css={css`
               margin-top: 1rem;
             `}
@@ -112,7 +125,6 @@ const EmailConfrim = () => {
             size='default'
             variant='main'
             disabled={!input.authkey}
-
           >
             이메일 인증
           </Btn>

@@ -121,8 +121,8 @@ const variants = {
 
 /**
  * 인코스 버튼 컴포넌트
- * @param {string} size 'default' | 'sm' 
- * @param {string} variant 'main' | 'input' | 'line'
+ * @param {string} size 'default' | 'sm' | 'md' | 'btn'
+ * @param {string} variant 'main' | 'input' | 'line' | 'lineClicke' | 'btn' | 'kakao' | 'naver'
  * @param {*} disabled <option> disalbed
  */
 const Btn = ({disabled, size, variant, children, onClick, value, className, style, css}) => {

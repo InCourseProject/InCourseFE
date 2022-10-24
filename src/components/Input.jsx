@@ -74,8 +74,8 @@ const variants = {
 
 /**
  * 인코스 인풋 컴포넌트
- * @param {string} size 'default' | 'sm' 
- * @param {string} variant 'input' | 'line'
+ * @param {string} size 'default' | 'sm' | 'search'
+ * @param {string} variant 'input' | 'line' | 'search'
  * @param {*} disabled <option> disalbed
  */
 const Input = ({ref, accept, onChange, placeholder, type, name, size, variant, minLenth, maxLength, value, clasName, style, onKeyUp, onKeyDown, css}) => {

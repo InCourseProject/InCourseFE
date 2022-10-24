@@ -7,6 +7,7 @@ import { colors, fonts, fontWeight, lineHeights } from '../../../lib/constants/G
 import Input from '../../../components/Input';
 import Btn from '../../../components/Button';
 import HeaderBar from '../../../components/layout/HeaderBar';
+import { css } from '@emotion/react';
 
 const SignupEmail = () => {
   const navigate = useNavigate();
@@ -63,7 +64,6 @@ const SignupEmail = () => {
 
   const err = signup.password.length === 0 ? {visibility: 'hidden'}
   : 8 > signup.password.length ? {visibility: 'visible'}
-  // : signup.password.length <= 20 ? {visibility: 'visible'}
   : {visibility: 'hidden'}
   console.log(err);
 
@@ -71,18 +71,13 @@ const SignupEmail = () => {
   : signup.passwordConfirm !== signup.password ? {visibility: 'visible'}
   :{visibility: 'hidden'}
   
-  const confirmOutline = confirm === {visibility: 'visible'} 
-  ?  {":active,:focus": {outline: `1px solid ${colors.danger}`}}
-  : null
-  
-
   return(
     <StWrap>
       <HeaderBar/>
       <Container>
         <FormWrap>
           <Sth1>회원가입</Sth1>
-          {/* 서버에서 이메일 형식인지, 이미지 가입된 이메일인지 체크됨 */}
+          {/* 서버에서 이메일 형식인지, 이미 가입된 이메일인지 체크됨 */}
           <Input 
             onChange={onChangeHandler} 
             placeholder='Email' 
@@ -92,7 +87,7 @@ const SignupEmail = () => {
             size='default'
             variant='input'
           />
-          <ErrTxt css={{visibility: 'hidden'}}>입력하신 비밀번호와 다릅니다.</ErrTxt>
+          <ErrTxt css={{visibility: 'hidden'}}>이미 가입된 이메일입니다.</ErrTxt>
           <Input 
             onChange={onChangeHandler} 
             placeholder='Password' 
@@ -105,7 +100,7 @@ const SignupEmail = () => {
             variant='input'
           />
           <ErrTxt css={err}>숫자, 영문 대소문자를 포함 8~20길이로 입력해 주세요.</ErrTxt>
-
+          {/* 대문자 65~90 */}
           <Input 
             onChange={onChangeHandler} 
             placeholder='Password Confirm' 
@@ -114,8 +109,6 @@ const SignupEmail = () => {
             type='password' 
             size='default'
             variant='input'
-            // css={confirmOutline}
-            css={{":active,:focus": {outline: `1px solid ${colors.danger}`}}}
           />
           <ErrTxt css={confirm}>입력하신 비밀번호와 다릅니다.</ErrTxt>
 
@@ -153,20 +146,20 @@ const FormWrap = styled.div`
   min-width: 330px;
 `
 
-  const Sth1 = styled.h1`
-    margin-top: 12.4rem;
+const Sth1 = styled.h1`
+  margin-top: 12.4rem;
 
-    color: ${colors.black};
-    font-size: ${fonts.headLine};
-    font-weight: ${fontWeight.exrtaBold};
-    line-height: ${lineHeights.headLine};
-  `
+  color: ${colors.black};
+  font-size: ${fonts.headLine};
+  font-weight: ${fontWeight.exrtaBold};
+  line-height: ${lineHeights.headLine};
+`
 
-  const ErrTxt = styled.span`
-    margin-top: 0.5rem;
-    margin-left: 2.5rem;
-    color: ${colors.danger};
-    font-size: ${fonts.caption};
-    font-weight: ${fontWeight.light};
-    line-height: ${lineHeights.caption};
+const ErrTxt = styled.span`
+  margin-top: 0.5rem;
+  margin-left: 2.5rem;
+  color: ${colors.danger};
+  font-size: ${fonts.caption};
+  font-weight: ${fontWeight.light};
+  line-height: ${lineHeights.caption};
   `

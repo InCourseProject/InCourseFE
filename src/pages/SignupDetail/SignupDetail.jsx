@@ -77,7 +77,6 @@ const SignupDetail = () => {
             size='default'
             variant='input'
           />
-          {/* <ErrTxt css={{visibility:'hidden'}}>저런! 이 닉네임은 누가 먼저 사용하고 있네요!</ErrTxt> */}
 
           <StSelect 
             onChange={onChangeHandler}  
