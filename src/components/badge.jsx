@@ -5,32 +5,32 @@ import { css } from "@emotion/react";
 import { colors, fonts, fontWeight, lineHeights } from "../lib/constants/GlobalStyle";
 import axios from "axios";
 
-const Badge = ({children, css}) => {
-  const accessToken = localStorage.getItem('Authorization'); //accessToken
-  const refreshToken = localStorage.getItem('RefreshToken'); //refreshToken
-  
-  const fetchBadge = async () => {
-    try{
-      const res = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/member/haert`,
-      {
-        headers:{
-          Authorization: accessToken,
-          RefreshToken: refreshToken,
-        }
-        });
-      console.log(res)
-    }
-    catch(err){
-      console.error(err);
-    }
+const Badge = ({children, title, css}) => {
+
+  const badgeStyle = {
+    '아싸':{
+      backgroundColor: colors.primary
+    },
+    '자발적 아싸':{
+      backgroundColor: colors.secondary
+    },
+    '흔남흔녀':{
+      backgroundColor: colors.caution
+    },
+    '인싸':{
+      backgroundColor: colors.success
+    },
+    '핵인싸':{
+      backgroundColor: colors.danger
+    },
   }
 
-  // useEffect(() => {
-  //   fetchBadge();
-  // },[]);
-
   return(
-    <Stdiv css={css}>
+    <Stdiv 
+      css={{
+        ...badgeStyle[title],
+        css
+      }}>
       <div>
         {children}
       </div>

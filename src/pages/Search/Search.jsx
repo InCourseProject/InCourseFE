@@ -139,7 +139,7 @@ const Search = () => {
     </div>
     <SearchLists>
       {searchList.length === 0
-      ? <div>최근 검색 내역이 없습니다.</div>
+      ? <NotSearchList>최근 검색 내역이 없습니다.</NotSearchList>
       :searchList.map((history, i) => 
       <SearchHistory key={i} history={history} />
       )
@@ -208,4 +208,13 @@ const SearchLists = styled.div`
   margin-left: 0.5rem;
 
 `
-
+const NotSearchList = styled.div`
+  margin-top: 6rem;
+  color: ${colors.lightGray};
+  font-size: ${fonts.body};
+  font-weight: ${fontWeight.bold};
+  line-height: ${lineHeights.body};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
