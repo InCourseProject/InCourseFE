@@ -34,6 +34,16 @@ const CardCompnent = () => {
         setCose({...cose,...keywordId, content: con});
     };
 
+    const enterKey = (e) => {
+        if (e.nativeEvent.key === 'Enter'){
+          if(e.nativeEvent.isComposing === false) {
+            e.preventDefault();
+            setSearch(keyword)
+          };
+        };
+        return;
+      };
+
     const geoLocactionButton = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
@@ -139,12 +149,11 @@ const CardCompnent = () => {
                 ))}
             </Map>
             <StSearcBox>
-                <StInput className='findAddress' type="search"
+                <StInput className='findAddress' type="search" onKeyDown={enterKey}
                     onChange={onChangeHandler}
                 ></StInput>
                 <StButtonBox>
-                    <button type='button' onClick={() => { setSearch(keyword) }}
-                    >검색</button>
+                  
                     <button type='button' onClick={geoLocactionButton}>내 위치</button>
                 </StButtonBox>
             </StSearcBox>

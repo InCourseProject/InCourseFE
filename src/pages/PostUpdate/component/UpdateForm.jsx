@@ -71,6 +71,7 @@ console.log(post)
         setTitle(response.data.title)
         setContent(response.data.content)
         setFileImage(response.data.image)
+        // setImageUrl(response.data.image)
         // setPost( response.data ); //for realserver
     }
     // console.log(imageUrl);
@@ -123,7 +124,7 @@ console.log(post)
             who: who,
             season: season,
         },
-        placePutDtoList: cose
+        placeRequestDtoList: cose
     };
     console.log(data)
     const onAddPosttButtonHandler = async () => {
@@ -203,7 +204,7 @@ console.log(post)
                         <StSlideBox >
                             <Slider {...settings}  >
                                 {post.place.map((cose) => (
-                                    <StCoseBox key={`name-${cose.coordinateX},${cose.coordinateY}`}>
+                                    <StCoseBox key={`name-${cose.coordinateX},${cose.coordinateY}`} >
                                         <h3>{cose.placeName}</h3>
                                     </StCoseBox>
                                 ))}
@@ -295,8 +296,8 @@ console.log(post)
                         </div>
 
                         <div>
-                            {post.place?.map((cose) =>
-                                <Cose key={`cose-${cose.coordinateX},${cose.coordinateY}`} cose={cose} />
+                            {post.place?.map((cose,i) =>
+                                <Cose key={`cose-${cose.coordinateX},${cose.coordinateY}`} cose={cose} i={i+1}/>
                             )}
                             {cose?.map((cose) =>
                                 <Cose key={`cose-${cose.coordinateX},${cose.coordinateY}`} cose={cose} />
