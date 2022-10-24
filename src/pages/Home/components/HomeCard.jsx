@@ -27,13 +27,13 @@ const HomeCard = ({ post }) => {
     }
     // console.log(post);
     return (
-        <StContainer key={post.id}>
+        <StContainer key={post?.id}>
 
             <StImgWrap onClick={() => { navigate(`/post/${post.id}`) }}>
                 <StImgBox>
                     <div>
-                        <h1>{post.title}</h1>
-                        <p>{post.content}</p>
+                        <h1>{post?.title}</h1>
+                        <p>{post?.content}</p>
                     </div>
                     <StImg src={post?.image} onError={handleImgError} />
                 </StImgBox>
@@ -51,30 +51,31 @@ const HomeCard = ({ post }) => {
             </StImgWrap>
 
             <StCategorys>
-                <div><p>{post.region}</p></div>
-                <div><p>{post.season}</p></div>
-                <div><p>{post.weather}</p></div>
-                <div><p>{post.who}</p></div>
+                <div><p>{post?.region}</p></div>
+                <div><p>{post?.season}</p></div>
+                <div><p>{post?.weather}</p></div>
+                <div><p>{post?.who}</p></div>
             </StCategorys>
             <StProfile>
                 <StProfileWrap>
                     <StProfileImg>
                         <div>
-                            {post.profileImage === null
+                            {post?.profileImage === null
                             ? <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K" alt="" />
-                            : <img css={{width:'5.6rem'}} src={post.profileImage} alt="Profile Image" /> 
+                            : <img css={{width:'5.6rem'}} src={post?.profileImage} alt="Profile Image" /> 
                             }
                         </div>
                     </StProfileImg>
                     <ProfileContents>
-                        <p>{post.nickname}</p>
-                        <Badge title={post.badge}>{post.badge}</Badge>
+
+                        <p>{post?.nickname}</p>
+                        <Badge title={post?.badge}>{post?.badge}</Badge>
                     </ProfileContents>
                 </StProfileWrap>
 
                 <HeartContainer>
                     <HeartIcon css={{width:'1.6rem', marginRight:'0.2rem', color:`${colors.danger}`}}/> 
-                    {post.heartnum}
+                    {post?.heartnum}
                 </HeartContainer>
             </StProfile>
         </StContainer>

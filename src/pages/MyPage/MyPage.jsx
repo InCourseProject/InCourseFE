@@ -131,12 +131,14 @@ const MyPage = () => {
           size='default'
           variant='line'
           style={{...styles['btnLine']}}
+          onClick = {()=>{navigate('/mypostpage')}}
         >
           내가 작성한 게시물
         </Btn> 
         <Btn
           size='default'
           variant='line'
+          onClick = {()=>{navigate('/mylikepost')}}
         >
           내가 찜한 게시물
         </Btn>
