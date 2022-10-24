@@ -33,7 +33,7 @@ const HeaderBar = () => {
       }
       </LeftIcon>
       
-      <RightIcon>
+      <RightIcon isUrl={path}>
         {accessToken&&refreshToken
         // ? null
         ? <MagnifyingGlassIcon alt='search'
@@ -42,7 +42,7 @@ const HeaderBar = () => {
         />
         : <StSpan
           onClick={() => navigate('/login')}
-          isUrl={path}
+          
         >
           로그인
         </StSpan>
@@ -84,6 +84,18 @@ const LeftIcon = styled.span`
 
 const RightIcon = styled.span`
   cursor: pointer;
+  ${(props) => 
+    props.isUrl === '/login' ? css`display: none;` 
+    : props.isUrl === '/signup' ? css`display: none;` 
+    : props.isUrl === '/signup/email' ? css`display: none;` 
+    : props.isUrl === '/emailconfirm' ? css`display: none;` 
+    : props.isUrl === '/signup/detail' ? css`display: none;` 
+    : props.isUrl === '/category' ? css`display: none;`
+    : props.isUrl === '/form' ? css`display: none;` 
+    : props.isUrl === '/mypage' ? css`display: none;` 
+    : props.isUrl === '/mypage/edit' ? css`display: none;` 
+    : props.isUrl === '/search/post' ? css`display: none;` 
+    : null}
 `
 
 const StSpan = styled.span` 
@@ -92,13 +104,6 @@ const StSpan = styled.span`
   font-size: ${fonts.caption};
   font-weight: ${fontWeight.bold};
   line-height: ${lineHeights.caption};
-  ${(props) => 
-    props.isUrl === '/login' ? css`display: none;` 
-    : props.isUrl === '/signup' ? css`display: none;` 
-    : props.isUrl === '/signup/email' ? css`display: none;` 
-    : props.isUrl === '/emailconfirm' ? css`display: none;` 
-    : props.isUrl === '/signup/detail' ? css`display: none;` 
-    : props.isUrl === '/search' ? css`display: none;` 
-    : null}
+  
 `
 

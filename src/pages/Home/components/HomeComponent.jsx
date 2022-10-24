@@ -115,6 +115,15 @@ const HomeComponent = () => {
             Weather()
         }
     }, [weather]);
+
+    const plusCourse = () => {
+        if( !localStorage.getItem("Authorization") || !localStorage.getItem("RefreshToken")) {
+            alert('로그인이 필요합니다.')
+            navigate('/login')
+        } else {
+            navigate('/category')
+        }
+    };
     return (
         <StContainer>
             {loading  ? <Loading/> : null}
@@ -166,7 +175,7 @@ const HomeComponent = () => {
                     <li>오늘은 긴팔 티, 면 바지  어때요?</li>
                     <li>시원한 생수 챙겨가시면 좋아요!</li>
                 </ul>
-                <div><Btn size='default' variant='main' onClick={()=>{navigate('/category')}}> 하루의 코스 만들러 가기 </Btn></div>
+                <div><Btn size='default' variant='main' onClick={plusCourse}> 하루의 코스 만들러 가기 </Btn></div>
             </StDivWrap>
             <StHomeCardWrap >
                 <h1>추천코스</h1>

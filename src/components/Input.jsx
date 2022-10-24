@@ -3,7 +3,6 @@
  * @read https://www.daleseo.com/emotion/
  */
  import styled from '@emotion/styled'
- import { css } from '@emotion/react'
  import { colors, fonts, fontWeight, lineHeights } from '../lib/constants/GlobalStyle'
 
  /*------------- 인풋 CSS 값 -------------*/
@@ -40,7 +39,6 @@ const variants = {
     },
     '&:active,&:focus': {
       outline: `1px solid ${colors.secondary}`,
-      // outline: `1px solid ${colors.danger}`,
     },
   },
   line: {
@@ -65,15 +63,22 @@ const variants = {
     },
   },
 };
+
+// const outlines = {
+//   any: {
+//     '&:active,&:focus': {
+//       outline: `1px solid ${colors.secondary}`,
+//   }
+// }
 /*------------- 인풋 CSS 값 -------------*/
 
 /**
  * 인코스 인풋 컴포넌트
- * @param {string} size 'default' | 'sm' 
- * @param {string} variant 'input' | 'line'
+ * @param {string} size 'default' | 'sm' | 'search'
+ * @param {string} variant 'input' | 'line' | 'search'
  * @param {*} disabled <option> disalbed
  */
-const Input = ({ref, accept, onChange, placeholder, type, name, size, variant, minLenth, maxLength, value, clasName, style, onKeyUp, onKeyDown}) => {
+const Input = ({ref, accept, onChange, placeholder, type, name, size, variant, minLenth, maxLength, value, clasName, style, onKeyUp, onKeyDown, css}) => {
   return (
     <StInput
       onChange={onChange}
@@ -91,7 +96,8 @@ const Input = ({ref, accept, onChange, placeholder, type, name, size, variant, m
       ref={ref}
       css={{
         ...sizeStyles[size],
-        ...variants[variant]
+        ...variants[variant],
+        css
       }}
     />
   )
@@ -121,7 +127,6 @@ const StInput = styled.input`
   
   &:active,
   &:focus {
-    /* background-color: ${colors.secondary}; */
     border: 1px solid ${colors.primary};
   }
 

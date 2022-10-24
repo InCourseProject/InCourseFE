@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import { colors, fonts, fontWeight, lineHeights } from '../../lib/constants/GlobalStyle';
 import { UserCircleIcon, HeartIcon } from '@heroicons/react/24/solid'
 import axios from 'axios';
@@ -19,7 +18,10 @@ const MyPage = () => {
   const refreshToken = localStorage.getItem('RefreshToken'); //refreshToken
   
   const initialState = {
+    badge: '',
     email: '',
+    gender: '',
+    heartSum: 0,
     id: '',
     image: '',
     kakaoId: '',
@@ -45,16 +47,18 @@ const MyPage = () => {
     }catch(err){
       console.error(err.response);
       window.alert('로그인이 필요합니다.')
+      localStorage.clear();
       navigate('/')
     }
 
     
   };
-  console.log("work!",info);
+  // console.log("work!",info);
   const clickMyprofile = () => {
     navigate('edit', {
       state: {
         email: info.email,
+        gender: info.gender,
         id: info.id,
         image: info.image,
         kakaoId: info.kakaoId,
@@ -81,7 +85,7 @@ const MyPage = () => {
       marginBottom: '-4.47rem' 
     },
     btnLine: {
-      marginBottom: '-7.27rem' 
+      marginBottom: '-5.5rem' 
     }
   };
 
@@ -105,14 +109,13 @@ const MyPage = () => {
         </ProfileContainer>
         <InfluWrap style={{marginBottom:'0.8rem'}}>
           <Influ>나의 인싸력</Influ>
-          <Badge css={{transform:'translateX(1.2rem)'}}>핵 인싸</Badge>
-          {/* <InfluBadge style={{transform:'translateX(1.2rem)'}}>핵인싸</InfluBadge> */}
+          <Badge title={info.badge}>{info.badge}</Badge>
         </InfluWrap>
         <InfluWrap>
           <Influ>내가 받은 좋아요</Influ>
             <LikeCount>
             <HeartIcon style={{...styles['icon']}}/>
-            <span>100</span>
+            <span>{info.heartSum}</span>
             </LikeCount>
         </InfluWrap>
         
@@ -124,7 +127,6 @@ const MyPage = () => {
         >
           프로필 보기
         </Btn>
-        {/* 아래 두 요소 와이어프레임 없음 */}
         <Btn
           size='default'
           variant='line'
@@ -228,4 +230,10 @@ const InfluBadge = styled.span`
 const LikeCount = styled.div`
   display: flex;
   align-items: center;
+  span{
+    color: ${colors.deepGray};
+    font-size: ${fonts.caption};
+    line-height: ${lineHeights.caption};
+    font-weight: ${fontWeight.bold};
+  }
 `

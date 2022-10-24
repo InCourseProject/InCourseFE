@@ -23,18 +23,16 @@ const MyPageLogout = () => {
       console.log(logout)
 
       if (logout.status === 200 || 201) {
-        localStorage.removeItem('Authorization'); //accessToken
-        localStorage.removeItem('RefreshToken'); //refreshToken
+        localStorage.clear();
         window.alert('로그아웃 되었습니다.')
         navigate('/')
       }
-      else {
-        console.log("not ok")
-      }
     }
     catch (err) {
-      window.alert('CheckConsole!')
+      // window.alert('CheckConsole!')
       console.error(err.response);
+      localStorage.clear();
+      navigate('/')
     };
   };
 

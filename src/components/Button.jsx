@@ -82,14 +82,16 @@ const variants = {
     color: colors.deepGray,
     backgroundColor: colors.lightGray,
     boxSizing: `borderBox`,
-    border: `1px solid ${colors.secondary}`,
+    border: `1px solid ${colors.lightGray}`,
     borderRadius:'3.5rem',
-
     '&:active,&:focus,&:hover': {
-      backgroundColor: `#f0d800`,
+      color: `${colors.white}`,
+      border: `1px solid ${colors.gray}`,
+      backgroundColor: `${colors.gray}`,
     },
     '&:disabled': {
-      backgroundColor: `#f0d800`,
+      color: `${colors.gray}`,
+      backgroundColor: `${colors.tone}`,
     }
   },
   kakao: {
@@ -98,7 +100,6 @@ const variants = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    
     '&:active,&:focus,&:hover': {
       backgroundColor: `#f0d800`,
     }
@@ -120,8 +121,8 @@ const variants = {
 
 /**
  * 인코스 버튼 컴포넌트
- * @param {string} size 'default' | 'sm' 
- * @param {string} variant 'main' | 'input' | 'line'
+ * @param {string} size 'default' | 'sm' | 'md' | 'btn'
+ * @param {string} variant 'main' | 'input' | 'line' | 'lineClicke' | 'btn' | 'kakao' | 'naver'
  * @param {*} disabled <option> disalbed
  */
 const Btn = ({disabled, size, variant, children, onClick, value, className, style, css}) => {
@@ -156,22 +157,8 @@ const StyledButton = styled.button`
   max-width: 330px;
   height: 59px;
 
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
-
-  /* defalut size */
-  /* font-size: 1rem;
-  font-weight: 500;
-  padding: 12px 16px;
-  border-radius: 8px; */
-  /* defalut color */
   background-color: ${colors.primary};
   color: ${colors.white};
-
-  /* &:active:hover:focus:not([disabled]) {
-    background-color: ${colors.secondary};
-  } */
 
   &:disabled {
       cursor: default;

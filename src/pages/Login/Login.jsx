@@ -12,7 +12,7 @@ const Login = () => {
   const clickCheck = (e) => {
     setClick(e)
   };
-  console.log(click)
+  // console.log(click)
 
     return (
       <StWrap>
@@ -65,7 +65,7 @@ const Sth1 = styled.h1`
 const Sth3 = styled.h3`
   color: ${colors.primary};
   font-size: ${fonts.subTitle};
-  font-weight: ${fontWeight.medium};
+  font-weight: ${fontWeight.normal};
   line-height: ${lineHeights.subTitle};
 `
 
