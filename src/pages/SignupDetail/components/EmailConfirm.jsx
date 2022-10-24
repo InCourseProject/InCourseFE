@@ -18,8 +18,8 @@ const EmailConfrim = () => {
   
   
   const initialstate = {
-    // email: location.state.email, /// 이메일이 리스폰스로 오니까 그걸 받아야함.
-    email: '', /// 이메일이 리스폰스로 오니까 그걸 받아야함.
+    email: location.state.email, /// 이메일이 리스폰스로 오니까 그걸 받아야함.
+    // email: '', /// 이메일이 리스폰스로 오니까 그걸 받아야함.
     authkey: ''
   }
   const [ input, setInput ] = useState(initialstate);

@@ -17,8 +17,10 @@ import Snow from '../../../lib/constants/img/snow.gif'
 import Cloud_Sunny from '../../../lib/constants/img/clouds_sunny.gif'
 const HomeComponent = () => {
     const navigate = useNavigate();
+    const accessToken = localStorage.getItem('Authorization'); //accesstoken 
+    const refreshToken = localStorage.getItem('RefreshToken') //refreshToken
     const [post, setPost] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [weather, setWeather] = useState(null);
     const [weathers,setWeathers] = useState({});
     const [page, setPage] = useState(1);
@@ -26,6 +28,7 @@ const HomeComponent = () => {
     const { formattedList = [] } = useFetch(page, `${process.env.REACT_APP_SERVER_API}/api/course`);
     const geoLocactionButton = () => {
         if (navigator.geolocation) {
+            setLoading(true);
             navigator.geolocation.getCurrentPosition((position) => {
                 var lat = position.coords.latitude, // 위도
                     lon = position.coords.longitude; // 경도
@@ -50,8 +53,8 @@ const HomeComponent = () => {
     const common = async () => {
         const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course/member/recommended`,{
             headers: {
-                Authorization: localStorage.getItem("Authorization"),
-                RefreshToken: localStorage.getItem("RefreshToken")
+                Authorization: accessToken,
+                RefreshToken: refreshToken
             }
         });
         console.log(response)
@@ -62,8 +65,8 @@ const HomeComponent = () => {
     const dress = async () => {
         const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/weather/recommend`,{
             headers: {
-                Authorization: localStorage.getItem("Authorization"),
-                RefreshToken: localStorage.getItem("RefreshToken")
+                Authorization: accessToken,
+                RefreshToken: refreshToken
             }
         });
         console.log(response)
@@ -74,8 +77,8 @@ const HomeComponent = () => {
     const Weather = async () => {
         const response = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/weather/open`, weather, {
             headers: {
-                Authorization: localStorage.getItem("Authorization"),
-                RefreshToken: localStorage.getItem("RefreshToken")
+                Authorization: accessToken,
+                RefreshToken: refreshToken
             }
             
         },
@@ -100,7 +103,7 @@ const HomeComponent = () => {
     }, [handleObserver]);
 
     useEffect(() => {
-        if (localStorage.getItem("Authorization") === null) {
+        if (accessToken === null) {
 
             notLogin()
         } else {
@@ -117,7 +120,7 @@ const HomeComponent = () => {
     }, [weather]);
 
     const plusCourse = () => {
-        if( !localStorage.getItem("Authorization") || !localStorage.getItem("RefreshToken")) {
+        if( !accessToken || !refreshToken) {
             alert('로그인이 필요합니다.')
             navigate('/login')
         } else {
@@ -127,56 +130,58 @@ const HomeComponent = () => {
     return (
         <StContainer>
             {loading  ? <Loading/> : null}
-            <StWeatherContainer>
-
-                <StWeatherWrap>
-                    <StWetherImg>
-                    <img 
-                    src={weathers.weather === "맑음" ? Sunny : 
-                    weathers.weather === "흐림" ? Cloud : 
-                    weathers.weather === "비" ? Rain : 
-                    weathers.weather === "눈" ? Snow : 
-                    weathers.weather === "조금흐림" ? 
-                    Cloud_Sunny :null} alt="" />
-
-                    <TitH1 >오늘의  날씨는 <br/> <span>{weathers.weather}</span>  입니다.</TitH1>
-                    </StWetherImg>
-
-                    <StWeatherBox>
-                        <StDetailBox >
-                            <p>Temp</p>
-                            <StWetherTemp>
-                                <p>{weathers.temp}℃</p>
-                            </StWetherTemp>
-                        </StDetailBox>
-                        <StDetailBox >
-                            <p>Detail</p>
-                            <StWetherDetail>
-                                <div>
-                                    <p>계절<span>{weathers.season}</span> </p>
-                                    <p>습도<span>{weathers.humidity}</span></p>
-                                    <p>풍속<span>{weathers.wind_speed}</span></p>
-                                </div>
-                                <div>
-                                    <p>구름양<span>{weathers.clouds}</span></p>
-                                    <p>강수량/1h<span>{weathers.rain_h}</span></p>
-                                    <p>강우량/1h<span>{weathers.snow_h}</span></p>
-                                </div>
-                            </StWetherDetail>
-                        </StDetailBox>
-                    </StWeatherBox>
-                </StWeatherWrap>
-            </StWeatherContainer>
-            <div>
-
+            {!accessToken
+            ? <div>로그인하면 더 좋지롱
+                <div><Btn size='default' variant='main' onClick={() => navigate('/login')}>지금 로그인 하기</Btn></div>
             </div>
-            <StDivWrap>
-                <ul>
-                    <li>오늘은 긴팔 티, 면 바지  어때요?</li>
-                    <li>시원한 생수 챙겨가시면 좋아요!</li>
-                </ul>
-                <div><Btn size='default' variant='main' onClick={plusCourse}> 하루의 코스 만들러 가기 </Btn></div>
-            </StDivWrap>
+            : <div>
+                <StWeatherContainer>
+                    <StWeatherWrap>
+                        <StWetherImg>
+                        <img 
+                        src={weathers.weather === "맑음" ? Sunny : 
+                        weathers.weather === "흐림" ? Cloud : 
+                        weathers.weather === "비" ? Rain : 
+                        weathers.weather === "눈" ? Snow : 
+                        weathers.weather === "조금흐림" ? 
+                        Cloud_Sunny :null} alt="" />
+
+                        <TitH1 >오늘의  날씨는 <br/> <span>{weathers.weather}</span>  입니다.</TitH1>
+                        </StWetherImg>
+
+                        <StWeatherBox>
+                            <StDetailBox >
+                                <p>Temp</p>
+                                <StWetherTemp>
+                                    <p>{weathers.temp}℃</p>
+                                </StWetherTemp>
+                            </StDetailBox>
+                            <StDetailBox >
+                                <p>Detail</p>
+                                <StWetherDetail>
+                                    <div>
+                                        <p>계절<span>{weathers.season}</span> </p>
+                                        <p>습도<span>{weathers.humidity}</span></p>
+                                        <p>풍속<span>{weathers.wind_speed}</span></p>
+                                    </div>
+                                    <div>
+                                        <p>구름양<span>{weathers.clouds}</span></p>
+                                        <p>강수량/h<span>{weathers.rain_h}</span></p>
+                                        <p>강우량/h<span>{weathers.snow_h}</span></p>
+                                    </div>
+                                </StWetherDetail>
+                            </StDetailBox>
+                        </StWeatherBox>
+                    </StWeatherWrap>
+                </StWeatherContainer>                
+                <StDivWrap>
+                    <ul>
+                        <li>오늘은 긴팔 티, 면 바지  어때요?</li>
+                        <li>시원한 생수 챙겨가시면 좋아요!</li>
+                    </ul>
+                    <div><Btn size='default' variant='main' onClick={plusCourse}> 하루의 코스 만들러 가기 </Btn></div>
+                </StDivWrap>
+            </div>}
             <StHomeCardWrap >
                 <h1>추천코스</h1>
                 <HomeCard key={post?.id} post={post} />
@@ -250,6 +255,7 @@ const StWetherDetail = styled.div`
     }
     span{
         font-size: ${fonts.body};
+        margin-left: 0.5rem;
     }
     
 `

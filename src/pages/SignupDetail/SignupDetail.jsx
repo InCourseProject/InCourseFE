@@ -85,8 +85,8 @@ const SignupDetail = () => {
             required
             >
             <StOption value='default' disabled>*gender</StOption>  
-            <option value='남자'>남자</option>
-            <option value='여자'>여자</option>
+            <option value='남성'>남성</option>
+            <option value='여성'>여성</option>
           </StSelect>
 
           <Input
