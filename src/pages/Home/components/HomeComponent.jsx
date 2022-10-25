@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import HomeCard from './HomeCard'
 import axios from 'axios'
 import { useEffect, useState, useRef, useCallback } from 'react'
-import { colors, fonts, fontWeight } from '../../../lib/constants/GlobalStyle'
+import { colors, fonts, fontWeight, lineHeights } from '../../../lib/constants/GlobalStyle'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import useFetch from '../../../hook/useFetch'
@@ -131,9 +131,17 @@ const HomeComponent = () => {
         <StContainer>
             {loading  ? <Loading/> : null}
             {!accessToken
-            ? <div>로그인하면 더 좋지롱
-                <div><Btn size='default' variant='main' onClick={() => navigate('/login')}>지금 로그인 하기</Btn></div>
-            </div>
+            ? <StNotlogin>
+                <span>지금 로그인하시고 <br/>오늘 날씨에 딱 맞는 코스를 추천 받으세요!</span>
+                <Btn 
+                    size='sm' 
+                    variant='main' 
+                    style={{fontWeight: `${fontWeight.bold}`}} 
+                    onClick={() => navigate('/login')}
+                >
+                    로그인 하기
+                </Btn>
+            </StNotlogin>
             : <div>
                 <StWeatherContainer>
                     <StWeatherWrap>
@@ -267,6 +275,26 @@ const StContainer = styled.div`
     /* display: flex;
     justify-content: center;
     flex-direction: column; */
+`
+
+const StNotlogin = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    span{
+        max-width: 32rem;
+        margin-top: 10rem;
+        color: ${colors.deepGray};
+        font-size: ${fonts.body};
+        line-height: ${lineHeights.subTitle};
+        font-weight: ${fontWeight.bold};
+    }
+    button{
+        margin-top: 3rem;
+        margin-bottom: 10rem;
+    }
 `
 
 const TitH1 = styled.h1`

@@ -35,8 +35,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "aws s3 sync ./build s3://incoursefe --profile=incourse-daehyun",
-    "invalidate": "aws cloudfront create-invalidation --profile=incourse-daehyun --distribution-id E1RZMFSW829L1N --paths /*",
+    "deploy": "aws s3 sync ./build s3://incourseproject --profile=incourse-daehyun",
+    "invalidate": "aws cloudfront create-invalidation --profile=incourse-daehyun --distribution-id E3HFKPC936YQ0V --paths /*",
     "all": "yarn build && yarn deploy && yarn invalidate"
   },
   "eslintConfig": {
