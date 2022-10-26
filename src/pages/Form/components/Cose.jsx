@@ -3,6 +3,8 @@ import styled from '@emotion/styled'
 import { colors, fonts } from '../../../lib/constants/GlobalStyle'
 import { useDispatch,useSelector } from 'react-redux'
 import { deleteCose } from '../../../redux/modules/formSlice'
+import { _deleteCose } from '../../../redux/modules/formSlice'
+
 const Cose = ({cose,i}) => {
     const co = useSelector((state)=> state.formSlice.form.placeRequestDtoList
     )
