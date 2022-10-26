@@ -1,15 +1,21 @@
+/** @jsxImportSource @emotion/react */
 import React, {useState} from "react";
 import styled from "@emotion/styled";
+import { colors } from "../lib/constants/GlobalStyle";
 import { PencilSquareIcon } from '@heroicons/react/24/outline'
 import FeedbackModal from "./FeedbackModal";
 
 const Feedback = () => {
   const [click, setClick] = useState(false);
   
+  const clickFeedback = () => {
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLSevp5qJHxEA2g1uEWuEni7aH1QlWghZumVdL-AcmS8HdT0-xg/viewform?usp=sf_link')
+  };
+
   return(
     // 버튼을 누르면 modal 생성
-    <Container>
-    <PencilSquareIcon style={{width:'2.4rem'}}/>
+    <Container alt='이렇게하면?' onClick={clickFeedback}>
+    <PencilSquareIcon css={{width:'2.4rem', color:`${colors.primary}`}}/>
     {/* <div className="Main">
       // 회원가입 버튼을 누르면 회원가입 modal이 생성된다
       <input type="button" value="회원가입" className="blueBtn" onClick={() => setSignup(!signup)}/>
@@ -43,13 +49,20 @@ const Container = styled.div`
   /* width: fit-content; */
   /* width: 100vw; */
   height: fit-content;
-  padding: 1rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(240, 240, 235, 0.3);
+  border-radius: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   position: fixed;
-  bottom: 2rem;
-  left: 2rem;
-  background-color: red;
-  z-index: 400px;
+  bottom: 9.5rem;
+  left: 1.5rem;
+  background-color: ${colors.secondary};
+  box-shadow: 0px 0px 20px rgba(174, 217, 252, 0.1), 0px 0px 30px rgba(112, 144, 176, 0.2);
+  z-index: 1000px;
+  cursor: pointer;
+  :hover{
+    background-color: ${colors.info};
+  };
 `
