@@ -153,43 +153,43 @@ const HomeComponent = () => {
                 <StWeatherContainer>
                     <StWeatherWrap>
                         <StWetherImg>
-                        <img 
-                        src={weathers.weather === "맑음" ? Sunny : 
-                        weathers.weather === "흐림" ? Cloud : 
-                        weathers.weather === "비" ? Rain : 
-                        weathers.weather === "눈" ? Snow : 
-                        weathers.weather === "조금흐림" ? 
-                        Cloud_Sunny :null} alt="" />
+                            <img
+                                src={weathers.weather === "맑음" ? Sunny :
+                                    weathers.weather === "흐림" ? Cloud :
+                                        weathers.weather === "비" ? Rain :
+                                            weathers.weather === "눈" ? Snow :
+                                                weathers.weather === "조금흐림" ?
+                                                    Cloud_Sunny : null} alt="" />
+                        </StWetherImg>
 
-
-                    <StWeatherBox>
-                        <StDetailBox >
-                            <p>Temp</p>
-                            <StWetherTemp>
-                                <p>{weathers.temp}℃</p>
-                            </StWetherTemp>
-                        </StDetailBox>
-                        <StDetailBox >
-                            <p>Detail</p>
-                            <StWetherDetail>
-                                <div>
-                                    <p>계절:<span>{weathers.season}</span> </p>
-                                    <p>습도:<span>{weathers.humidity}</span></p>
-                                    <p>풍속:<span>{weathers.wind_speed}</span></p>
-                                </div>
-                                <div>
-                                    <p>구름양:<span>{weathers.clouds}</span></p>
-                                    <p>강수량/1h:<span>{weathers.rain_h}</span></p>
-                                    <p>강우량/1h:<span>{weathers.snow_h}</span></p>
-                                </div>
-                            </StWetherDetail>
-                        </StDetailBox>
-                    </StWeatherBox>
-                </StWeatherWrap>
-            </StWeatherContainer>
-            <div>
-
+                        <StWeatherBox>
+                            <StDetailBox >
+                                <p>Temp</p>
+                                <StWetherTemp>
+                                    <p>{weathers.temp}℃</p>
+                                </StWetherTemp>
+                            </StDetailBox>
+                            <StDetailBox >
+                                <p>Detail</p>
+                                <StWetherDetail>
+                                    <div>
+                                        <p>계절:<span>{weathers.season}</span> </p>
+                                        <p>습도:<span>{weathers.humidity}</span></p>
+                                        <p>풍속:<span>{weathers.wind_speed}</span></p>
+                                    </div>
+                                    <div>
+                                        <p>구름양:<span>{weathers.clouds}</span></p>
+                                        <p>강수량/1h:<span>{weathers.rain_h}</span></p>
+                                        <p>강우량/1h:<span>{weathers.snow_h}</span></p>
+                                    </div>
+                                </StWetherDetail>
+                            </StDetailBox>
+                        </StWeatherBox>
+                    </StWeatherWrap>
+                </StWeatherContainer>
             </div>
+            }
+            <div></div>
             <StDivWrap>
                 <ul>
                     <li>오늘은 {dresss.pants}, {dresss.top}  어때요?</li>
@@ -333,7 +333,7 @@ const StDivWrap = styled.div`
         text-align: center;
     }
     ul{
- width: 100%;
+        width: 100%;
     }
     li{
         width: 100%;
@@ -358,6 +358,5 @@ margin: 0 auto;
         font-size:  ${fonts.headLine};
         color: ${colors.deepGray};
         margin-top: 40px;
-       
     }
 `
