@@ -150,8 +150,9 @@ console.log(post)
     };
     return (
         <div>
-
+            {modal ? <UpDateCose modal={modal} setModal={setModal}  post={post}/> : null}
             <StContainer >
+            
                 <Test>
                     <StMapWrap>
                         <Map
@@ -312,11 +313,11 @@ console.log(post)
                             >
                                 카드작성
                             </Btn>
-                            {modal ? <UpDateCose modal={modal} setModal={setModal}  post={post}/> : null}
+                            
                             <Btn
                                 size='md'
                                 type='button'
-                                onClick={onAddPosttButtonHandler}>게시물작성</Btn>
+                                onClick={onAddPosttButtonHandler}>게시물수정</Btn>
                         </StButtonBox>
 
                     </StFormBox>
@@ -363,7 +364,7 @@ const StContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 4000px;
+    
     
 `
 const StSlideBox = styled.div`
@@ -500,6 +501,7 @@ const StForm = styled.div`
     border: 1px solid ${colors.lightGray};
     margin-bottom: 10px;
     padding:10px 10px ;
+    background-color: ${colors.white};
     h2{
         color: ${colors.deepGray};
         font-size: ${fonts.caption};

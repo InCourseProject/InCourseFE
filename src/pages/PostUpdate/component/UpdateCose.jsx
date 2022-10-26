@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-const UpDateCose = ({modal,setModal,post}) => {
+const UpDateCose = ({ modal, setModal, post }) => {
     const { kakao } = window;
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -31,8 +31,17 @@ const UpDateCose = ({modal,setModal,post}) => {
 
     const onChangeContentHandler = (e) => {
         const con = e.target.value;
-        setCose({...cose,...keywordId, content: con,postId:post.id});
+        setCose({ ...cose, ...keywordId, content: con });
     };
+    const enterKey = (e) => {
+        if (e.nativeEvent.key === 'Enter'){
+          if(e.nativeEvent.isComposing === false) {
+            e.preventDefault();
+            setSearch(keyword)
+          };
+        };
+        return;
+      };
 
     const geoLocactionButton = () => {
         if (navigator.geolocation) {
@@ -105,63 +114,75 @@ const UpDateCose = ({modal,setModal,post}) => {
 
     return (
         <StContainer >
-        <StWrap>
-            <Map // 로드뷰를 표시할 Container
-                center={{
-                    lat: 37.566826,
-                    lng: 126.9786567,
-                }}
-                style={{
-                    width: "100%",
-                    height: "300px",
-                }}
-                level={3}
-                onCreate={setMap}
-            >
-                {markers.map((marker) => (
-                    <MapMarker
-                        key={`marker-${marker.placeName}-${marker.position.lat},${marker.position.lng}`}
-                        position={marker.position}
-                        onClick={() => {
-                            setInfo(marker);
-                            setKeywordId
-                                ({
-                                    address: marker.address,
-                                    placeName: marker.placeName,
-                                    coordinateX: marker.position.lat,
-                                    coordinateY: marker.position.lng,
-                                })
-                        }}
-                    >
-                        {info && info.placeName === marker.placeName && (
-                            <div style={{ color: "#000" }}>{marker.placeName}</div>
-                        )}
-                    </MapMarker>
-                ))}
-            </Map>
-            <StSearcBox>
-                <StInput className='findAddress' type="search"
-                    onChange={onChangeHandler}
-                ></StInput>
-                <StButtonBox>
-                    <button type='button' onClick={() => { setSearch(keyword) }}
-                    >검색</button>
-                    <button type='button' onClick={geoLocactionButton}>내 위치</button>
-                </StButtonBox>
-            </StSearcBox>
-            <StAddress>{keywordId.address}</StAddress>
-            <StTit>
-                <h1>{keywordId.placeName}</h1>
-            </StTit>
-            <StForm>
-                <StFormInput type="text" onChange={onChangeContentHandler} />
-            </StForm>
-            <StSubmitBox>
-                <StSubmitButton type='button' onClick={() => (dispatch(createMarker(cose)),
-                setModal(false)
-                )}>코스등록</StSubmitButton>
-            </StSubmitBox>
-        </StWrap>
+            <StWrap>
+                <Map // 로드뷰를 표시할 Container
+                    center={{
+                        lat: 37.566826,
+                        lng: 126.9786567,
+                    }}
+                    style={{
+                        width: "100%",
+                        height: "300px",
+                    }}
+                    level={3}
+                    onCreate={setMap}
+                >
+                    {markers.map((marker) => (
+                        <MapMarker
+                            key={`marker-${marker.placeName}-${marker.position.lat},${marker.position.lng}`}
+                            position={marker.position}
+                            onClick={() => {
+                                setInfo(marker);
+                                setKeywordId
+                                    ({
+                                        address: marker.address,
+                                        placeName: marker.placeName,
+                                        coordinateX: marker.position.lat,
+                                        coordinateY: marker.position.lng,
+                                    })
+                            }}
+                        >
+                            {info && info.placeName === marker.placeName && (
+                                <div style={{ color: "#000" }}>{marker.placeName}</div>
+                            )}
+                        </MapMarker>
+                    ))}
+                </Map>
+                <StSearcBox>
+                    <StInput className='findAddress' type="search" onKeyDown={enterKey}
+                        onChange={onChangeHandler}
+                    ></StInput>
+                    <StButtonBox>
+
+                        <button
+                            type='button'
+                            onClick={geoLocactionButton}
+                        >
+                            내 위치
+                        </button>
+                    </StButtonBox>
+                </StSearcBox>
+                <StAddress>{keywordId.address}</StAddress>
+                <StTit>
+                    <h1>{keywordId.placeName}</h1>
+                </StTit>
+                <StForm>
+                    <StFormInput
+                        type="text"
+                        onChange={onChangeContentHandler}
+                    />
+                </StForm>
+                <StSubmitBox>
+                    <StSubmitButton
+                        type='button'
+                        onClick={() => (dispatch(createMarker(cose)), setModal(false))}
+                    >코스등록</StSubmitButton>
+                    <StSubmitButton
+                        type='button'
+                        onClick={() => (setModal(false)
+                        )}>닫기</StSubmitButton>
+                </StSubmitBox>
+            </StWrap>
         </StContainer>
     )
 }
@@ -169,6 +190,7 @@ const UpDateCose = ({modal,setModal,post}) => {
 export default UpDateCose
 const StContainer = styled.div`
     width: 100%;
+    height: 100vh;
     margin: 0 auto;
     position: fixed;
     left: 0 ;
@@ -177,17 +199,18 @@ const StContainer = styled.div`
     z-index: 100;
 `
 const StWrap = styled.div`
-  min-width: 280px;
-  margin-top: 50px;
+    position: relative;
+    min-width: 280px;
+    margin-top: 100px;
+    background-color: ${colors.white};
 
 `
 const StSearcBox = styled.form`
     width: 100%;
     position: absolute;
     left: 0;
-    top: 10px;
+    top: 20px;
     z-index: 100;
-    
 `
 const StAddress = styled.p`
     width: 100%;
@@ -218,6 +241,7 @@ const StTit = styled.ul`
     border: 1px solid ${colors.lightGray};
     padding: 20px 0px;
     margin: 0;
+    
     font-size: ${fonts.headLine};
     font-weight: ${fontWeight.exrtaBold};
    
@@ -232,6 +256,7 @@ const StFormInput = styled.textarea`
 `
 const StSubmitBox = styled.div`
     width: 100%;
+    display: flex;
    
     
 `

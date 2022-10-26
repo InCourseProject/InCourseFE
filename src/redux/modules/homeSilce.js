@@ -117,7 +117,6 @@ export const homeSlice = createSlice({
            
         })
         .addCase(_getLikePost.fulfilled, (state, action) => {
-            console.log(action.payload)
             state.isLoading = false;
             state.detail = action.payload
             // index.find((post) => ( post.id === action.payload.id))

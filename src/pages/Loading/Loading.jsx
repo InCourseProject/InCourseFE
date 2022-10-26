@@ -69,7 +69,7 @@ const Loading= () => {
 export default Loading;
 
 const Back = styled.div`
-  position: absolute;
+  position: fixed;
   width: 100vw;
   height: 100vh;
   top: 0;
