@@ -6,7 +6,7 @@ import { deleteCose } from '../../../redux/modules/formSlice'
 const Cose = ({cose,i}) => {
     const co = useSelector((state)=> state.formSlice.form.placeRequestDtoList
     )
-    console.log(cose.coordinateX)
+    console.log(cose.id)
     const dispatch = useDispatch();
     return (
         <StContainer key={`cose-${cose.coordinateX},${cose.coordinateY}`}>
@@ -14,8 +14,8 @@ const Cose = ({cose,i}) => {
             <StCoseButton>
                 <h2>코스{i}</h2>
                 <div>
-                    <button type='button'onClick={() => {
-            dispatch(deleteCose(cose.coordinateX));
+                    <button type='button' onClick={() => {cose.id === undefined ? dispatch(deleteCose(cose.coordinateX)): dispatch(_deleteCose(cose.id))
+            ;
             // console.log(ment.id);
           }}>삭제</button>
                 </div>

@@ -4,12 +4,15 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import { _deletePost } from '../../../redux/modules/formSlice';
+import Loading from '../../Loading/Loading';
+import { useEffect } from 'react';
 const MyPostCard = ({ post }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [coseId,setCoseId] = useState();
+    const [loding,setLoding] = useState(false);
     console.log(post.place)
     const deleteHandler = async () =>{
+        setLoding(true)
         const data = []
         for(let i =0; i<post.place.length; i++){
            data.push(post.place[i].id)
@@ -21,9 +24,6 @@ const MyPostCard = ({ post }) => {
             },
             id:post.id
         }
-       const json = JSON.stringify(payload.coseId)
-        const formData = new FormData();
-        formData.append("placeId",json)
         const res = await axios.delete(`${process.env.REACT_APP_SERVER_API}/api/course/${payload.id}`,  {
             headers: {
                 // "content-type": "multipart/form-data",
@@ -33,10 +33,16 @@ const MyPostCard = ({ post }) => {
             data:payload.coseId
             
         });
-        return res.data
+        setLoding(false)
+        window.location.href()
+        return res.data;
     }
+    useEffect(()=>{
+
+    },[loding])
     return (
         <div >
+            {loding ? <Loading/> : null}
             <div>
                 <div onClick={()=>{navigate(`/post/${post.id}`)}}>{post.title}</div>
                 <div>{post.content}</div>

@@ -138,7 +138,9 @@ const MyPage = () => {
         <Btn
           size='default'
           variant='line'
+
           onClick = {()=>{navigate('/mylikepost')}}
+
         >
           내가 찜한 게시물
         </Btn>

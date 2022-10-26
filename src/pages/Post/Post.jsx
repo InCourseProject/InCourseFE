@@ -57,7 +57,6 @@ const Post = () => {
     const map = mapRef.current
     if (map) map.setBounds(bounds)
   }
-
   useEffect(() => {
     fetchPost();
   }, []);

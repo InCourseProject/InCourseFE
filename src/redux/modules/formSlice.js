@@ -9,7 +9,9 @@ const initialState = {
         postRequestDto:{},
         placeRequestDtoList:[],
 },
-    post:{},
+    posts:{
+        place:[]
+    },
     isLoading: false,
     error: null,
     like: false,
@@ -51,6 +53,8 @@ export const _addPost = createAsyncThunk(
     }
 );
 
+
+
 // export const _updatePost = createAsyncThunk(
 //     "post/upDate",
 //     async (payload, thunkApI) => {
@@ -81,17 +85,17 @@ export const _deletePost = createAsyncThunk(
     async (payload, thunkAPI) => {
         console.log(payload)
         try{
-            const datas = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/course/${payload.id}`,{
+            const datas = await axios.delete(`${process.env.REACT_APP_SERVER_API}/api/course/${payload.id}`,{
                     headers:{
-                        "content-type": "multipart/form-data",
                         Authorization: accessToken,
                         RefreshToken: refreshToken
 
                     },
+                    data:payload.coseId
                 }
             )
             console.log(datas)
-            return datas
+            return alert(datas.data)
         }catch(error){
             return thunkAPI.rejectWithValue(error);
         }
@@ -145,6 +149,7 @@ export const formSlice = createSlice({
     },
     categorySelect(state,action){
         state.form.postRequestDto = action.payload;
+        state.form.posts = action.payload;
         // localStorage.setItem(action.payload)
         
     },
