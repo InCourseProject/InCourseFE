@@ -18,18 +18,21 @@ import Cloud_Sunny from '../../../lib/constants/img/clouds_sunny.gif'
 const HomeComponent = () => {
     const navigate = useNavigate();
     const [post, setPost] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [weather, setWeather] = useState(null);
     const [weathers,setWeathers] = useState({});
+    const [dresss,setDresss] = useState({});
     const [page, setPage] = useState(1);
     const row = useRef(null);
     const { formattedList = [] } = useFetch(page, `${process.env.REACT_APP_SERVER_API}/api/course`);
     const geoLocactionButton = () => {
         if (navigator.geolocation) {
+            setLoading(true)
             navigator.geolocation.getCurrentPosition((position) => {
                 var lat = position.coords.latitude, // 위도
                     lon = position.coords.longitude; // 경도
                 setWeather({ x: String(lon) , y: String(lat) })
+                
             });
         }
     }
@@ -66,7 +69,8 @@ const HomeComponent = () => {
                 RefreshToken: localStorage.getItem("RefreshToken")
             }
         });
-        console.log(response)
+        console.log(response.data)
+        setDresss(response.data)
         // console.log(response.data.data)
         // setPost(response.data); //for realserver
         
@@ -84,6 +88,7 @@ const HomeComponent = () => {
         console.log(weathers);
         common();
         dress()
+        
         // setPost(response.data); //for realserver
     }
     
@@ -104,8 +109,9 @@ const HomeComponent = () => {
 
             notLogin()
         } else {
+            
             geoLocactionButton()
-
+            
         }
     }, []);
     useEffect(() => {
@@ -144,14 +150,14 @@ const HomeComponent = () => {
                             <p>Detail</p>
                             <StWetherDetail>
                                 <div>
-                                    <p>계절<span>{weathers.season}</span> </p>
-                                    <p>습도<span>{weathers.humidity}</span></p>
-                                    <p>풍속<span>{weathers.wind_speed}</span></p>
+                                    <p>계절:<span>{weathers.season}</span> </p>
+                                    <p>습도:<span>{weathers.humidity}</span></p>
+                                    <p>풍속:<span>{weathers.wind_speed}</span></p>
                                 </div>
                                 <div>
-                                    <p>구름양<span>{weathers.clouds}</span></p>
-                                    <p>강수량/1h<span>{weathers.rain_h}</span></p>
-                                    <p>강우량/1h<span>{weathers.snow_h}</span></p>
+                                    <p>구름양:<span>{weathers.clouds}</span></p>
+                                    <p>강수량/1h:<span>{weathers.rain_h}</span></p>
+                                    <p>강우량/1h:<span>{weathers.snow_h}</span></p>
                                 </div>
                             </StWetherDetail>
                         </StDetailBox>
@@ -163,10 +169,17 @@ const HomeComponent = () => {
             </div>
             <StDivWrap>
                 <ul>
-                    <li>오늘은 긴팔 티, 면 바지  어때요?</li>
-                    <li>시원한 생수 챙겨가시면 좋아요!</li>
+                    <li>오늘은 {dresss.pants}, {dresss.top}  어때요?</li>
+                    <li>{dresss.supplies2} 챙겨가시면 좋아요!</li>
                 </ul>
-                <div><Btn size='default' variant='main' onClick={()=>{navigate('/category')}}> 하루의 코스 만들러 가기 </Btn></div>
+                <div>
+                    <Btn 
+                    size='default'
+                    variant='main' 
+                    onClick={()=>{localStorage.getItem("Authorization") ===null ? alert('로그인 후 이용해주세요') : navigate('/category')}}
+                    > 하루의 코스 만들러 가기 
+                    </Btn>
+                    </div>
             </StDivWrap>
             <StHomeCardWrap >
                 <h1>추천코스</h1>
