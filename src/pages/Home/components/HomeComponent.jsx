@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import HomeCard from './HomeCard'
 import axios from 'axios'
 import { useEffect, useState, useRef, useCallback } from 'react'
-import { colors, fonts, fontWeight } from '../../../lib/constants/GlobalStyle'
+import { colors, fonts, fontWeight, lineHeights } from '../../../lib/constants/GlobalStyle'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import useFetch from '../../../hook/useFetch'
@@ -17,6 +17,8 @@ import Snow from '../../../lib/constants/img/snow.gif'
 import Cloud_Sunny from '../../../lib/constants/img/clouds_sunny.gif'
 const HomeComponent = () => {
     const navigate = useNavigate();
+    const accessToken = localStorage.getItem('Authorization'); //accesstoken 
+    const refreshToken = localStorage.getItem('RefreshToken') //refreshToken
     const [post, setPost] = useState([]);
     const [loading, setLoading] = useState(false);
     const [weather, setWeather] = useState(null);
@@ -27,7 +29,9 @@ const HomeComponent = () => {
     const { formattedList = [] } = useFetch(page, `${process.env.REACT_APP_SERVER_API}/api/course`);
     const geoLocactionButton = () => {
         if (navigator.geolocation) {
+
             setLoading(true)
+
             navigator.geolocation.getCurrentPosition((position) => {
                 var lat = position.coords.latitude, // 위도
                     lon = position.coords.longitude; // 경도
@@ -53,8 +57,8 @@ const HomeComponent = () => {
     const common = async () => {
         const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course/member/recommended`,{
             headers: {
-                Authorization: localStorage.getItem("Authorization"),
-                RefreshToken: localStorage.getItem("RefreshToken")
+                Authorization: accessToken,
+                RefreshToken: refreshToken
             }
         });
         console.log(response)
@@ -65,8 +69,8 @@ const HomeComponent = () => {
     const dress = async () => {
         const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/weather/recommend`,{
             headers: {
-                Authorization: localStorage.getItem("Authorization"),
-                RefreshToken: localStorage.getItem("RefreshToken")
+                Authorization: accessToken,
+                RefreshToken: refreshToken
             }
         });
         console.log(response.data)
@@ -78,8 +82,8 @@ const HomeComponent = () => {
     const Weather = async () => {
         const response = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/weather/open`, weather, {
             headers: {
-                Authorization: localStorage.getItem("Authorization"),
-                RefreshToken: localStorage.getItem("RefreshToken")
+                Authorization: accessToken,
+                RefreshToken: refreshToken
             }
             
         },
@@ -105,7 +109,7 @@ const HomeComponent = () => {
     }, [handleObserver]);
 
     useEffect(() => {
-        if (localStorage.getItem("Authorization") === null) {
+        if (accessToken === null) {
 
             notLogin()
         } else {
@@ -121,23 +125,42 @@ const HomeComponent = () => {
             Weather()
         }
     }, [weather]);
+
+    const plusCourse = () => {
+        if( !accessToken || !refreshToken) {
+            alert('로그인이 필요합니다.')
+            navigate('/login')
+        } else {
+            navigate('/category')
+        }
+    };
     return (
         <StContainer>
             {loading  ? <Loading/> : null}
-            <StWeatherContainer>
+            {!accessToken
+            ? <StNotlogin>
+                <span>지금 로그인하시고 <br/>오늘 날씨에 딱 맞는 코스를 추천 받으세요!</span>
+                <Btn 
+                    size='sm' 
+                    variant='main' 
+                    style={{fontWeight: `${fontWeight.bold}`}} 
+                    onClick={() => navigate('/login')}
+                >
+                    로그인 하기
+                </Btn>
+            </StNotlogin>
+            : <div>
+                <StWeatherContainer>
+                    <StWeatherWrap>
+                        <StWetherImg>
+                        <img 
+                        src={weathers.weather === "맑음" ? Sunny : 
+                        weathers.weather === "흐림" ? Cloud : 
+                        weathers.weather === "비" ? Rain : 
+                        weathers.weather === "눈" ? Snow : 
+                        weathers.weather === "조금흐림" ? 
+                        Cloud_Sunny :null} alt="" />
 
-                <StWeatherWrap>
-                    <StWetherImg>
-                    <img 
-                    src={weathers.weather === "맑음" ? Sunny : 
-                    weathers.weather === "흐림" ? Cloud : 
-                    weathers.weather === "비" ? Rain : 
-                    weathers.weather === "눈" ? Snow : 
-                    weathers.weather === "조금흐림" ? 
-                    Cloud_Sunny :null} alt="" />
-
-                    <TitH1 >오늘의  날씨는 <br/> <span>{weathers.weather}</span>  입니다.</TitH1>
-                    </StWetherImg>
 
                     <StWeatherBox>
                         <StDetailBox >
@@ -181,6 +204,7 @@ const HomeComponent = () => {
                     </Btn>
                     </div>
             </StDivWrap>
+
             <StHomeCardWrap >
                 <h1>추천코스</h1>
                 <HomeCard key={post?.id} post={post} />
@@ -254,6 +278,7 @@ const StWetherDetail = styled.div`
     }
     span{
         font-size: ${fonts.body};
+        margin-left: 0.5rem;
     }
     
 `
@@ -265,6 +290,26 @@ const StContainer = styled.div`
     /* display: flex;
     justify-content: center;
     flex-direction: column; */
+`
+
+const StNotlogin = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    span{
+        max-width: 32rem;
+        margin-top: 10rem;
+        color: ${colors.deepGray};
+        font-size: ${fonts.body};
+        line-height: ${lineHeights.subTitle};
+        font-weight: ${fontWeight.bold};
+    }
+    button{
+        margin-top: 3rem;
+        margin-bottom: 10rem;
+    }
 `
 
 const TitH1 = styled.h1`

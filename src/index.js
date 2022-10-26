@@ -6,6 +6,7 @@ import App from './App';
 import store from './redux/config/configStore';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyle from './lib/constants/GlobalStyle';
+import Feedback from './components/Feedback';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,6 +14,7 @@ root.render(
   <Provider store={store}>
     <GlobalStyle/>
     <App />
+    <Feedback/>
   </Provider>
   // </React.StrictMode>
 );

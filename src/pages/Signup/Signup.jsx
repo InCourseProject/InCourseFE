@@ -9,13 +9,12 @@ import naverlogo from '../../lib/constants/img/naverLogo.svg'
 import kakaologo from '../../lib/constants/img/kakaoLogo.svg'
 import Btn from '../../components/Button';
 import HeaderBar from '../../components/layout/HeaderBar';
-import { css } from '@emotion/react';
 
 const Signup = () => {
   const navigate = useNavigate();
 
 
-
+  //회원가입 시 이메일 회원가입으로 바로 가게끔 변경!
   return (
     <StWrap>
         <HeaderBar/>
@@ -93,7 +92,7 @@ const Sth1 = styled.h1`
 const Sth3 = styled.h3`
   color: ${colors.primary};
   font-size: ${fonts.subTitle};
-  font-weight: ${fontWeight.medium};
+  font-weight: ${fontWeight.normal};
 `
 
 const BtnWrap = styled.div`

@@ -32,7 +32,7 @@ const Badge = ({children, title, css}) => {
         css
       }}>
       <div>
-        {children}
+        {!children ? '신입' : children} 
       </div>
     </Stdiv>
   );

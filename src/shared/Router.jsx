@@ -36,7 +36,7 @@ const Router = () => {
         <Route path="login" exact element={<Login />} />
         <Route path="login/email" exact element={<LoginEmail />} />
         <Route path="mypage" exact element={<MyPage />} />
-        <Route path="mylikepost" exact element={<MyLikePost/>} />
+        <Route path="/mylikepost" exact element={<MyLikePost/>} />
         <Route path="mypostpage" exact element={<MyPagePost />} />
         <Route path="mypage/edit" exact element={<MyPageEdit />} />
         <Route path='*' element={<div>404 Not Found</div>} />

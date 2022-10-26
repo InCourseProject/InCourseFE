@@ -5,9 +5,13 @@ import { colors, fonts, fontWeight, lineHeights } from "../../../lib/constants/G
 import { XCircleIcon } from'@heroicons/react/24/outline'
 
 const SearchHistory = ({history}) => {
+  const path = window.location.pathname
+  // console.log(path)
   return(
     <StDiv>
-      <XCircleIcon style={{width:'1.6rem', color:`${colors.secondary}`}}/>
+      {path === '/search/post'
+      ? null
+      : <XCircleIcon style={{width:'1.6rem', color:`${colors.secondary}`}}/>}
       <StSpan>{history}</StSpan>
     </StDiv>
   )
@@ -25,6 +29,7 @@ const StDiv = styled.div`
   margin: 1rem;
   padding: 0.4rem 1.2rem 0.4rem 0.8rem;
   border-radius: 30rem;
+  cursor: not-allowed;
 `
 
 const StSpan =styled.span`

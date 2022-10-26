@@ -225,8 +225,8 @@ const FormComponent = () => {
                             />
                         </div>
                         <div>
-                            {position.map((cose) =>
-                                <Cose key={`cose-${cose.coordinateX},${cose.coordinateY}`} cose={cose} />
+                            {position.map((cose,i) =>
+                                <Cose key={`cose-${cose.coordinateX},${cose.coordinateY}`} cose={cose} i ={i+1}/>
                             )}
 
                         </div>

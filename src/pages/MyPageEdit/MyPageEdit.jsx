@@ -1,9 +1,9 @@
+/** @jsxImportSource @emotion/react */
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { colors } from '../../lib/constants/GlobalStyle';
+import { colors, fonts, fontWeight, lineHeights } from '../../lib/constants/GlobalStyle';
 import { UserCircleIcon } from '@heroicons/react/24/solid'
 import Input from '../../components/Input';
 import Btn from '../../components/Button';
@@ -19,6 +19,7 @@ const MyPageEdit = () => {
 
   const initialState = {
     email: location.state.email,
+    gender: location.state.gender,
     id: location.state.id,
     location: '',
     nickname: '',
@@ -32,7 +33,7 @@ const MyPageEdit = () => {
   const [ formData ] = useState(new FormData());
   const inputRef = useRef(null);
 
-  console.log(initialState)
+  // console.log(initialState)
   // console.log(profileImg)
   //----------- info handler -----------//
   const infoHandler = (e) => {
@@ -71,46 +72,43 @@ const MyPageEdit = () => {
   },[]);
   //----------- img upload handler -----------//
 
-  //----------- axios&edit info -----------//
   const editInfoHandler = async (e) => {
     e.preventDefault();
 
     formData.append('email', info.email);
+    formData.append('gender', info.gender);
     formData.append('location', info.location);
     formData.append('nickname', info.nickname);
     formData.append('password', info.password);
 
     // formData console check
-    for (const keyValue of formData){
-      console.log('Ready to change', keyValue[0]+', '+keyValue[1])
-    }
+    // for (const keyValue of formData){
+    //   console.log('Ready to change', keyValue[0]+', '+keyValue[1])
+    // }
 
     try {
-      // axios put // refreshtoken, authorization이 있어야 접속 가능
-      const response = await axios.put(`${process.env.REACT_APP_SERVER_API}/api/member/mypage`, 
+      const res = await axios.put(`${process.env.REACT_APP_SERVER_API}/api/member/mypage`, 
       formData,
       {
         headers: {
-          Authorization: `${accessToken}`,
-          refreshToken: `${refreshToken}`,
+          Authorization: accessToken,
+          refreshToken: refreshToken,
           'Content-Type': 'multipart/form-data',
         }
       });
-      console.log('Axios Work>> ', response);
-
-      if (response.status === 200 || 201) {
+      if (res.status === 200 || 201) {
         window.alert('프로필 정보가 변경되었습니다.')
         navigate('/mypage')
       }
     }
     catch(err) {
-      window.alert('❌CHECKCONSOLE❌');
+      window.alert('오류가 발생했습니다.');
       console.error(err.response);
       setInfo(initialState)
       setProfileImg(initialState.profileImage);
     };
   };
-  //----------- axios&edit info -----------//
+
   useEffect(() => {
   }, []);
 
@@ -120,12 +118,6 @@ const MyPageEdit = () => {
     dot += '●';
   };
 
-  const styles = {
-    inputs:{
-      marginBottom: '-3rem'
-    },
-  };
-  
   return (
     <div>
       <StDiv>
@@ -166,6 +158,17 @@ const MyPageEdit = () => {
             size='default'
             variant='input'
           />
+          <StSelect 
+            onChange={infoHandler}  
+            name='gender' 
+            defaultValue="default"
+            required
+            >
+            <StOption value='default' disabled>{info.gender}</StOption>  
+            <option value='남성'>남성</option>
+            <option value='여성'>여성</option>
+          </StSelect>
+
           <Input 
             onChange={infoHandler} 
             placeholder={location.state.location} 
@@ -175,6 +178,18 @@ const MyPageEdit = () => {
             size='default'
             variant='input'
           />
+          <div
+            css={{
+              marginTop: '3.8rem',
+              marginLeft: '1.2rem',
+              color: `${colors.lightGray}`,
+              fontSize: `${fonts.body}`,
+              fontWeight: `${fontWeight.normal}`,
+              lineHeight: `${lineHeights.body}`,
+            }}
+          >
+            비밀번호 변경
+          </div>
           <Input 
             onChange={infoHandler} 
             placeholder={dot} 
@@ -244,4 +259,37 @@ const ProfileImg = styled.img`
 
 const StForm = styled.form`
   width: 100%;
+`
+
+const StSelect = styled.select`
+
+  width: 100%;
+  max-width: 33rem;
+  height: 5.9rem;
+  margin: 0;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 20px 22px;
+
+  font-size: ${fonts.body};
+  line-height: ${lineHeights.body};
+  font-weight: ${fontWeight.light};
+
+  color: ${colors.gray};
+  background-color: ${colors.tone};
+  border: 1px solid ${colors.lightGray};
+  border-radius: 15px;
+  :active,:focus,::selection{
+    outline: 1px solid ${colors.secondary};
+  }
+`
+
+const StOption = styled.option`
+  color: ${colors.caution} ;
+  display: none;
 `
