@@ -1,14 +1,21 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { colors } from '../../../lib/constants/GlobalStyle'
-import { type } from '@testing-library/user-event/dist/type'
-const BasicCheckbox = ({label, value, checked, setter,post}) => {
+
+const BasicCheckbox = ({ label, value, checked, setter, post }) => {
 
   return (
     <Stinput >
-      <Stinputs className='select' type="radio" defaultChecked={checked} checked={checked == value}
-        onChange={() => setter(value)} />
-      <span className='select'>{label}</span>
+      <Stinputs
+        className='select'
+        type="radio"
+        defaultChecked={checked}
+        checked={checked == value}
+        onChange={() => setter(value)}
+      />
+      <span
+        className='select'>{label}
+      </span>
     </Stinput>
   )
 }

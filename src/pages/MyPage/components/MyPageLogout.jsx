@@ -20,7 +20,6 @@ const MyPageLogout = () => {
             RefreshToken: `${refreshToken}`,
           }
         });
-      console.log(logout)
 
       if (logout.status === 200 || 201) {
         localStorage.clear();
@@ -29,7 +28,6 @@ const MyPageLogout = () => {
       }
     }
     catch (err) {
-      // window.alert('CheckConsole!')
       console.error(err.response);
       localStorage.clear();
       navigate('/')

@@ -7,9 +7,7 @@ import Btn from "../../../components/Button";
 const PostHeart = ({id, size, variant}) => {
   const accessToken = localStorage.getItem('Authorization'); //accessToken
   const refreshToken = localStorage.getItem('RefreshToken'); //refreshToken
-  // console.log('id:',id)
   const [isHeart, setIsHeart] = useState(false);
-  // console.log('isHeart', isHeart);
 
   // 회원의 찜하기 체크 api
   const checkHeart = async () => {
@@ -24,9 +22,6 @@ const PostHeart = ({id, size, variant}) => {
 
       if(res.status === 200 || 201){
         setIsHeart(res.data)  
-      }
-      else{
-        console.log('checkHeart', res);
       }
     }catch(err){
       console.error(err);
@@ -43,11 +38,9 @@ const PostHeart = ({id, size, variant}) => {
           RefreshToken: refreshToken,
         }
       });
-      // console.log('heart:', heart)   
 
       if (heart.status === 200 || 201) {
         checkHeart();
-        // console.log(heart,'works!')
       }
     }
     catch(err) {
@@ -64,11 +57,10 @@ const PostHeart = ({id, size, variant}) => {
           RefreshToken: refreshToken,
         }
       });
-      // console.log('disHeart:', disHeart)
+
 
       if (disHeart.status === 200 || 201) {
         checkHeart();
-        // console.log(disHeart,'works!')
       }
     }
     catch(err) {

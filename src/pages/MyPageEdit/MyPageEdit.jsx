@@ -33,13 +33,12 @@ const MyPageEdit = () => {
   const [ formData ] = useState(new FormData());
   const inputRef = useRef(null);
 
-  // console.log(initialState)
-  // console.log(profileImg)
+
   //----------- info handler -----------//
   const infoHandler = (e) => {
     const { name, value } = e.target;
-    // InfoValue console check
-    console.log(info) 
+
+
     setInfo({ ...info, [name]: value });
   }
   //----------- info handler -----------//
@@ -47,9 +46,8 @@ const MyPageEdit = () => {
   //----------- img upload handler -----------//
   const uploadImg = useCallback((fileBlob) => {
     formData.append('image', fileBlob);
-    // file formData console check
     for (const keyValue of formData){
-      console.log(keyValue[0]+', '+keyValue[1])
+  
     };  
 
     const reader = new FileReader();
@@ -61,7 +59,7 @@ const MyPageEdit = () => {
       };
     });
   },[]);
-  // console.log('포스트이미지scr:', postImg)
+
 
   // mkBtn for useRef
   const fileInputBtnClick = useCallback(() => {
@@ -81,10 +79,6 @@ const MyPageEdit = () => {
     formData.append('nickname', info.nickname);
     formData.append('password', info.password);
 
-    // formData console check
-    // for (const keyValue of formData){
-    //   console.log('Ready to change', keyValue[0]+', '+keyValue[1])
-    // }
 
     try {
       const res = await axios.put(`${process.env.REACT_APP_SERVER_API}/api/member/mypage`, 

@@ -15,12 +15,11 @@ const SearchPost = () => {
   const refreshToken = localStorage.getItem('RefreshToken') //refreshToken
   const location = useLocation();
   const navigate = useNavigate();
-  // console.log(location.state);
+
   
   const search = location.state.search
   const post = location.state.post.content
-  // console.log(post);
-  // const [list, setList] = useState();
+
 
   const plusCourse = () => {
     if( !accessToken || !refreshToken) {

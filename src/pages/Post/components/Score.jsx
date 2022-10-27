@@ -27,8 +27,7 @@ const Score = ({id}) => {
     : score.score === 100 ? '퍼펙트 코스'
     : '굿 코스';
 
-  // console.log(score);
-  // console.log(courseName);
+ 
 
   const postHandler = async () => {
     try {
@@ -41,10 +40,9 @@ const Score = ({id}) => {
           RefreshToken: refreshToken,
         }
       });
-      console.log('heart:', heart)
+
 
       if (heart.status === 200 || 201) {
-        console.log(heart,'works!')
       }
     }
     catch(err) {

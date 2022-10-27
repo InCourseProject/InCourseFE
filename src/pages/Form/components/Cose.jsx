@@ -1,23 +1,31 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { colors, fonts } from '../../../lib/constants/GlobalStyle'
-import { useDispatch,useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { deleteCose } from '../../../redux/modules/formSlice'
-const Cose = ({cose,i}) => {
-    const co = useSelector((state)=> state.formSlice.form.placeRequestDtoList
+import { _deleteCose } from '../../../redux/modules/formSlice'
+const Cose = ({ cose, i }) => {
+    const co = useSelector((state) => state.formSlice.form.placeRequestDtoList
     )
-    console.log(cose.id)
     const dispatch = useDispatch();
     return (
-        <StContainer key={`cose-${cose.coordinateX},${cose.coordinateY}`}>
-            <img src="" alt="" />
+        <StContainer
+            key={`cose-${cose.coordinateX},${cose.coordinateY}`}
+        >
+            <img
+                src=""
+                alt=""
+            />
             <StCoseButton>
                 <h2>코스{i}</h2>
                 <div>
-                    <button type='button' onClick={() => {cose.id === undefined ? dispatch(deleteCose(cose.coordinateX)): dispatch(_deleteCose(cose.id))
-            ;
-            // console.log(ment.id);
-          }}>삭제</button>
+                    <button
+                        type='button'
+                        onClick={() => {
+                            cose.id === undefined ? dispatch(deleteCose(cose.coordinateX)) : dispatch(_deleteCose(cose.id))
+                            ;
+                        }}
+                    >삭제</button>
                 </div>
             </StCoseButton>
             <StTitBox>
