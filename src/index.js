@@ -13,7 +13,7 @@ root.render(
   <Provider store={store} >
     <GlobalStyle/>
     <div style={{width: '390px', margin:'0px auto'}}>
-    <App style={{}} />
+    <App/>
     </div>
   </Provider>
   // </React.StrictMode>
