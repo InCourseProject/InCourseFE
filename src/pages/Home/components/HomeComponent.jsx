@@ -135,6 +135,7 @@ const HomeComponent = () => {
         <StContainer>
             {loading ? <Loading /> : null}
             {!accessToken
+
                 ? <StNotlogin>
                     <span>지금 로그인하시고 <br />오늘 날씨에 딱 맞는 코스를 추천 받으세요!</span>
                     <Btn
@@ -340,7 +341,7 @@ const StDivWrap = styled.div`
         text-align: center;
     }
     ul{
- width: 100%;
+        width: 100%;
     }
     li{
         width: 100%;
@@ -365,6 +366,5 @@ margin: 0 auto;
         font-size:  ${fonts.headLine};
         color: ${colors.deepGray};
         margin-top: 40px;
-       
     }
 `
