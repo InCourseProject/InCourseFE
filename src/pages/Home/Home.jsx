@@ -10,8 +10,10 @@ const Home = () => {
     return (
       <>
       <HeaderBar/>
-      <HomeComponent/>
-      <Feedback/>
+      <StWrap>
+        <HomeComponent/>
+      </StWrap>
+      <Feedback style={{zIndex: '1000rem'}}/>
       <NaviBar/>
       </>
     );
@@ -21,4 +23,6 @@ export default Home;
 
 const StWrap = styled.div`
   width: 100%;
+  margin-bottom: 12rem;
+  z-index: -1;
 `

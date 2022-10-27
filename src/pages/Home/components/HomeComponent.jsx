@@ -123,14 +123,6 @@ const HomeComponent = () => {
         }
     }, [weather]);
 
-    const plusCourse = () => {
-        if (!accessToken || !refreshToken) {
-            alert('로그인이 필요합니다.')
-            navigate('/login')
-        } else {
-            navigate('/category')
-        }
-    };
     return (
         <StContainer>
             {loading ? <Loading /> : null}
@@ -273,7 +265,7 @@ const StWetherImg = styled.div`
     width: 100%;
     height: 100%;
     padding: 30px;
-    margin-top: 100px;
+    margin-top: 5rem;
 `
 const StWetherDetail = styled.div`
     width: 100%;

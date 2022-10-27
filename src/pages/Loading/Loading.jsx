@@ -1,6 +1,4 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
-import { Link } from "react-router-dom";
 import { fonts, fontWeight, lineHeights } from "../../lib/constants/GlobalStyle";
 import loading from "../../lib/constants/img/incourseLoading.gif"
 
@@ -54,8 +52,8 @@ const Text = styled.div`
 const LoadingImg = styled.img`
   /* 로딩 중 스크롤 방지 */
   overflow: hidden;
+  overflow-y: hidden;
   width: 20%;
-
 `
 
 const WhenLoaded = styled.div`
