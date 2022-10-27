@@ -5,7 +5,6 @@ import { fonts, fontWeight, lineHeights } from "../../lib/constants/GlobalStyle"
 import loading from "../../lib/constants/img/incourseLoading.gif"
 
 const Loading= () => {
-  // window.addEventListener('load')
   
   // Random Quotes
   const quotes = [
@@ -20,43 +19,6 @@ const Loading= () => {
   };
   
   const quote = randomQuote(quotes);
-
-
-  //store 나 페이지에 적용될 내용들
-
-  // const mainApi = async () => {
-  //   setLoading(true); // api 호출 전에 true로 변경하여 로딩화면 띄우기
-  //     try {
-  //       const response = await fetch(`api url`, {
-  //         method: 'POST',
-  //         headers: {
-  //           Accept: 'application/json',
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify(),
-  //       });
-  
-  //       const result = await response.json();
-  //       console.log('mainData', result);
-  //       setLoading(false); // api 호출 완료 됐을 때 false로 변경하려 로딩화면 숨김처리
-  //     } catch (error) {
-  //       window.alert(error);
-  //     }
-  // };
-  
-  //     useEffect(() => {
-  //         mainApi();
-  //     }, []);
-  
-  //     return (
-  //     <div>
-  //       {loading ? <Loading /> : null} // Loading이 true면 컴포넌트를 띄우고, false면 null(빈 값)처리 하여 컴포넌트 숨김
-  //       <div>페이지 내용들</div>
-  //     </div>
-  //     );
-  // };
-  // 출처: https://anerim.tistory.com/221 [디발자 뚝딱:티스토리]
-
 
   return (
     <Back>
@@ -102,5 +64,3 @@ const WhenLoaded = styled.div`
   opacity: 0;
 
 `
-
-//  'aria-label': 'loading',

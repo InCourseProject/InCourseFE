@@ -6,10 +6,9 @@ import "slick-carousel/slick/slick.css";
 import Cose from '../../Form/components/Cose';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import default_Img from '../../../lib/constants/img/difault_Img.png'
+import default_Img from '../../../lib/constants/img/difault_Img.png';
 import "slick-carousel/slick/slick-theme.css";
 import { useState, useEffect } from 'react';
-import Input from '../../../components/Input';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { colors, fonts } from '../../../lib/constants/GlobalStyle';
@@ -19,12 +18,8 @@ import { categorySelect } from '../../../redux/modules/formSlice';
 import BasicCheckbox from '../../Category/components/BasicCheckbox';
 const UpdateForm = () => {
     const { id } = useParams();
-    console.log(id)
     const navigate = useNavigate();
-    const category = useSelector((state) => state.formSlice.form.postRequestDto)
-    const cose = useSelector((state) => state.formSlice.form.placeRequestDtoList)
-
-    console.log(cose)
+    const cose = useSelector((state) => state.formSlice.form.placeRequestDtoList);
     const [imageUrl, setImageUrl] = useState("");
     const [fileImage, setFileImage] = useState([]);
     const [title, setTitle] = useState("");
@@ -33,31 +28,32 @@ const UpdateForm = () => {
         place: []
     });
     const [modal, setModal] = useState(false);
-
     const dispatch = useDispatch();
     const [weather, setWeather] = useState();
     const [season, setSeason] = useState();
     const [region, setRegion] = useState();
     const [who, setWho] = useState();
-console.log(post)
+
+    //날씨 카테고리 핸들러
     const handleSubmit = e => {
         e.preventDefault();
         const data = { weather, season, region, who, };
         dispatch(categorySelect(data))
         navigate("/form")
-        // localStorage.setItem("requst")
-        // console.log(json);
     };
- 
 
+    //디폴트 이미지 핸들러
     const handleImgError = (e) => {
         e.target.src = default_Img;
     }
+
+    //이미지 변경 핸들러
     const onChangeImg = (e) => {
-        console.log(e.target.files);
         setImageUrl(e.target.files[0]);
         setFileImage(URL.createObjectURL(e.target.files[0]));
-      };
+    };
+
+    //수정 핸들러
     const fetchPost = async () => {
         const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course/${id}`, {
             headers: {
@@ -65,46 +61,45 @@ console.log(post)
                 RefreshToken: localStorage.getItem("RefreshToken")
             }
         });
-        console.log(response.data)
-        // console.log(response.data.data)
         setPost(response.data); //for realserver
         setTitle(response.data.title)
         setContent(response.data.content)
         setFileImage(response.data.image)
-        // setImageUrl(response.data.image)
-        // setPost( response.data ); //for realserver
     }
-    // console.log(imageUrl);
+
+    //타이틀 핸들러
     const onChangeTitleHandler = (event) => {
         const tit = event.target.value;
         setTitle(tit);
     };
+
+    //내용 핸들러
     const onChangeContentHandler = (event) => {
         const con = event.target.value;
         setContent(con);
     };
 
-    // console.log(imageUrl)
+    //모달 함수
     const onSubmitHandler = () => {
         setModal(true)
     }
-    // console.log(JSON.stringify(imageUrl))
 
     useEffect(() => {
         fetchPost()
     }, [])
-    useEffect(()=>{
-        if(post === undefined){
+    useEffect(() => {
+        if (post === undefined) {
 
-        }else{
-        setWeather(post.weather)
-        setSeason(post.season)
-        setRegion(post.region)
-        setWho(post.who)
-    }
-   
-    },[post])
-    // console.log('image:',JSON.parse(imageUrl) )
+        } else {
+            setWeather(post.weather)
+            setSeason(post.season)
+            setRegion(post.region)
+            setWho(post.who)
+        }
+
+    }, [post])
+
+    //슬라이드 세팅
     const settings = {
         // dots: true,
         infinite: false,
@@ -115,6 +110,8 @@ console.log(post)
         slidesToScroll: 1,
         initialSlide: 1,
     };
+
+    //서버 보낼 데이터
     const data = {
         postRequestDto: {
             title: title,
@@ -126,16 +123,14 @@ console.log(post)
         },
         placeRequestDtoList: cose
     };
-    console.log(data)
+
+    //수정 핸들러
     const onAddPosttButtonHandler = async () => {
         let json = JSON.stringify(data);
         const formData = new FormData();
-        //콘솔 추가
         const titleblob = new Blob([json], { type: "application/json" });
         formData.append("data", titleblob);
-        console.log(imageUrl);
         formData.append("image", imageUrl);
-        // console.log(file)
         const res = await axios.put(`${process.env.REACT_APP_SERVER_API}/api/course/${post.id}`, formData, {
             headers: {
                 "content-type": "multipart/form-data",
@@ -150,9 +145,13 @@ console.log(post)
     };
     return (
         <div>
-            {modal ? <UpDateCose modal={modal} setModal={setModal}  post={post}/> : null}
+            {modal ? <UpDateCose
+                modal={modal}
+                setModal={setModal}
+                post={post}
+            /> : null}
             <StContainer >
-            
+
                 <Test>
                     <StMapWrap>
                         <Map
@@ -275,8 +274,8 @@ console.log(post)
                                 className="imginput"
                                 id='file'
                                 accept="image/*" // accept속성은 서버로 업로드할 수 있는 파일의 타입을 명시, input type="file" 에서만 사용가능
-                            // onChange={showFileImage}
-                            onChange={onChangeImg}
+                                // onChange={showFileImage}
+                                onChange={onChangeImg}
                             />
 
                             <input
@@ -297,11 +296,18 @@ console.log(post)
                         </div>
 
                         <div>
-                            {post.place?.map((cose,i) =>
-                                <Cose key={`cose-${cose.coordinateX},${cose.coordinateY}`} cose={cose} i={i+1}/>
+                            {post.place?.map((cose, i) =>
+                                <Cose
+                                    key={`cose-${cose.coordinateX},${cose.coordinateY}`}
+                                    cose={cose}
+                                    i={i + 1}
+                                />
                             )}
                             {cose?.map((cose) =>
-                                <Cose key={`cose-${cose.coordinateX},${cose.coordinateY}`} cose={cose} />
+                                <Cose
+                                    key={`cose-${cose.coordinateX},${cose.coordinateY}`}
+                                    cose={cose}
+                                />
                             )}
 
                         </div>
@@ -313,7 +319,7 @@ console.log(post)
                             >
                                 카드작성
                             </Btn>
-                            
+
                             <Btn
                                 size='md'
                                 type='button'

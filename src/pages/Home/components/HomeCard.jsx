@@ -10,24 +10,27 @@ import { useNavigate } from 'react-router-dom';
 import { HeartIcon } from '@heroicons/react/24/solid'
 import { useDispatch } from 'react-redux';
 import Badge from '../../../components/badge';
-import axios from 'axios';
 import { _deletePost } from '../../../redux/modules/formSlice';
 const HomeCard = ({ post, find }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    //슬라이드 설정 값
     const settings = {
-        // dots: true,
         infinite: false,
         speed: 500,
         slidesToShow: 2,
-        // variableWidth: true,
         useTransform: true,
         slidesToScroll: 1,
         initialSlide: 1,
     };
+
+    //디폴트 이미지 설정 함수
     const handleImgError = (e) => {
         e.target.src = difault_Img;
     }
+
+    //삭제 핸들러
     const deleteHandler = async () => {
         const data = []
         for (let i = 0; i < post.place.length; i++) {
@@ -42,9 +45,7 @@ const HomeCard = ({ post, find }) => {
         }
         dispatch(_deletePost(payload))
     }
-    console.log(post);
 
-    console.log(find)
     return (
         <StContainer key={post?.id}>
             {find?.id === post?.id ?
@@ -72,7 +73,9 @@ const HomeCard = ({ post, find }) => {
                 <StSlideBox >
                     <Slider {...settings}  >
                         {post?.place?.map((cose) => (
-                            <StCoseBox key={`name-${cose.coordinateX},${cose.coordinateY}`}>
+                            <StCoseBox
+                                key={`name-${cose.coordinateX},${cose.coordinateY}`}
+                            >
                                 <h3>{cose?.placeName}</h3>
                             </StCoseBox>
                         ))}
@@ -222,6 +225,7 @@ const StCategorys = styled.div`
             border-radius: 20px;
             padding: 5px;
             text-align: center;
+            font-size: ${fonts.caption};
             background-color: ${colors.secondary};
         }
     }
@@ -304,6 +308,9 @@ const StCoseBox = styled.div`
     padding: 15px 0px;
     box-sizing: border-box;
     border: 3px solid ${colors.primary};
+    h1{
+        font-size: ${fonts.caption};
+    }
     
 `
 const StSlideBox = styled.div`

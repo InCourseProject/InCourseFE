@@ -6,12 +6,12 @@ import styled from '@emotion/styled'
 const Cartegory = () => {
   return (
     <>
-    
-    <HeaderBar/>
-    <StLogoWrap>
-                <img src={logo} alt="" />
-            </StLogoWrap>
-    <CartegoryBox/>
+
+      <HeaderBar />
+      <StLogoWrap>
+        <img src={logo} alt="" />
+      </StLogoWrap>
+      <CartegoryBox />
     </>
   )
 }

@@ -9,26 +9,26 @@ import { useNavigate } from 'react-router-dom';
 import default_Img from '../../../lib/constants/img/difault_Img.png'
 import "slick-carousel/slick/slick-theme.css";
 import { useState, useEffect } from 'react';
-import Input from '../../../components/Input';
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { colors, fonts } from '../../../lib/constants/GlobalStyle';
 import Btn from '../../../components/Button';
 
 const FormComponent = () => {
     const { kakao } = window;
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const category = useSelector((state) => state.formSlice.form.postRequestDto)
     const position = useSelector((state) => state.formSlice.form.placeRequestDtoList);
-    // console.log(position)
     const [imageUrl, setImageUrl] = useState("");
     const [fileImage, setFileImage] = useState([]);
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
 
+    //이미지 에러 디폴트 설정 핸들러
     const handleImgError = (e) => {
         e.target.src = default_Img;
     }
+
+    //이미지 base64 변환 핸들러
     const getBase64 = (file) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -37,6 +37,8 @@ const FormComponent = () => {
             reader.readAsDataURL(file);
         });
     }
+
+    //이미지 base64형태로 로컬스토리지 저장
     const imageUpload = (e) => {
         const file = e.target.files[0];
         setFileImage(URL.createObjectURL(e.target.files[0]));
@@ -46,24 +48,25 @@ const FormComponent = () => {
         });
     };
 
-    // console.log(imageUrl);
+    //tit 핸들러
     const onChangeTitleHandler = (event) => {
         const tit = event.target.value;
         setTitle(tit);
     };
+
+    //내용 핸들러
     const onChangeContentHandler = (event) => {
         const con = event.target.value;
         setContent(con);
     };
 
-    console.log(imageUrl)
+    //로컬스토리지에 저장해주는 핸들러
     const onSubmitHandler = () => {
         localStorage.setItem("img", fileImage);
         localStorage.setItem("title", title);
         localStorage.setItem("content", content);
         navigate("/card")
     }
-    // console.log(JSON.stringify(imageUrl))
 
     useEffect(() => {
         setTitle(localStorage.getItem("title"))
@@ -71,17 +74,18 @@ const FormComponent = () => {
         setFileImage(localStorage.getItem("img"))
         setImageUrl(localStorage.getItem("fileBase64"))
     }, [])
-    // console.log('image:',JSON.parse(imageUrl) )
+
+    //slide 설정 값
     const settings = {
-        // dots: true,
         infinite: false,
         speed: 500,
         slidesToShow: 2,
-        // variableWidth: true,
         useTransform: true,
         slidesToScroll: 1,
         initialSlide: 1,
     };
+
+    //서버에 보낼 데이터 모인 곳
     const data = {
         postRequestDto: {
             title: title,
@@ -93,7 +97,8 @@ const FormComponent = () => {
         },
         placeRequestDtoList: position
     };
-    console.log(data)
+
+    //서버통신하는 핸들러
     const onAddPosttButtonHandler = async () => {
         const byteString = atob(imageUrl.split(",")[1]);
         const ab = new ArrayBuffer(byteString.length);
@@ -110,7 +115,7 @@ const FormComponent = () => {
         //콘솔 추가
         const titleblob = new Blob([json], { type: "application/json" });
         formData.append("data", titleblob);
-        console.log(imageUrl);
+        // console.log(imageUrl);
         formData.append("image", file);
         // console.log(file)
         const res = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/course`, formData, {
@@ -119,15 +124,16 @@ const FormComponent = () => {
                 Authorization: localStorage.getItem("Authorization"),
                 RefreshToken: localStorage.getItem("RefreshToken")
             }
-            
+
         });
-       
+
         return res.data,
-        localStorage.removeItem("title"),
-        localStorage.removeItem("content"),
-        localStorage.removeItem("img"),
-        localStorage.removeItem["fileBase64"],
-        navigate("/")
+            //로컬 스토리지 삭제
+            localStorage.removeItem("title"),
+            localStorage.removeItem("content"),
+            localStorage.removeItem("img"),
+            localStorage.removeItem["fileBase64"],
+            navigate("/")
     };
     return (
         <div>
@@ -225,8 +231,12 @@ const FormComponent = () => {
                             />
                         </div>
                         <div>
-                            {position.map((cose,i) =>
-                                <Cose key={`cose-${cose.coordinateX},${cose.coordinateY}`} cose={cose} i ={i+1}/>
+                            {position.map((cose, i) =>
+                                <Cose
+                                    key={`cose-${cose.coordinateX},${cose.coordinateY}`}
+                                    cose={cose}
+                                    i={i + 1}
+                                />
                             )}
 
                         </div>
@@ -239,11 +249,11 @@ const FormComponent = () => {
                                 카드작성
                             </Btn>
                             <Btn
-                            size='md'
-                            type='button'
-                            onClick={onAddPosttButtonHandler}>게시물작성</Btn>
+                                size='md'
+                                type='button'
+                                onClick={onAddPosttButtonHandler}>게시물작성</Btn>
                         </StButtonBox>
-                        
+
                     </StFormBox>
 
                 </Test2>

@@ -14,7 +14,6 @@ const SignupDetail = () => {
   const refreshToken = localStorage.getItem('RefreshToken') //refreshToken
   const navigate = useNavigate();
   const location = useLocation();
-  // console.log('props to useNavigate>>', location.state.email)
 
   const initialstate = {
     email: location.state.email,
@@ -28,7 +27,6 @@ const SignupDetail = () => {
     const { name, value } = e.target;
     setInfo({ ...info, [name]:value });
   };
-  console.log(info)
 
   const submitHandler = async () => {
     
@@ -41,7 +39,6 @@ const SignupDetail = () => {
           refreshToken: refreshToken,
         }
       });
-      // console.log('Axios Work>> ', res);
       if(res.status === 200 || 201) {
         window.alert(res.data.message)
         navigate('/login')
