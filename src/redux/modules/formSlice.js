@@ -16,6 +16,8 @@ const initialState = {
     error: null,
     like: false,
 };
+
+//게시물 불러오기
 export const _getPost = createAsyncThunk(
     "post/getPost",
     async(payload, thunkApI) => {
@@ -26,7 +28,6 @@ export const _getPost = createAsyncThunk(
                     RefreshToken: localStorage.getItem("RefreshToken")
                 }
             });
-            console.log(data)
             return thunkApI.fulfillWithValue(data.data)
         }catch(error){
             return thunkApI.rejectWithValue(error);
@@ -34,6 +35,7 @@ export const _getPost = createAsyncThunk(
     }
 );
 
+//게시물 작성
 export const _addPost = createAsyncThunk(
     "post/addPost",
     async(payload, thunkApI) => {
@@ -45,7 +47,6 @@ export const _addPost = createAsyncThunk(
                     RefreshToken: localStorage.getItem("RefreshToken")
                 }
             });
-            console.log(data)
             return thunkApI.fulfillWithValue(data.data)
         }catch(error){
             return thunkApI.rejectWithValue(error);
@@ -53,37 +54,10 @@ export const _addPost = createAsyncThunk(
     }
 );
 
-
-
-// export const _updatePost = createAsyncThunk(
-//     "post/upDate",
-//     async (payload, thunkApI) => {
-//         console.log(payload)
-//         try {
-//             const data = await axios.patch(
-//                 `http://54.180.31.216/api/auth/post/${payload.id}`,
-
-//                 payload.data,{
-//                     headers:{
-//                         "Content-Type": "multipart/form",
-//                         Authorization: getCookie("ACESS_TOKEN"),
-//                         RefreshToken: getCookie("REFRESH_TOKEN")
-//                     }
-                    
-//                 }
-//             )
-//             window.location.replace('/main')
-//             return thunkApI.fulfillWithValue(data.data);
-//             console.log(data)
-//         }catch(error){
-//             return thunkApI.rejectWithValue(error);
-//         }
-//     }
-// )
+//게시물 삭제
 export const _deletePost = createAsyncThunk(
     "post/deDate",
     async (payload, thunkAPI) => {
-        console.log(payload)
         try{
             const datas = await axios.delete(`${process.env.REACT_APP_SERVER_API}/api/course/${payload.id}`,{
                     headers:{
@@ -94,7 +68,6 @@ export const _deletePost = createAsyncThunk(
                     data:payload.coseId
                 }
             )
-            console.log(datas)
             return alert(datas.data),
         window.location.replace("/mypostpage")
         }catch(error){
@@ -103,10 +76,10 @@ export const _deletePost = createAsyncThunk(
     }
 )
 
+//코스 삭제
 export const _deleteCose = createAsyncThunk(
     "post/deDate",
     async (payload, thunkAPI) => {
-        console.log(payload)
         try{
             const data = await axios.delete(
 
@@ -119,7 +92,6 @@ export const _deleteCose = createAsyncThunk(
                     }
                 }
             )
-            // console.log(data)
             return data,
             window.location.replace("")
         }catch(error){
@@ -127,18 +99,6 @@ export const _deleteCose = createAsyncThunk(
         }
     }
 )
-// export const _getLike = createAsyncThunk(
-//     "post/getPost",
-//     async(payload, thunkApI) => {
-//         try {
-//             const data = await axios.get("http://13.209.97.75:8080/api/auth/like/{id}");
-//             // console.log(data)
-//             return thunkApI.fulfillWithValue(data.data);
-//         }catch(error){
-//             return thunkApI.rejectWithValue(error);
-//         }
-//     }
-// );
 
 export const formSlice = createSlice({
   name:"form",
@@ -146,35 +106,17 @@ export const formSlice = createSlice({
   reducers:{
     createMarker(state,action){
         state.form.placeRequestDtoList.push(action.payload);
-        // localStorage.setItem(action.payload)
-        
     },
     categorySelect(state,action){
         state.form.postRequestDto = action.payload;
         state.form.posts = action.payload;
-        // localStorage.setItem(action.payload)
-        
     },
     createTitle(state,action){
         state.title = action.payload;
-        // localStorage.setItem(action.payload)
-        
     },
-    // likePost(state, action){
-    //    let index = state.post.findIndex(post => post.id === action.payload.id);
-    //    state.post[index].count +=1;
-    //    axios.patch(`http://54.180.31.216/api/auth/post/post/${action.payload.id}`,action.payload)
-    // },
-    // hatePost(state, action){
-    //     let index = state.post.findIndex(post => post.id === action.payload.id);
-    //     state.post[index].count -=1;
-    //     axios.patch(`http://54.180.31.216/api/auth/post/post/${action.payload.id}`,action.payload)
-    // },
     deleteCose(state,action){
-        console.log(state)
         let index = state.form.placeRequestDtoList.findIndex(cose =>cose.coordinateX === action.payload)
         state.form.placeRequestDtoList.splice(index,1)
-        console.log(index)
     },
     updatePost(state,action){
         let index = state.post.findIndex(post => post.id === action.payload.id);
@@ -211,22 +153,6 @@ export const formSlice = createSlice({
            
        
         });
-    // builder
-    //     .addCase(_updatePost.pending, (state) => {
-    //         state.isLoading = true;
-    //     })
-    //     .addCase(_updatePost.fulfilled, (state, action) => {
-    //         state.isLoading = false;
-    //         state.post = action.payload;
-    //         console.log(state.post)
-    //     })
-    //     .addCase(_updatePost.rejected, (state, action) => {
-    //         state.isLoading = false;
-    //         state.error = action.payload;
-       
-    //     });
-
-   
   }
 });
 

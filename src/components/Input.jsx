@@ -64,12 +64,6 @@ const variants = {
   },
 };
 
-// const outlines = {
-//   any: {
-//     '&:active,&:focus': {
-//       outline: `1px solid ${colors.secondary}`,
-//   }
-// }
 /*------------- 인풋 CSS 값 -------------*/
 
 /**

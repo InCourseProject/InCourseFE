@@ -115,9 +115,7 @@ const FormComponent = () => {
         //콘솔 추가
         const titleblob = new Blob([json], { type: "application/json" });
         formData.append("data", titleblob);
-        // console.log(imageUrl);
         formData.append("image", file);
-        // console.log(file)
         const res = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/course`, formData, {
             headers: {
                 "content-type": "multipart/form-data",

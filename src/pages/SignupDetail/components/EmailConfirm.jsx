@@ -146,15 +146,3 @@ const Sth1 = styled.h1`
     font-weight: ${fontWeight.exrtaBold};
     line-height: ${lineHeights.headLine};
   `
-
-const CountTime = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: end;
-  margin-top: 0.8rem;
-  margin-right: 2.2rem;
-  color: ${colors.gray};
-  font-size: ${fonts.body};
-  font-weight: ${fontWeight.normal};
-  line-height: ${lineHeights.body};
-`

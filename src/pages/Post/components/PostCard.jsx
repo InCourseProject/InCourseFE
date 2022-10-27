@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import styled from '@emotion/styled'
 import { HeartIcon } from '@heroicons/react/24/solid'
-import { Map, MapMarker, StaticMap } from 'react-kakao-maps-sdk';
+import {  StaticMap } from 'react-kakao-maps-sdk';
 import { colors, fonts, fontWeight, lineHeights } from '../../../lib/constants/GlobalStyle'
 import CardHeart from './CardHeart'
 

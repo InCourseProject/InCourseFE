@@ -149,20 +149,6 @@ const ErrTxt = styled.div`
   line-height: ${lineHeights.caption};
 `
 
-const Later = styled.div`
-  width: fit-content;
-  margin: 4rem auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${colors.gray};
-  font-size: ${fonts.caption};
-  font-weight: ${fontWeight.light};
-  line-height: ${lineHeights.caption};
-  
-  cursor: pointer;
-`
-
 const StSelect = styled.select`
   width: 100%;
   max-width: 33rem;

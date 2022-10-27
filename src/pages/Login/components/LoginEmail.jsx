@@ -21,7 +21,6 @@ const LoginEmail = () => {
     const { name, value } = e.target;
     setLogin({ ...login, [name]:value });
   };
-  // console.log(login)
 
   const loginHandler = async () => { 
     

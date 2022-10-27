@@ -274,7 +274,6 @@ const UpdateForm = () => {
                                 className="imginput"
                                 id='file'
                                 accept="image/*" // accept속성은 서버로 업로드할 수 있는 파일의 타입을 명시, input type="file" 에서만 사용가능
-                                // onChange={showFileImage}
                                 onChange={onChangeImg}
                             />
 
@@ -392,7 +391,6 @@ const StSlideBox = styled.div`
         top: 25px;
         z-index: -1;
     }
-    /* div{margin:0 5px} */
 `
 const StImgBox = styled.div`
 width: 100%;
@@ -512,9 +510,4 @@ const StForm = styled.div`
         color: ${colors.deepGray};
         font-size: ${fonts.caption};
     }
-`
-
-const StBtnWrap = styled.div`
-    text-align: center;
-    width: 100%;
 `

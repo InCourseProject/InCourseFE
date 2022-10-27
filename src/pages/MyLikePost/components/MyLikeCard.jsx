@@ -10,10 +10,8 @@ import styled from '@emotion/styled';
 import { colors, fonts } from '../../../lib/constants/GlobalStyle';
 
 const MyLikeCard = () => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [coseId, setCoseId] = useState();
-    const { detail, isLoding, error } = useSelector((state) => state.homeSlice)
+    const { detail, isLoding} = useSelector((state) => state.homeSlice)
 
     useEffect(() => {
         dispatch(_getLikePost())

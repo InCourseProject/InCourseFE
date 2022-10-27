@@ -10,7 +10,7 @@ const LoginSelect = (props) => {
   const [ isClick, setIsClick ] = useState(false)
 
   return(
-    <StWrap>
+    <div>
       <BtnWrap>
         <Container>
           <ClickNaver onClick={() => { window.location.href = NAVER_REST_AUTH_URL }}>
@@ -43,22 +43,15 @@ const LoginSelect = (props) => {
           </Btn>
         </Container>
       </BtnWrap>
-    </StWrap>
+    </div>
   );
 };
  
 export default LoginSelect;
 
-const StWrap = styled.div`
-  /* width: 100%; */
-  /* display: flex; */
-  /* flex-direction: column; */
-`
-
 const BtnWrap = styled.div`
   width: 100%;
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
   justify-content: center;
 `
@@ -69,7 +62,6 @@ const Container = styled.div`
 const ClickNaver = styled.div`
   width: 100%;
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
   justify-content: center;
 `

@@ -52,14 +52,12 @@ const Text = styled.div`
 `
 
 const LoadingImg = styled.img`
-  /* 로딩 중 스크롤 방지 */
   overflow: hidden;
   width: 20%;
 
 `
 
 const WhenLoaded = styled.div`
-  /* 로딩이 끝나면 */
   overflow: auto;
   opacity: 0;
 

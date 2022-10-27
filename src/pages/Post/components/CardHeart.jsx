@@ -89,7 +89,7 @@ const CardHeart = ({id, clickCheck, zzimCheck, style, click, css}) => {
   },[count]);
 
   return ( 
-    <StDiv style={style} css={css}>
+    <div style={style} css={css}>
       {
         count === false
         ? <Btn 
@@ -107,12 +107,9 @@ const CardHeart = ({id, clickCheck, zzimCheck, style, click, css}) => {
           카드 찜하기 취소
         </Btn>
       }
-    </StDiv>
+    </div>
   )
 }
 
 export default CardHeart;
 
-const StDiv = styled.div`
-  /* margin-bottom: 20rem; */
-`

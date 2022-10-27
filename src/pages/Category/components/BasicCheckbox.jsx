@@ -46,17 +46,6 @@ width: 100%;
     
 `
 const Stinputs = styled.input`
-/* display: inline-block;
-    cursor: pointer;
-    height: 24px;
-    width: 100%;
-    border: 1px solid #333;
-    line-height: 24px;
-    text-align: center;
-    font-weight:bold;
-    font-size:13px;
-    background-color: #fff;
-    color: #333; */
     :checked+span{background-color: ${colors.secondary};
     color: #fff;}
     

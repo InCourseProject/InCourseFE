@@ -332,5 +332,4 @@ const StSlideBox = styled.div`
         top: 25px;
         z-index: -1;
     }
-    /* div{margin:0 5px} */
 `

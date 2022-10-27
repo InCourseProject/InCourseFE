@@ -23,7 +23,6 @@ const MyPageEdit = () => {
     id: location.state.id,
     location: '',
     nickname: '',
-    // legacypassword: '',
     password: '',
     image : location.state.image,
   };

@@ -22,7 +22,7 @@ const CardCompnent = () => {
         address: "주소",
     });
     const [cose, setCose] = useState();
-    // console.log(cose)
+
 
     //지도 검색 핸들러
     const onChangeHandler = (e) => {
@@ -82,20 +82,17 @@ const CardCompnent = () => {
             map.setCenter(locPosition);
         }
     }
-    
+
     useEffect(() => {
         if (!map) return
         const ps = new kakao.maps.services.Places();
 
         ps.keywordSearch(keyword, (data, status, _pagination) => {
-            // console.log(data)
             if (status === kakao.maps.services.Status.OK) {
                 // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
                 // LatLngBounds 객체에 좌표를 추가합니다
                 const bounds = new kakao.maps.LatLngBounds();
-                // console.log(bounds)
                 let markers = []
-                // console.log(data)
                 data.map((mark) => {
                     // @ts-ignore
                     markers.push({
@@ -111,7 +108,6 @@ const CardCompnent = () => {
                     bounds.extend(new kakao.maps.LatLng(mark.y, mark.x))
                 })
                 setMarkers(markers)
-                // console.log(markers)
                 // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
                 map.setBounds(bounds)
             }

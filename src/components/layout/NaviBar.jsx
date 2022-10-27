@@ -4,7 +4,6 @@ import { css } from '@emotion/react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { colors, fonts, fontWeight, lineHeights } from '../../lib/constants/GlobalStyle'
 import { HomeIcon, PlusCircleIcon, MagnifyingGlassIcon, UserIcon } from '@heroicons/react/24/solid'
-// import { HomeIcon, PlusCircleIcon, MagnifyingGlassIcon, UserIcon } from '@heroicons/react/24/outline'
 
 const NaviBar = () => {
   const accessToken = localStorage.getItem('Authorization'); //accesstoken 
