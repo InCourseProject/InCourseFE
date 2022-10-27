@@ -12,7 +12,7 @@ root.render(
   // <React.StrictMode>
   <Provider store={store} >
     <GlobalStyle/>
-    <div style={{width: '390px', margin:'0px auto'}}>
+    <div style={{width: '390px', margin:'0px auto', overflowX: 'hidden'}}>
     <App/>
     </div>
   </Provider>

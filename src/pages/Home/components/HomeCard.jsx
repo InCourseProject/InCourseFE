@@ -79,7 +79,6 @@ const HomeCard = ({ post, find }) => {
                                 <h3>{cose?.placeName}</h3>
                             </StCoseBox>
                         ))}
-
                     </Slider>
                 </StSlideBox>
             </StImgWrap>
@@ -93,7 +92,8 @@ const HomeCard = ({ post, find }) => {
             <StProfile>
                 <StProfileWrap>
                     <StProfileImg>
-                        <div css={{translate: '10px 13px'}}>
+                        {/* 프로필 사진 위치 조정 */}
+                        <div css={{translate: '12% 12%'}}>
                             {post?.profileImage === null
                                 ? <img css={{ width: '6rem' }} src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K" alt="" />
                                 : <img css={{ width: '6rem' }} src={post?.profileImage} alt="Profile Image" />
@@ -250,54 +250,51 @@ const StImgWrap = styled.div`
     
 `
 const StImgBox = styled.div`
-width: 100%;
-height: 320px;
-text-align: center;
-background-color: ${colors.primary};
-background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,0.5) 100%);
-display: table;
+    width: 100%;
+    height: 320px;
+    text-align: center;
+    background-color: ${colors.primary};
+    background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,0.5) 100%);
+    display: table;
 
-span{
-    display: table-cell;
-    height: 100%;
-    color: ${colors.deepGray};
-    font-size: ${fonts.body};
-    vertical-align: middle;
-}
-div{
-    position: absolute;
-    left: 20px;
-    bottom: 130px;
-    z-index: 100;
-    color: ${colors.white};
-    font-weight: ${fontWeight};
-    text-align: left;
-    color: ${colors.white};
-
-    
-
-    h1{
-        color: ${colors.white};
-        font-size: ${fonts.headLine};
-        margin-bottom: 10px;
-        color: ${colors.white};
-        
-
-        overflow: hidden;
-        width: 35rem;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+    span{
+        display: table-cell;
+        height: 100%;
+        color: ${colors.deepGray};
+        font-size: ${fonts.body};
+        vertical-align: middle;
     }
-    p{
-        overflow: hidden;
-        width: 30rem;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-
+    div{
+        position: absolute;
+        left: 20px;
+        bottom: 130px;
+        z-index: 100;
         color: ${colors.white};
-        font-size: ${fonts.subTitle};
+        font-weight: ${fontWeight};
+        text-align: left;
+        color: ${colors.white};
+        h1{
+            color: ${colors.white};
+            font-size: ${fonts.headLine};
+            margin-bottom: 10px;
+            color: ${colors.white};
+            
+
+            overflow: hidden;
+            width: 35rem;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        p{
+            overflow: hidden;
+            width: 30rem;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            color: ${colors.white};
+            font-size: ${fonts.subTitle};
+        }
     }
-}
 `
 const StCoseBox = styled.div`
     max-width: 80%;
@@ -308,7 +305,7 @@ const StCoseBox = styled.div`
     padding: 15px 0px;
     box-sizing: border-box;
     border: 3px solid ${colors.primary};
-    h1{
+    h3{
         font-size: ${fonts.caption};
     }
     
@@ -332,5 +329,4 @@ const StSlideBox = styled.div`
         top: 25px;
         z-index: -1;
     }
-    /* div{margin:0 5px} */
 `

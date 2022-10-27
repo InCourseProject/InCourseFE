@@ -13,7 +13,7 @@ const LoginSelect = (props) => {
     <StWrap>
       <BtnWrap>
         <Container>
-          <ClickNaver onClick={() => { window.location.href = NAVER_REST_AUTH_URL }}>
+          <ClickNaver disabled onClick={() => { window.location.href = NAVER_REST_AUTH_URL }}>
             <Btn
               size='default'
               variant='naver'

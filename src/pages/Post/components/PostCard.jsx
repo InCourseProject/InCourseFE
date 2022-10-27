@@ -7,6 +7,7 @@ import { colors, fonts, fontWeight, lineHeights } from '../../../lib/constants/G
 import CardHeart from './CardHeart'
 
 const PostCard = ({card, i}) => {
+  const accessToken = localStorage.getItem('Authorization'); //accessToken
   const cardIndex = i + 1
   const [ click, setClick ] = useState(false);
   const [ zzim, setZzim ] = useState(false);
@@ -42,7 +43,8 @@ const PostCard = ({card, i}) => {
       <Wrap>
         <StTop>
           <CourseList>코스 {cardIndex}</CourseList>
-          <StHeart
+          {!accessToken ? null
+          :<StHeart
             onClick={clickCheck}
             css={{ ...check }}
           >
@@ -55,6 +57,7 @@ const PostCard = ({card, i}) => {
               zzimCheck={zzimCheck}
             />
           </StHeart>
+          }
         </StTop>
         <StContents>
           <h1>{card.placeName}</h1>
@@ -89,11 +92,11 @@ export default PostCard
 const StContainer = styled.div`
   width: 100%;
   height: 25rem;
-  margin: 1rem;
+  margin-bottom: 2rem;
   position: relative;
- overflow: hidden;
- border-radius: 2rem;
- border: 1px solid ${colors.tone};
+  overflow: hidden;
+  border-radius: 2rem;
+  border: 1px solid ${colors.tone};
 `
 const StMaps = styled.div`
   width: 100%;
@@ -134,7 +137,6 @@ const StTop = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  
 `
 
 const StContents = styled.div`
@@ -153,12 +155,12 @@ const StContents = styled.div`
     line-height: ${lineHeights.headLine};
   }
   p{
-    /* overflow: hidden;
-    width: 28rem;
-    text-overflow: ellipsis;
-    white-space: nowrap; */
+    /* overflow: hidden; */
+    /* width: 28rem; */
+    /* text-overflow: ellipsis; */
+    /* white-space: nowrap; */
     font-size: ${fonts.body};
-    font-weight: ${fontWeight.normal};
+    font-weight: ${fontWeight.light};
     line-height: ${lineHeights.subTitle};
   }
 `

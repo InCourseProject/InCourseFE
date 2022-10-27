@@ -16,7 +16,7 @@ const Feedback = () => {
   return(
     // 버튼을 누르면 modal 생성
     <Container onClick={clickFeedback}>
-    <PencilSquareIcon css={{width:'2.4rem', color:`${colors.primary}`}}/>
+    <PencilSquareIcon css={{width:'2rem', color:`${colors.primary}`}}/>
     {/* <div className="Main">
       // 회원가입 버튼을 누르면 회원가입 modal이 생성된다
       <input type="button" value="회원가입" className="blueBtn" onClick={() => setSignup(!signup)}/>
@@ -50,7 +50,7 @@ const Container = styled.div`
   /* width: fit-content; */
   /* width: 100vw; */
   height: fit-content;
-  padding: 1.5rem;
+  padding: 1rem;
   border: 1px solid rgba(240, 240, 235, 0.3);
   border-radius: 100%;
   display: flex;
