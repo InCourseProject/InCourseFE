@@ -6,15 +6,15 @@ import App from './App';
 import store from './redux/config/configStore';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyle from './lib/constants/GlobalStyle';
-import Feedback from './components/Feedback';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-  <Provider store={store}>
+  <Provider store={store} >
     <GlobalStyle/>
-    <App />
-    <Feedback/>
+    <div style={{width: '390px', margin:'0px auto'}}>
+    <App style={{}} />
+    </div>
   </Provider>
   // </React.StrictMode>
 );
