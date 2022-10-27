@@ -1,9 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
 import { colors, fonts, fontWeight, lineHeights } from "../lib/constants/GlobalStyle";
-import axios from "axios";
 
 const Badge = ({children, title, css}) => {
 

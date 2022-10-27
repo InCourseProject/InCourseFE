@@ -154,22 +154,22 @@ const HomeComponent = () => {
                                 <img
                                     src={weathers.weather === "맑음" ? Sunny :
                                         weathers.weather === "흐림" ? Cloud :
-                                            weathers.weather === "비" ? Rain :
-                                                weathers.weather === "눈" ? Snow :
-                                                    weathers.weather === "조금흐림" ?
-                                                        Cloud_Sunny : null} alt="" />
+                                        weathers.weather === "비" ? Rain :
+                                        weathers.weather === "눈" ? Snow :
+                                        weathers.weather === "조금흐림" ?
+                                        Cloud_Sunny : null} alt="" />
 
                             </StWetherImg>
                             <TitH1 >오늘의  날씨는 <br /> <span>{weathers.weather}</span>  입니다.</TitH1>
                             <StWeatherBox>
                                 <StDetailBox >
-                                    <p>Temp</p>
+                                    <p style={{marginLeft: '0.3rem', color:`${colors.gray}`, fontWeight: `${fontWeight.bold}`}}>Temp</p>
                                     <StWetherTemp>
                                         <p>{weathers.temp}℃</p>
                                     </StWetherTemp>
                                 </StDetailBox>
                                 <StDetailBox >
-                                    <p>Detail</p>
+                                    <p style={{marginLeft: '0.3rem', color:`${colors.gray}`, fontWeight: `${fontWeight.bold}`}}>Detail</p>
                                     <StWetherDetail>
                                         <div>
                                             <p>계절:<span>{weathers.season}</span> </p>
@@ -178,33 +178,35 @@ const HomeComponent = () => {
                                         </div>
                                         <div>
                                             <p>구름양:<span>{weathers.clouds}</span></p>
-                                            <p>강수량/1h:<span>{weathers.rain_h}</span></p>
-                                            <p>강우량/1h:<span>{weathers.snow_h}</span></p>
+                                            <p>강수량/h:<span>{weathers.rain_h}</span></p>
+                                            <p>강우량/h:<span>{weathers.snow_h}</span></p>
                                         </div>
                                     </StWetherDetail>
                                 </StDetailBox>
                             </StWeatherBox>
                         </StWeatherWrap>
+                        <StDivWrap>
+                            <ul>
+                                <li>오늘은 {dresss.pants}, {dresss.top}  어때요?</li>
+                                <li>{dresss.supplies2} 챙겨가시면 좋아요!</li>
+                            </ul>
+                            <div>
+                                <Btn
+                                    size='default'
+                                    variant='main'
+                                    style={{marginBottom: '10rem'}}
+                                    onClick={() => { localStorage.getItem("Authorization") === null ? alert('로그인 후 이용해주세요') : navigate('/category') }}
+                                > 하루의 코스 만들러 가기
+                                </Btn>
+                            </div>
+                        </StDivWrap>
                     </StWeatherContainer>
 
                 </div>
             }
 
 
-            <StDivWrap>
-                <ul>
-                    <li>오늘은 {dresss.pants}, {dresss.top}  어때요?</li>
-                    <li>{dresss.supplies2} 챙겨가시면 좋아요!</li>
-                </ul>
-                <div>
-                    <Btn
-                        size='default'
-                        variant='main'
-                        onClick={() => { localStorage.getItem("Authorization") === null ? alert('로그인 후 이용해주세요') : navigate('/category') }}
-                    > 하루의 코스 만들러 가기
-                    </Btn>
-                </div>
-            </StDivWrap>
+            
 
             <StHomeCardWrap >
                 <h1>추천코스</h1>

@@ -113,7 +113,6 @@ const Wrap = styled.div`
   z-index: 10;
   padding: 1.6rem;
   background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.5) 100%);
-  
 `
 
 const StHeart = styled.div`
@@ -139,26 +138,26 @@ const StTop = styled.div`
 `
 
 const StContents = styled.div`
-  margin-top: 12rem;
+  margin-top: 10rem;
   color: ${colors.white};
   display: flex;
   flex-direction: column;
   h1{
-    overflow: hidden;
+    /* overflow: hidden;
     width: 28rem;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: nowrap; */
     
     font-size: ${fonts.headLine};
     font-weight: ${fontWeight.exrtaBold};
     line-height: ${lineHeights.headLine};
   }
   p{
-    overflow: hidden;
+    /* overflow: hidden;
     width: 28rem;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: ${fonts.subTitle};
+    white-space: nowrap; */
+    font-size: ${fonts.body};
     font-weight: ${fontWeight.normal};
     line-height: ${lineHeights.subTitle};
   }
