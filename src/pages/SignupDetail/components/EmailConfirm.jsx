@@ -12,7 +12,6 @@ import HeaderBar from '../../../components/layout/HeaderBar';
 const EmailConfrim = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  // console.log('props to useNavigate>>', location.state.email)
   const accessToken = localStorage.getItem('Authorization'); //accesstoken 
   const refreshToken = localStorage.getItem('RefreshToken') //refreshToken
   
@@ -27,20 +26,6 @@ const EmailConfrim = () => {
     const { name, value } = e.target;
     setInput({ ...input, [name]:value });
   };
-
-  // const [ time, setTime ] = useState();
-  // setInterval(() => {
-    
-  // }, interval);
-
-
-  //클린업 함수 쓰는 것
-  // useEffect(() => {
-  //   console.log('화면에 나타남');
-  //   return () => {
-  //     console.log('화면에서 사라짐');
-  //   };
-  // }, []);
 
 
   // 회원 가입용 이메일 인증 번호 보내기

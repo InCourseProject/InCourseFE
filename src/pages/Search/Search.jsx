@@ -24,8 +24,8 @@ const Search = () => {
   
   const [search, setSearch] = useState('');
   const [searchList, setSearchList] = useState(keywords);
-  // console.log('search>>>', search, 'searchList>>>', searchList)
-  console.log('search List >', searchList);
+
+
   
   const searchOnChange = useCallback((e) => {
     e.preventDefault();
@@ -63,7 +63,6 @@ const Search = () => {
       }
       });
       if (res.status === 200 || 201){
-        console.log('work!',res);
         setSearch('')
         navigate('post', 
         {

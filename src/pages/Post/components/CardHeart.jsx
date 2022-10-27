@@ -21,7 +21,7 @@ const CardHeart = ({id, clickCheck, zzimCheck, style, click, css}) => {
         }
       });
       if (check.status === 200 || 201) {
-        // console.log('⭐️check Card ZZim⭐️', check.data)
+ 
         setCount(check.data)
       }
     }

@@ -19,7 +19,7 @@ const SignupEmail = () => {
   };
 
   const [ signup, setSignup] = useState(initialstate);
-  // console.log(signup)
+ 
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -33,7 +33,6 @@ const SignupEmail = () => {
       const res = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/member/signup`,
       signup);
       if((res.state === 200 || 201)){
-        // console.log('newSignupUseEmail>> ', res);
         window.alert(res.data.message);
         res.data.emailAuth === 0 
         ?navigate('/emailconfirm', { 
@@ -59,13 +58,13 @@ const SignupEmail = () => {
   useEffect(() => {
   },[signup.password.length]);
 
-  console.log(signup.password.length);
+
   
 
   const err = signup.password.length === 0 ? {visibility: 'hidden'}
   : 8 > signup.password.length ? {visibility: 'visible'}
   : {visibility: 'hidden'}
-  console.log(err);
+
 
   const confirm = signup.passwordConfirm.length === 0 ? {visibility: 'hidden'}
   : signup.passwordConfirm !== signup.password ? {visibility: 'visible'}

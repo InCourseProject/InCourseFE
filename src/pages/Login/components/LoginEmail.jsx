@@ -34,13 +34,11 @@ const LoginEmail = () => {
       const res = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/member/login`,
       login
       );
-      // console.log('Axios Work>> ', res);
       // setTokens
       localStorage.setItem("Authorization", res.data.authorization)    //accesstoken
       localStorage.setItem("RefreshToken", res.data.refreshToken)   //refreshtoken 
       
       if(res.status === 200 || 201){
-        // console.log('loginUseEmail>>',res)
         window.alert(res.data.message)
         res.data.emailAuth === 0
         ?navigate('/emailconfirm', { 
@@ -49,11 +47,9 @@ const LoginEmail = () => {
           }})
         :navigate('/');
       }else{
-        console.log("post는 잘 넘어감 근데 Not OK ", res)
         window.alert('로그인에 실패하였습니다.');  
       }
     }catch(err){
-      console.error(err);
       window.alert('로그인에 실패하였습니다.');
       setLogin(initialstate);
     }
