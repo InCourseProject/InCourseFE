@@ -1,5 +1,5 @@
-# 📝InCourseBE(실전 프로젝트)   
-GitHub: https://github.com/InCourseProject/in-course-be
+# 📝InCourseFB(실전 프로젝트)   
+GitHub: https://github.com/InCourseProject/in-course-fe
 
 📌 프로젝트 소개
 ------------- 
