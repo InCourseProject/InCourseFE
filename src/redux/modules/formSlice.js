@@ -95,7 +95,8 @@ export const _deletePost = createAsyncThunk(
                 }
             )
             console.log(datas)
-            return alert(datas.data)
+            return alert(datas.data),
+        window.location.replace("/mypostpage")
         }catch(error){
             return thunkAPI.rejectWithValue(error);
         }
@@ -118,8 +119,9 @@ export const _deleteCose = createAsyncThunk(
                     }
                 }
             )
-            console.log(data)
-            return data
+            // console.log(data)
+            return data,
+            window.location.replace("")
         }catch(error){
             return thunkAPI.rejectWithValue(error);
         }

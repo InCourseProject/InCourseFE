@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { Map, MapMarker ,Polyline} from 'react-kakao-maps-sdk';
+import { Map, MapMarker, Polyline } from 'react-kakao-maps-sdk';
 import PlusList from "../../asset/ModalPractice";
 import PostCard from "./components/PostCard";
 import { _getDetail } from "../../redux/modules/homeSilce";
@@ -17,33 +17,31 @@ const Post = () => {
   const accessToken = localStorage.getItem('Authorization'); //accessToken
   const refreshToken = localStorage.getItem('RefreshToken'); //refreshToken
 
-  const init = 
-    {
-      place:[{
-        coordinateX:"",
-        coordinateY:"",
+  const init =
+  {
+    place: [{
+      coordinateX: "",
+      coordinateY: "",
     }]
   };
-  
+
   const { kakao } = window;
   const mapRef = useRef()
-  const dispatch = useDispatch();
-  const [info, setInfo] = useState();
   const { id } = useParams();
   const [post, setPost] = useState(init);
 
-  const fetchPost = async () => {
+  //디테일 페이지 불러오는 함수
+  const Post = async () => {
     const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/course/${id}`, {
       headers: {
         Authorization: accessToken,
         RefreshToken: refreshToken
       }
     });
-    console.log(response.data)
-    // console.log(response.data.data)
     setPost(response.data); //for realserver
-    // setPost( response.data ); //for realserver
   }
+
+  //지도 재설정 함수
   const bounds = useMemo(() => {
     const bounds = new kakao.maps.LatLngBounds();
 
@@ -57,15 +55,21 @@ const Post = () => {
     const map = mapRef.current
     if (map) map.setBounds(bounds)
   }
+
+
   useEffect(() => {
-    fetchPost();
+    Post();
   }, []);
+
+
   useEffect(() => {
     refresh()
   }, [post]);
+
+
   return (
     <div>
-      <HeaderBar/>
+      <HeaderBar />
       <Map // 로드뷰를 표시할 Container
         center={{
           lat: 37.566826,
@@ -78,7 +82,10 @@ const Post = () => {
         level={3}
         ref={mapRef}
       >
-        {post.place.map(point => <MapMarker key={`${point.coordinateX}-${point.coordinateY}`} position={{ lat: point.coordinateX, lng: point.coordinateY }} />)}
+        {post.place.map(point => <MapMarker
+          key={`${point.coordinateX}-${point.coordinateY}`}
+          position={{ lat: point.coordinateX, lng: point.coordinateY }}
+        />)}
         <Polyline
           path={[post.place.map((line) => (
             { lat: line.coordinateX, lng: line.coordinateY }
@@ -99,22 +106,22 @@ const Post = () => {
       )}
 
       {
-      accessToken === null
-        ? <div style={{marginBottom: '20rem'}}></div>
-        : <PostBottom>
-          <Score
-            id={post.id}
-          // score={post.avgScore}
-          />
-          <PostHeart
-            size='default'
-            variant='line'
-            id={post.id}
-          // heartnum={post.heartnum}
-          />
-        </PostBottom>
+        accessToken === null
+          ? <div style={{ marginBottom: '20rem' }}></div>
+          : <PostBottom>
+            <Score
+              id={post.id}
+            // score={post.avgScore}
+            />
+            <PostHeart
+              size='default'
+              variant='line'
+              id={post.id}
+            // heartnum={post.heartnum}
+            />
+          </PostBottom>
       }
-      <NaviBar/>
+      <NaviBar />
     </div>
   );
 };

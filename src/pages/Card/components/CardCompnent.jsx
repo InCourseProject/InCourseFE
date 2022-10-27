@@ -24,26 +24,30 @@ const CardCompnent = () => {
     const [cose, setCose] = useState();
     // console.log(cose)
 
+    //지도 검색 핸들러
     const onChangeHandler = (e) => {
         const word = e.target.value;
         setKeyword(word)
     };
 
+    //코스 내용 핸들러
     const onChangeContentHandler = (e) => {
         const con = e.target.value;
-        setCose({...cose,...keywordId, content: con});
+        setCose({ ...cose, ...keywordId, content: con });
     };
 
+    //검색 앤터키 핸들러
     const enterKey = (e) => {
-        if (e.nativeEvent.key === 'Enter'){
-          if(e.nativeEvent.isComposing === false) {
-            e.preventDefault();
-            setSearch(keyword)
-          };
+        if (e.nativeEvent.key === 'Enter') {
+            if (e.nativeEvent.isComposing === false) {
+                e.preventDefault();
+                setSearch(keyword)
+            };
         };
         return;
-      };
+    };
 
+    //내 위치 받아오는 함수
     const geoLocactionButton = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
@@ -78,17 +82,18 @@ const CardCompnent = () => {
             map.setCenter(locPosition);
         }
     }
+    
     useEffect(() => {
         if (!map) return
         const ps = new kakao.maps.services.Places();
 
         ps.keywordSearch(keyword, (data, status, _pagination) => {
-            console.log(data)
+            // console.log(data)
             if (status === kakao.maps.services.Status.OK) {
                 // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
                 // LatLngBounds 객체에 좌표를 추가합니다
                 const bounds = new kakao.maps.LatLngBounds();
-                console.log(bounds)
+                // console.log(bounds)
                 let markers = []
                 // console.log(data)
                 data.map((mark) => {
@@ -149,12 +154,18 @@ const CardCompnent = () => {
                 ))}
             </Map>
             <StSearcBox>
-                <StInput className='findAddress' type="search" onKeyDown={enterKey}
+                <StInput
+                    className='findAddress'
+                    type="search"
+                    onKeyDown={enterKey}
                     onChange={onChangeHandler}
                 ></StInput>
                 <StButtonBox>
-                  
-                    <button type='button' onClick={geoLocactionButton}>내 위치</button>
+
+                    <button
+                        type='button'
+                        onClick={geoLocactionButton}
+                    >내 위치</button>
                 </StButtonBox>
             </StSearcBox>
             <StAddress>{keywordId.address}</StAddress>
@@ -162,13 +173,17 @@ const CardCompnent = () => {
                 <h1>{keywordId.placeName}</h1>
             </StTit>
             <StForm>
-                <StFormInput type="text" onChange={onChangeContentHandler} />
+                <StFormInput
+                    type="text"
+                    onChange={onChangeContentHandler}
+                />
             </StForm>
             <StSubmitBox>
-                <StSubmitButton type='submit' onClick={() => (dispatch(createMarker(cose)),
-            navigate("/form")
-
-                )}>코스등록</StSubmitButton>
+                <StSubmitButton
+                    type='submit'
+                    onClick={() => (dispatch(createMarker(cose)),
+                        navigate("/form")
+                    )}>코스등록</StSubmitButton>
             </StSubmitBox>
         </StWrap>
     )

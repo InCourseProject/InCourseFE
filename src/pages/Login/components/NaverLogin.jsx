@@ -8,7 +8,6 @@ const NaverLogin = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const code = new URL(window.location.href).searchParams.get('code');
-  console.log('code is>>>', code);
 
   useEffect(() => {
     getNaverToken()
@@ -19,10 +18,8 @@ const NaverLogin = () => {
     try{
       // 서버주소 + 코드정보로 get요청을 보내면 response에 토큰을 받을수있다.
       const res = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/member/naver?code=${code}&stat=${process.env.REACT_APP_STATE_STRING}`);
-      console.log("res >>", res)
     
       if(res.status === 200 || 201) {        
-        console.log(res.data.message)
         localStorage.setItem('Authorization', 'Bearer ' + res.data.authorization);
         localStorage.setItem('RefreshToken', res.data.refreshToken);
         navigate('/')

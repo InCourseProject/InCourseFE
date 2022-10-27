@@ -53,7 +53,6 @@ const PostCard = ({card, i}) => {
               id={card.id}
               clickCheck={clickCheck}
               zzimCheck={zzimCheck}
-              // countCheck={countCheck}
             />
           </StHeart>
         </StTop>
@@ -73,10 +72,6 @@ const PostCard = ({card, i}) => {
               // 지도의 크기
               width: "100%",
               height: "100%",
-              // position:"absolute",
-              // left:"0",
-              // top:"0",
-              // zIndex:"0",
             }}
             marker={{
               lat:card.coordinateX,

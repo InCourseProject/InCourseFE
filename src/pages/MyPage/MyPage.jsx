@@ -53,7 +53,6 @@ const MyPage = () => {
 
     
   };
-  // console.log("work!",info);
   const clickMyprofile = () => {
     navigate('edit', {
       state: {
